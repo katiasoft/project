@@ -512,6 +512,7 @@ val_test['songs'] = val_test['songs'].apply(lambda x : len(x))
 
 * Dataframe 'test'의 컬럼 'id','tags','song','plylst_title'를 Dataframe 'val_test'에 저장합니다.
 * Dataframe 'val_test'의 컬럼 'tags'와 'songs'를 list안의 value 개수로 변환시켜줍니다.
+<img src="https://user-images.githubusercontent.com/69491771/89907672-ed391d80-dc27-11ea-90da-f89f5f0a4e7d.PNG" width="400" height="300">
 
 
 
