@@ -72,7 +72,7 @@ data = train[['id','songs','tags']]
 
 
 * train(플레이리스트 데이터)에서 컬럼 'id'와 'songs', 'tags'를 추출하여 Dataframe 'data' 저장합니다.
-
+<img src="https://user-images.githubusercontent.com/69491771/89905363-0ee4d580-dc25-11ea-9f33-d1d067ba06a4.PNG" width="300" height="200">
 
 
 ```python
