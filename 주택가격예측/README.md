@@ -7,7 +7,7 @@
 
 
 ## 2. 프로그램 설명
-#### 2-1) 라이브러리 및 데이터 불러오기
+### 2-1) 라이브러리 및 데이터 불러오기
 * 데이터 처리를 위한 패키지와 모듈 불러오기
 ```python
 import numpy as np
@@ -62,7 +62,7 @@ The train data size before dropping Id feature is : (1460, 80)
 The test data size before dropping Id feature is : (1459, 79)
 ```
 
-#### 2-2) Data 전처리
+### 2-2) Data 전처리
 * GrLivArea 와 SalePrice 간의 그래프를 출력
     + SalePrice(주택 가격) 와 GrLivArea(생활면적크기)는 상식적으로 서로에게 영향을 미칠 것으로 예상이 된다.
     + GrLivArea가 커져도 가격이 오르지 않는 특이치가 발생하는 것을 볼 수 있다.
