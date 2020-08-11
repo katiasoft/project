@@ -264,4 +264,4 @@ train = all_data[:ntrain]
 test = all_data[:ntest]
 ```
 
-### 2-3) Modeling
+### 2-3) 모델링
