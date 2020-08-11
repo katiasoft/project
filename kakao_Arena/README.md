@@ -121,7 +121,7 @@ data_tags = data_song_tags[['songs','tags']]
 
 
 
-* Dataframe 'data_song_tags'에서 컬럼 'songs' 와 'tags'를 추출하여 Dataframe 'data_tags'에 저장한다. 
+* Dataframe 'data_song_tags'에서 컬럼 'songs' 와 'tags'를 추출하여 Dataframe 'data_tags'에 저장합니다. 
 
 
 
@@ -133,7 +133,7 @@ data_tags['tags'] = data_tags['tags'].apply(lambda x : x.split())
 
 
 * Dataframe 'data_tags'의 컬럼 'tags'를 리스트에서 하나의 문장으로 하여금 변환시킵니다.
-* Dataframe 'data_tags'의 컬럼 'tags'를 문장에서 띄워쓰기 기준으로 리스트화 시킨다. 
+* Dataframe 'data_tags'의 컬럼 'tags'를 문장에서 띄워쓰기 기준으로 리스트화 시킵니다. 
 
 
 
@@ -366,7 +366,7 @@ def tag(result):
 
 
 
-* 함수 tag는 변수 'result'에 앞의 recommend_result_cos의 return 값을 넣어서 100곡중의 50곡을 사용하여 tag를 추출하여 count하여 순위를 매겨 15개를 반환해주는 함수이다.
+* 함수 tag는 변수 'result'에 앞의 recommend_result_cos의 return 값을 넣어서 100곡중의 50곡을 사용하여 tag를 추출하여 count하여 순위를 매겨 15개를 반환해주는 함수입니다.
 * 변수 'result'를 50개로 슬라이싱하여 줄여줍니다.
 * 컬럼이 'tag', 'song_id'로 구성된 Dataframe 'recommend'를 만들어줍니다.
 * Dataframe 'song_tag'에서 컬럼 'song_id'와 list 'result'의 value를 받아서 조회한 컬럼 'song_id'와 'tag'를 Dataframe 'recommend'에 추가 해줍니다.
@@ -446,7 +446,7 @@ def song(result):
 
 
 
-* 함수 song는 변수 'result'에 앞의 recommend_result_cos_tags의 return 값을 넣어서 10개의 tag를 사용하여 song을 추출하여 count하여 순위를 매겨 100개를 반환해주는 함수이다.
+* 함수 song는 변수 'result'에 앞의 recommend_result_cos_tags의 return 값을 넣어서 10개의 tag를 사용하여 song을 추출하여 count하여 순위를 매겨 100개를 반환해주는 함수입니다.
 * 컬럼이 'tag', 'song_id'로 구성된 Dataframe 'recommend'를 만들어줍니다.
 * Dataframe 'song_tag'에서 컬럼 'song_id'와 list 'result'의 value를 받아서 조회한 컬럼 'song_id'와 'tag'를 Dataframe 'recommend'에 추가 해줍니다.
 * Dataframe 'recommend'에서 컬럼 'song_id'를 기준으로 하여 그룹화하여 카운트하고 'tag'를 기준으로 내림차순 재배열하고 100개로 슬라이싱합니다.
