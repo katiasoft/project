@@ -570,7 +570,7 @@ for i in range(0,len(val_id)) :
 result_data = pd.DataFrame(dic_last_all)
 ```
 * list 'dic_last_all'를 Dataframe화 시켜주고 'result_data'에 저장합니다.
-<img src="https://user-images.githubusercontent.com/69491771/89908209-9253f600-dc28-11ea-8927-e8b1148fa404.PNG" width="500" height="200">
+<img src="https://user-images.githubusercontent.com/69491771/89908209-9253f600-dc28-11ea-8927-e8b1148fa404.PNG" width="600" height="180">
 
 ```python
 result_data['songs'] = result_data['songs'].apply(lambda x : len(x))
