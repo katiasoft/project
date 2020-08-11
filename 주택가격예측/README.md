@@ -215,7 +215,7 @@ missing_data.head()
 ```
 <img src="https://user-images.githubusercontent.com/60723495/83345083-febd9980-a349-11ea-8e75-0c1daab79bf9.png" width="300" height="100">
 
-#### 2-11. 각각의 변수중 변수의 형식을 계산하기 편하게 변환합니다.
+#### 2-11. 각각의 변수중 변수의 형식을 계산하기 편하게 변환
 ```python
 all_data['MSSubClass'] = all_data['MSSubClass'].apply(str)
 all_data['OverallCond'] = all_data['OverallCond'].astype(str)
