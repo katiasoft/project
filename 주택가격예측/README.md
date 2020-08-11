@@ -95,6 +95,7 @@ plt.xlabel('GrLivArea', fontsize =13)
 plt.show()
 ```
 <img src="https://user-images.githubusercontent.com/60723495/83344412-9bc80480-a341-11ea-9943-dc2601582441.png" width="300" height="200">
+
 * 이러한 특이치는 SalePrice를 예측하는 데 안좋은 영향을 끼칠 것으로 사료되어 제거하였다.
 
 #### 2-3. 대상 변수인 SalePrice를 관한 빈도수와 오차 분포를 나타낸 그래프를 출력
@@ -111,6 +112,7 @@ plt.show()
 ```
 <img src="https://user-images.githubusercontent.com/60723495/83344432-d631a180-a341-11ea-92e0-ec294bc44e59.png" width="300" height="200">
 <img src="https://user-images.githubusercontent.com/60723495/83344459-27da2c00-a342-11ea-8d3a-bc5695a89d77.png" width="300" height="200">
+
 * 대상 변수인 SalePrice에 대한 빈도수와 오차 분포를 그래프로 이루고 있다.
 * 기준이 되는 정규성을 가지는 그래프와 비교하여 분석한다.
 * 빈도수는 한쪽으로 치우치는 증상을 보이고 오차의 분포는 많은 차이를 보이고 있다.
@@ -131,6 +133,7 @@ plt.show()
 ```
 <img src="https://user-images.githubusercontent.com/60723495/83344479-72f43f00-a342-11ea-8534-ceeedbe0262f.png" width="300" height="200">
 <img src="https://user-images.githubusercontent.com/60723495/83344490-ab941880-a342-11ea-85d8-3e003f11ebdd.png" width="300" height="200">
+
 * 로그변환 : 정규성을 높이고 분석(회귀 분석 등)에서 정확한 값을 얻기 위해서 사용한다, 즉 정규 분포가 아닌 것을 정규 분포에 가깝게 만드는 변환이다. 
 
 #### 2-5. 대상 변수인 SalePrice를 제외한 Dataframe을 구성
@@ -169,6 +172,7 @@ plt.subplots(figsize=(12,9))
 sns.heatmap(corrmat, vmax=0.9, square=True)
 ```
 <img src="https://user-images.githubusercontent.com/60723495/83344966-b6ea4280-a348-11ea-99ee-933b14bd4e68.png" width="600" height="500">
+
 * 데이터 Columns별 상관성을 분석한 그래프
 * 상관성이 있다고 해서 무조건으로 믿을 수 없는 자료
 
