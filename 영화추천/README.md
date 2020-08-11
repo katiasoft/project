@@ -138,7 +138,7 @@ qualified.head(15)
 
 
 
-## 콘텐츠 기반 필터링(content based filtering)
+## 3. 콘텐츠 기반 필터링(content based filtering)
 
 #### 3-1) 다음을 기반으로 두개의 컨텐츠 기반으로 구축
 * 동영상 개요 및 태그 라인
@@ -265,3 +265,140 @@ get_recommendations('The Dark Knight').head(10)
 ```
 <img src="https://user-images.githubusercontent.com/60723495/83383426-10717080-a420-11ea-9fb7-ffe75a45ae23.png" width="600" height="300">
 
+
+
+## 4. 협업 필터링(Collaborative filtering)
+
+
+#### 4-1) RMSE(Root Mean Square Error)를 최소화하고 훌륭한 추천을 하기 위해 SVD(Single Value Discovery)와 같은 매우 강력한 알고리즘을 사용했던 서프라이즈 라이브러리를 사용한다.
+
+
+
+#### 4-2) 'reader'에 Reader함수를 저장하고 Dataframe 'ratings'에 rationgs_small.csv를 불러와 저장하고 출력한다.
+```python
+reader = Reader()
+ratings = pd.read_csv('ratings_small.csv')
+ratings.head()
+```
+<img src="https://user-images.githubusercontent.com/60723495/83468966-4d3d7600-a4b9-11ea-8dbe-feddf32690bb.png" width="300" height="150">
+
+
+
+
+#### 4-3) 'data'에 Dataframe 'ratings'의 column인 'userId'와 'movieId', 'rating'을 Reader함수를 적용하여 Dataset으로 저장한다.
+```python
+data = Dataset.load_from_df(ratings[['userId', 'movieId', 'rating']], reader)
+```
+
+
+
+#### 4-4) 'svd'에 SVD함수를 저장한다.(SVD : 특이값 분해 알고리즘)
+```python
+svd = SVD()
+```
+
+
+
+#### 4-5) cross_validate함수를 활용하여 fold를 5개로 나눈 각각의 RMSE와 MAE를 구하고 평균값과 오차를 보여준다.
+```python
+cross_validate(svd, data, measures=['RMSE', 'MAE'], cv=5, verbose=True)
+```
+<img src="https://user-images.githubusercontent.com/60723495/83470485-3dc02c00-a4bd-11ea-966d-4f3aeba9c400.png" width="800" height="150">
+
+
+
+#### 4-6) 'trainset'에 fold를 나누지 않은 Dataset 'data'를 저장하고 svd에서 활용할 Dataset을 'trainset'으로 설정한다.
+```python
+trainset = data.build_full_trainset()
+svd.fit(trainset)
+```
+
+
+
+#### 4-7) Dataframe 'ratings'의 column 'userId' value가 1인 값을 출력한다.
+```python
+ratings[ratings['userId'] == 1]
+``` 
+<img src="https://user-images.githubusercontent.com/60723495/83471552-eec7c600-a4bf-11ea-83e9-0f14f40ea787.png" width="300" height="500">
+
+
+
+
+#### 4-8) userId가 1를 movieId가 302일때 실제등급이 3등급이라고 설정하고 svd를 작동시켜본다.
+```python
+svd.predict(1, 302, 3)
+>>> Prediction(uid=1, iid=302, r_ui=3, est=2.594896522839313, details={'was_impossible': False})
+```
+
+
+
+#### 4-9) 협업필러링으로 동작해보았는데 8번의 결과처럼 ID가 302인 영화의 경우 2.594으로 예상되고, 한 가지 놀라운 특징은 영화가 무엇인지(또는 그 안에 무엇이 들어있는지) 상관하지 않는다는 것이다. 그것은 순전히 할당된 영화 ID에 근거하여 작동하며, 다른 사용자들이 어떻게 영화를 예측했는지에 따라 등급을 예측한다.
+
+
+
+## 5. Hybrid Recommend System
+
+
+#### 5-1) 콘텐츠와 협업 필터링을 통해 아이디어를 모아 특정 사용자에게 영화 제안을 하는 System을 구축한다.
+
+
+
+#### 5-2) 함수 'convert_int'는 x을 받아서 오류가 발생하지 않으면 int로 형변환을 시켜고 리턴 하고, 오류가 발생하면 nan이라는 값을 리턴하는 함수이다.
+```python
+def convert_int(x):
+    try:
+        return int(x)
+    except:
+        return np.nan
+```
+
+
+
+#### 5-3) Datafreme 'id_map'에 links_small.csv 파일의 'movieId'와 'tmdbId'를 불러와서 저장하고 'tmdbID'를 형변환 시키고 이름을 'id' 바꾸어준다. Dataframe 'smd'의 column 'title'와 'id'을 'id'를 기준으로 'title'을 추가해준다.
+```python
+id_map = pd.read_csv('links_small.csv')[['movieId', 'tmdbId']]
+id_map['tmdbId'] = id_map['tmdbId'].apply(convert_int)
+id_map.columns = ['movieId', 'id']
+id_map = id_map.merge(smd[['title', 'id']], on='id').set_index('title')
+```
+
+
+
+#### 5-4) 'indices_map'에 Dataframe 'id_map'의 column 'id'를 저장한다.
+```python
+indices_map = id_map.set_index('id')
+```
+
+
+
+#### 5-5) 함수 'hybrid'는 userId와 title을 받아서 title의 index를 'idx'에 저장하고 Dataframe 'id_map'에서 title을 기반으로 id를 'tmdbId'에 저장하고 title을 기반으로 movieId를 'movie_id'에 저장하고 cosine유사성을 측정하고 리스트화 시켜서 오름차순으로 정렬하고 index 1번부터 25번까지 슬라이싱하여 'sim_scores'에 저장한다, sim_scores의 id를 토대로 'movies'에 'title' , 'vote_count', 'vote_average', 'year', 'id'를 저장하고 협업필터링에서 예상 등급 구하는 값을 추가하여 내림차순으로 재배열하여 Top10를 리턴하여 준다. 
+```python
+def hybrid(userId, title):
+    idx = indices[title]
+    tmdbId = id_map.loc[title]['id']
+    movie_id = id_map.loc[title]['movieId']
+    sim_scores = list(enumerate(cosine_sim[int(idx)]))
+    sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
+    sim_scores = sim_scores[1:26]
+    movie_indices = [i[0] for i in sim_scores]  
+    movies = smd.iloc[movie_indices][['title', 'vote_count', 'vote_average', 'year', 'id']]
+    movies['est'] = movies['id'].apply(lambda x: svd.predict(userId, indices_map.loc[x]['movieId']).est)
+    movies = movies.sort_values('est', ascending=False)
+    return movies.head(10)
+```
+
+
+
+#### 5-6) userId가 1번이고 영화 'Avatar'와 비슷한 영화 추천
+```python
+hybrid(1, 'Avatar')
+```
+<img src="https://user-images.githubusercontent.com/60723495/83473939-b9be7200-a4c5-11ea-925b-e5d7a34bf6ae.png" width="800" height="350">
+
+
+
+#### 5-7) userId가 500번이고 영화 'Avatar'와 비슷한 영화 추천
+```python
+hybrid(500, 'Avatar')
+```
+<img src="https://user-images.githubusercontent.com/60723495/83474071-0efa8380-a4c6-11ea-914f-033ef5f7503b.png" width="800" height="350">
