@@ -102,6 +102,7 @@ del data_song_unnsest
 
 
 * 플레이리스트에 수록된 곡들을 하나씩 분리하여 Dataframe 'data_song'에 저장합니다.
+<img src="https://user-images.githubusercontent.com/69491771/89905620-5ec39c80-dc25-11ea-8206-3a347315d7ee.PNG" width="200" height="300">
 
 
 
