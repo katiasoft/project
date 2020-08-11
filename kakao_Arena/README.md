@@ -220,7 +220,7 @@ data_song_tags = data_song_tags.rename(columns={'songs':'song_id'})
 
 
 * Dataframe 'data_song_tags'의 컬럼명을 변환합니다.
-
+<img src="https://user-images.githubusercontent.com/69491771/89907337-7f8cf180-dc27-11ea-9ce6-03a9b92a0c4a.PNG" width="500" height="300">
 
 
 ```python
