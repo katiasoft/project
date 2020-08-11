@@ -21,16 +21,16 @@ from surprise.model_selection import cross_validate
 from surprise.model_selection import KFold
 import warnings; warnings.simplefilter('ignore')
 ```
-   - %matplotlib inline : Jupyter 와 같은 IPython에서 matplotlib으로 plot을 만드는 데 사용한다.
+   - %matplotlib inline : Jupyter 와 같은 IPython에서 matplotlib으로 plot을 만드는 데 사용합니다.
    - pandas : 데이터 조작과 분석에 쓰이는 라이브러리
    - numpy : 행렬이나 다차원배열을 처리하는 라이브러리
    - matplotlib : plot을 생성을 지원하는 라이브러리
    - seaborn : matplotlib을 기반으로 다양한 색상 테마와 통계용 차트 등의 기능을 추가한 시각화 패키지
    - scipy.stats : 과학기술계산용 함수안에 통계부분
-   - ast.literal_eval : 문법을 구조화 시켜주는 모듈로 string안에 dict를 다시 구조화한다.
+   - ast.literal_eval : 문법을 구조화 시켜주는 모듈로 string안에 dict를 다시 구조화합니다.
    - sklearn.feature_extraction.text : 문서 전처리용 클래스 제공
-     + CountVectorizer : 문서 집합에서 단어 토큰을 생성하고 각 단어의 수를 세어 Bow 인코딩한 벡터를 만든다.
-     + TfidfVectorizer : CountVectorizer와 비슷하지만 TF-IDF 방식으로 단어의 가중치를 조정한 Bow 벡터를 만든다
+     + CountVectorizer : 문서 집합에서 단어 토큰을 생성하고 각 단어의 수를 세어 Bow 인코딩한 벡터를 만듭니다.
+     + TfidfVectorizer : CountVectorizer와 비슷하지만 TF-IDF 방식으로 단어의 가중치를 조정한 Bow 벡터를 만듭니다
    - sklearn.metrics.pairwise : 벡터 배열 X와 선택적 Y에서 거리 행렬을 처리하는 라이브러리
      + linear_kernel : X와 Y 사이의 선형 커널을 계산
      + cosine_silmilarity : X와 Y의 샘플 간 코사인 유사성을 계산
@@ -94,7 +94,7 @@ print(m)
 
 
 
-#### 2-6) release_date의 값에서 년도만을 추출해서 year이라는 column을 추가하여 Dataframe에 나타낸다.
+#### 2-6) release_date의 값에서 년도만을 추출해서 year이라는 column을 추가하여 Dataframe에 나타냅니다.
 ```python
 md['year'] = pd.to_datetime(md['release_date'], errors = 'coerce').apply(lambda x: str(x).split('-')[0] if x != np.nan else np.nan)
 print(md['year'])
@@ -270,11 +270,11 @@ get_recommendations('The Dark Knight').head(10)
 ## 4. 협업 필터링(Collaborative filtering)
 
 
-#### 4-1) RMSE(Root Mean Square Error)를 최소화하고 훌륭한 추천을 하기 위해 SVD(Single Value Discovery)와 같은 매우 강력한 알고리즘을 사용했던 서프라이즈 라이브러리를 사용한다.
+#### 4-1) RMSE(Root Mean Square Error)를 최소화하고 훌륭한 추천을 하기 위해 SVD(Single Value Discovery)와 같은 매우 강력한 알고리즘을 사용했던 서프라이즈 라이브러리를 사용합니다.
 
 
 
-#### 4-2) 'reader'에 Reader함수를 저장하고 Dataframe 'ratings'에 rationgs_small.csv를 불러와 저장하고 출력한다.
+#### 4-2) 'reader'에 Reader함수를 저장하고 Dataframe 'ratings'에 rationgs_small.csv를 불러와 저장하고 출력
 ```python
 reader = Reader()
 ratings = pd.read_csv('ratings_small.csv')
@@ -285,21 +285,21 @@ ratings.head()
 
 
 
-#### 4-3) 'data'에 Dataframe 'ratings'의 column인 'userId'와 'movieId', 'rating'을 Reader함수를 적용하여 Dataset으로 저장한다.
+#### 4-3) 'data'에 Dataframe 'ratings'의 column인 'userId'와 'movieId', 'rating'을 Reader함수를 적용하여 Dataset으로 저장
 ```python
 data = Dataset.load_from_df(ratings[['userId', 'movieId', 'rating']], reader)
 ```
 
 
 
-#### 4-4) 'svd'에 SVD함수를 저장한다.(SVD : 특이값 분해 알고리즘)
+#### 4-4) 'svd'에 SVD함수를 저장(SVD : 특이값 분해 알고리즘)
 ```python
 svd = SVD()
 ```
 
 
 
-#### 4-5) cross_validate함수를 활용하여 fold를 5개로 나눈 각각의 RMSE와 MAE를 구하고 평균값과 오차를 보여준다.
+#### 4-5) cross_validate함수를 활용하여 fold를 5개로 나눈 각각의 RMSE와 MAE를 구하고 평균값과 오차를 보여줍니다.
 ```python
 cross_validate(svd, data, measures=['RMSE', 'MAE'], cv=5, verbose=True)
 ```
@@ -307,7 +307,7 @@ cross_validate(svd, data, measures=['RMSE', 'MAE'], cv=5, verbose=True)
 
 
 
-#### 4-6) 'trainset'에 fold를 나누지 않은 Dataset 'data'를 저장하고 svd에서 활용할 Dataset을 'trainset'으로 설정한다.
+#### 4-6) 'trainset'에 fold를 나누지 않은 Dataset 'data'를 저장하고 svd에서 활용할 Dataset을 'trainset'으로 설정
 ```python
 trainset = data.build_full_trainset()
 svd.fit(trainset)
@@ -315,7 +315,7 @@ svd.fit(trainset)
 
 
 
-#### 4-7) Dataframe 'ratings'의 column 'userId' value가 1인 값을 출력한다.
+#### 4-7) Dataframe 'ratings'의 column 'userId' value가 1인 값을 출력
 ```python
 ratings[ratings['userId'] == 1]
 ``` 
@@ -324,7 +324,7 @@ ratings[ratings['userId'] == 1]
 
 
 
-#### 4-8) userId가 1를 movieId가 302일때 실제등급이 3등급이라고 설정하고 svd를 작동시켜본다.
+#### 4-8) userId가 1를 movieId가 302일때 실제등급이 3등급이라고 설정하고 svd를 작동시켜봅니다.
 ```python
 svd.predict(1, 302, 3)
 >>> Prediction(uid=1, iid=302, r_ui=3, est=2.594896522839313, details={'was_impossible': False})
@@ -332,18 +332,18 @@ svd.predict(1, 302, 3)
 
 
 
-#### 4-9) 협업필러링으로 동작해보았는데 8번의 결과처럼 ID가 302인 영화의 경우 2.594으로 예상되고, 한 가지 놀라운 특징은 영화가 무엇인지(또는 그 안에 무엇이 들어있는지) 상관하지 않는다는 것이다. 그것은 순전히 할당된 영화 ID에 근거하여 작동하며, 다른 사용자들이 어떻게 영화를 예측했는지에 따라 등급을 예측한다.
+#### 4-9) 협업필러링으로 동작해보았는데 8번의 결과처럼 ID가 302인 영화의 경우 2.594으로 예상되고, 한 가지 놀라운 특징은 영화가 무엇인지(또는 그 안에 무엇이 들어있는지) 상관하지 않는다는 것입니다. 그것은 순전히 할당된 영화 ID에 근거하여 작동하며, 다른 사용자들이 어떻게 영화를 예측했는지에 따라 등급을 예측합니다.
 
 
 
 ## 5. Hybrid Recommend System
 
 
-#### 5-1) 콘텐츠와 협업 필터링을 통해 아이디어를 모아 특정 사용자에게 영화 제안을 하는 System을 구축한다.
+#### 5-1) 콘텐츠와 협업 필터링을 통해 아이디어를 모아 특정 사용자에게 영화 제안을 하는 System을 구축합니다.
 
 
 
-#### 5-2) 함수 'convert_int'는 x을 받아서 오류가 발생하지 않으면 int로 형변환을 시켜고 리턴 하고, 오류가 발생하면 nan이라는 값을 리턴하는 함수이다.
+#### 5-2) 함수 'convert_int'는 x을 받아서 오류가 발생하지 않으면 int로 형변환을 시켜고 리턴 하고, 오류가 발생하면 nan이라는 값을 리턴하는 함수입니다.
 ```python
 def convert_int(x):
     try:
@@ -354,7 +354,7 @@ def convert_int(x):
 
 
 
-#### 5-3) Datafreme 'id_map'에 links_small.csv 파일의 'movieId'와 'tmdbId'를 불러와서 저장하고 'tmdbID'를 형변환 시키고 이름을 'id' 바꾸어준다. Dataframe 'smd'의 column 'title'와 'id'을 'id'를 기준으로 'title'을 추가해준다.
+#### 5-3) Datafreme 'id_map'에 links_small.csv 파일의 'movieId'와 'tmdbId'를 불러와서 저장하고 'tmdbID'를 형변환 시키고 이름을 'id' 바꾸어줍니다. Dataframe 'smd'의 column 'title'와 'id'을 'id'를 기준으로 'title'을 추가
 ```python
 id_map = pd.read_csv('links_small.csv')[['movieId', 'tmdbId']]
 id_map['tmdbId'] = id_map['tmdbId'].apply(convert_int)
@@ -364,14 +364,14 @@ id_map = id_map.merge(smd[['title', 'id']], on='id').set_index('title')
 
 
 
-#### 5-4) 'indices_map'에 Dataframe 'id_map'의 column 'id'를 저장한다.
+#### 5-4) 'indices_map'에 Dataframe 'id_map'의 column 'id'를 저장
 ```python
 indices_map = id_map.set_index('id')
 ```
 
 
 
-#### 5-5) 함수 'hybrid'는 userId와 title을 받아서 title의 index를 'idx'에 저장하고 Dataframe 'id_map'에서 title을 기반으로 id를 'tmdbId'에 저장하고 title을 기반으로 movieId를 'movie_id'에 저장하고 cosine유사성을 측정하고 리스트화 시켜서 오름차순으로 정렬하고 index 1번부터 25번까지 슬라이싱하여 'sim_scores'에 저장한다, sim_scores의 id를 토대로 'movies'에 'title' , 'vote_count', 'vote_average', 'year', 'id'를 저장하고 협업필터링에서 예상 등급 구하는 값을 추가하여 내림차순으로 재배열하여 Top10를 리턴하여 준다. 
+#### 5-5) 함수 'hybrid'는 userId와 title을 받아서 title의 index를 'idx'에 저장하고 Dataframe 'id_map'에서 title을 기반으로 id를 'tmdbId'에 저장하고 title을 기반으로 movieId를 'movie_id'에 저장하고 cosine유사성을 측정하고 리스트화 시켜서 오름차순으로 정렬하고 index 1번부터 25번까지 슬라이싱하여 'sim_scores'에 저장합니다, sim_scores의 id를 토대로 'movies'에 'title' , 'vote_count', 'vote_average', 'year', 'id'를 저장하고 협업필터링에서 예상 등급 구하는 값을 추가하여 내림차순으로 재배열하여 Top10를 리턴하여 다. 
 ```python
 def hybrid(userId, title):
     idx = indices[title]
