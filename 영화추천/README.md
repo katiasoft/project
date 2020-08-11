@@ -1,8 +1,8 @@
 
-## 영화 추천 프로그램
+# 영화 추천 프로그램
 
 
-### 1. 활용할 라이브러리와 패키지 불러오기
+## 1. 활용할 라이브러리와 패키지 불러오기
 ```python
 %matplotlib inline
 import pandas as pd
@@ -45,7 +45,7 @@ import warnings; warnings.simplefilter('ignore')
   
   
   
-### 2. Data Processing
+## 2. Data Processing
 #### 2-1) 데이터 정보
 * movies_metadata.csv : 주요 영화 메타 데이터 파일. Full MovieLens 데이터 세트에 소개 된 45,000 개의 영화에 대한 정보가 포함되어 있습니다. 포스터, 배경, 예산, 수익, 출시일, 언어, 생산 국가 및 회사 등의 기능이 있습니다.
 * keyword.csv : MovieLens 영화에 대한 영화 플롯 키워드가 들어 있습니다. 문자열 화 된 JSON 객체의 형태로 제공됩니다.
