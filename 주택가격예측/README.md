@@ -3,7 +3,7 @@
 
 ## 개요
 ### 1. 상세설명
-* 아이오와주 에임스에 있는 주거용 주택의 거의 모든 측면을 설명하는 79개의 설명 변수를 학습시켜 각 주택의 최종 가격을 예측해야합니다.
+* 아이오와주 에임스에 있는 주거용 주택의 거의 모든 측면을 설명하는 79개의 설명 변수를 학습시켜 각 주택의 최종 가격을 예측해야 합니다.
 
 ### 2. 데이터셋 구성
 * train.csv : 훈련 세트
@@ -20,6 +20,7 @@
 #### 1-1. 데이터 처리를 위한 패키지와 모듈 불러오기
 ```python
 import numpy as np
+
 import pandas as pd
 %matplotlib inline
 import matplotlib.pyplot as plt
@@ -55,7 +56,7 @@ test.head(5)
 ```
 <img src="https://user-images.githubusercontent.com/60723495/83250803-a8cee180-a1e3-11ea-94dc-7801312516a5.png" width="1000" height="200">
 
-#### 1-4. 각각의 DataFrame의 size를 출력 /<br>  각각 DataFrame에서 맨앞의 id를 삭제한 후의 size를 출력<br>
+#### 1-4. 각각의 DataFrame의 size를 출력 /<br>  각각 DataFrame에서 맨앞의 id를 삭제한 후의 size를 출력
 ```python
 print('The train data size before dropping Id feature is : {}' .format(train.shape))
 print('The test data size before dropping Id feature is : {}' .format(test.shape))
@@ -82,8 +83,8 @@ plt.show()
 ```
 <img src="https://user-images.githubusercontent.com/60723495/83344400-3a079a80-a341-11ea-8ce1-1f3456b2f6d4.png" width="300" height="200">
 
-* SalePrice(주택 가격) 와 GrLivArea(생활면적크기)는 상식적으로 서로에게 영향을 미칠 것으로 예상이 된다.
-* GrLivArea가 커져도 가격이 오르지 않는 특이치가 발생하는 것을 볼 수 있다.
+* SalePrice(주택 가격) 와 GrLivArea(생활면적크기)는 상식적으로 서로에게 영향을 미칠 것으로 예상이 됩니다.
+* GrLivArea가 커져도 가격이 오르지 않는 특이치가 발생하는 것을 볼 수 있습니다.
 
 #### 2-2. GrLivArea 와 SalePrice 간의 이상치를 제거하고 그래프를 출력
 ```python
@@ -96,7 +97,7 @@ plt.show()
 ```
 <img src="https://user-images.githubusercontent.com/60723495/83344412-9bc80480-a341-11ea-9943-dc2601582441.png" width="300" height="200">
 
-* 이러한 특이치는 SalePrice를 예측하는 데 안좋은 영향을 끼칠 것으로 사료되어 제거하였다.
+* 이러한 특이치는 SalePrice를 예측하는 데 안좋은 영향을 끼칠 것으로 사료되어 제거하였습니다.
 
 #### 2-3. 대상 변수인 SalePrice를 관한 빈도수와 오차 분포를 나타낸 그래프를 출력
 ```python 
@@ -113,10 +114,10 @@ plt.show()
 <img src="https://user-images.githubusercontent.com/60723495/83344432-d631a180-a341-11ea-92e0-ec294bc44e59.png" width="300" height="200">
 <img src="https://user-images.githubusercontent.com/60723495/83344459-27da2c00-a342-11ea-8d3a-bc5695a89d77.png" width="300" height="200">
 
-* 대상 변수인 SalePrice에 대한 빈도수와 오차 분포를 그래프로 이루고 있다.
-* 기준이 되는 정규성을 가지는 그래프와 비교하여 분석한다.
-* 빈도수는 한쪽으로 치우치는 증상을 보이고 오차의 분포는 많은 차이를 보이고 있다.
-* 정규성과 비교하기 쉽게 대상 변수에 대한 정규화를 필요로 해 보인다.
+* 대상 변수인 SalePrice에 대한 빈도수와 오차 분포를 그래프로 이루고 있습니다.
+* 기준이 되는 정규성을 가지는 그래프와 비교하여 분석합니다.
+* 빈도수는 한쪽으로 치우치는 증상을 보이고 오차의 분포는 많은 차이를 보이고 있습니다.
+* 정규성과 비교하기 쉽게 대상 변수에 대한 정규화를 필요로 해보입니다.
 
 #### 2-4. 대상 변수인 SalePrice를 관한 빈도수와 오차 분포를 로그변환하여 나타낸 그래프를 출력
 ```python
@@ -134,7 +135,7 @@ plt.show()
 <img src="https://user-images.githubusercontent.com/60723495/83344479-72f43f00-a342-11ea-8534-ceeedbe0262f.png" width="300" height="200">
 <img src="https://user-images.githubusercontent.com/60723495/83344490-ab941880-a342-11ea-85d8-3e003f11ebdd.png" width="300" height="200">
 
-* 로그변환 : 정규성을 높이고 분석(회귀 분석 등)에서 정확한 값을 얻기 위해서 사용한다, 즉 정규 분포가 아닌 것을 정규 분포에 가깝게 만드는 변환이다. 
+* 로그변환 : 정규성을 높이고 분석(회귀 분석 등)에서 정확한 값을 얻기 위해서 사용합니다, 즉 정규 분포가 아닌 것을 정규 분포에 가깝게 만드는 변환입니다. 
 
 #### 2-5. 대상 변수인 SalePrice를 제외한 Dataframe을 구성
 ```python
@@ -205,7 +206,7 @@ all_data['SaleType'] = all_data['SaleType'].fillna(all_data['SaleType'].mode()[0
 all_data['MSSubClass'] = all_data['MSSubClass'].fillna('None')
 ```
 
-#### 2-10. 다시 한번더 missing ratio를 출력하면 아무런 값이 나오지 않게 된다.
+#### 2-10. 다시 한번더 missing ratio를 출력하면 아무런 값이 나오지 않게 됩니다.
 ```python
 all_data_na = (all_data.isnull().sum() / len(all_data)) * 100
 all_data_na = all_data_na.drop(all_data_na[all_data_na == 0].index).sort_values(ascending = False)
@@ -214,14 +215,14 @@ missing_data.head()
 ```
 <img src="https://user-images.githubusercontent.com/60723495/83345083-febd9980-a349-11ea-8e75-0c1daab79bf9.png" width="300" height="100">
 
-#### 2-11. 각각의 변수중 변수의 형식을 계산하기 편하게 변환한다.
+#### 2-11. 각각의 변수중 변수의 형식을 계산하기 편하게 변환합니다.
 ```python
 all_data['MSSubClass'] = all_data['MSSubClass'].apply(str)
 all_data['OverallCond'] = all_data['OverallCond'].astype(str)
 all_data['YrSold'] = all_data['YrSold'].astype(str)
 all_data['MoSold'] = all_data['MoSold'].astype(str)
 ```
-#### 2-12. LabelEncoder를 통하여 변수의 형식이 String인 문자를 수치화하고, 각각 변수에 항목들을 리스트화하여 변수로 저장한다.
+#### 2-12. LabelEncoder를 통하여 변수의 형식이 String인 문자를 수치화하고, 각각 변수에 항목들을 리스트화하여 변수로 저장
 ```python
 from sklearn.preprocessing import LabelEncoder
 cols = ('FireplaceQu', 'BsmtQual', 'BsmtCond', 'GarageQual', 'GarageCond', 
@@ -237,7 +238,7 @@ print('Shape all_data : {}' .format(all_data.shape))
 all_data['TotalSF'] = all_data['TotalBsmtSF'] + all_data['1stFlrSF'] + all_data['2ndFlrSF']
 ```
 
-#### 2-13. 분포도가 한쪽으로 치우치는 않았는 지 확인하여 정규화가 필요한지 판단한다.
+#### 2-13. 분포도가 한쪽으로 치우치는 않았는 지 확인하여 정규화가 필요한지 판단
 ```python
 numeric_feats = all_data.dtypes[all_data.dtypes != 'object'].index
 skewed_feats = all_data[numeric_feats].apply(lambda x: skew(x.dropna())).sort_values(ascending = False)
@@ -246,7 +247,7 @@ skewness = pd.DataFrame({'skew' : skewed_feats})
 skewness.head(10)
 ```
 
-#### 2-14. 로그변환이 아닌 Box_Cox변환을 사용하였다.
+#### 2-14. 로그변환이 아닌 Box_Cox변환을 사용
 ```python
 skewness = skewness[abs(skewness) > 0.75]
 print('There are {} skewed numerical features to Box Cox transform' .format(skewness.shape[0]))
@@ -259,7 +260,7 @@ all_data = pd.get_dummies(all_data)
 print(all_data.shape)
 ```
 
-#### 2-15. 처리되어진 각각의 값을 변수에 저장한다.
+#### 2-15. 처리되어진 각각의 값을 변수에 저장
 ```python
 train = all_data[:ntrain]
 test = all_data[:ntest]
@@ -313,7 +314,7 @@ model_xgb = xgb.XGBRegressor(colsample_bytree=0.4603, gamma=0.0468, learning_rat
 model_lgb = lgb.LGBMRegressor(objective='regression',num_leaves=5,learning_rate=0.05, n_estimators=720, max_bin=55, bagging_fraction=0.8 , bagging_freq=5, feature_fraction=0.2319, feature_fraction_seed=9, bagging_seed=9, min_data_in_leaf=6, min_sum_hessian_in_leaf=11)
 ```  
     
-#### 3-8. 각각의 모델로 구해지는 RMSLE의 중간값과 평균을 출력해준다.
+#### 3-8. 각각의 모델로 구해지는 RMSLE의 중간값과 평균을 출력
 ```python
 score = rmsle_cv(lasso)
 print('\nLasso score: {:.4f} ({:.4f})\n'.format(score.mean(), score.std()))
@@ -366,7 +367,7 @@ class AveragingModels(BaseEstimator, RegressorMixin, TransformerMixin):
         return np.mean(predictions, axis=1)
 ```
 
-#### 3-10. 클래스에 넣어서 위의 4개의 모델(ElasticNet 과 GradientBoost, kernel Ridge, lasso)의 RMSLE 값을 평균화하여 출력해준다.
+#### 3-10. 클래스에 넣어서 위의 4개의 모델(ElasticNet 과 GradientBoost, kernel Ridge, lasso)의 RMSLE 값을 평균화하여 출력
 ```python
 averaged_models = AveragingModels(models=(ENet, GBoost, KRR, lasso))
 score = rmsle_cv(averaged_models)
@@ -406,7 +407,7 @@ class StackingAveragedModels(BaseEstimator,RegressorMixin,TransformerMixin):
         return self.meta_model_.predict(meta_features)
 ```
 
-#### 3-12. Stacking 기법을 사용하기위해 base_models를 ElasticNet 과 GradientBoost, Kernel Ridge로 meta_model에 lasso를 넣어 평준화 하였다.
+#### 3-12. Stacking 기법을 사용하기위해 base_models를 ElasticNet 과 GradientBoost, Kernel Ridge로 meta_model에 lasso를 넣어 평준화
 ```python
 stacked_averaged_models = StackingAveragedModels(base_models=(ENet, GBoost, KRR), meta_model= lasso)
 score = rmsle_cv(stacked_averaged_models)
@@ -447,7 +448,7 @@ print(rmsle(y_train, lgb_train_pred))
 >>> 0.07226288640876002
 ```
 
-#### 3-17. 위에 3개 모델의 RSMLE를 퍼센트로 나누어 더하여 출력한다.
+#### 3-17. 위에 3개 모델의 RSMLE를 퍼센트로 나누어 더하여 출력
 ```python
 print('RMSLE score on train data : ')
 print(rmsle(y_train, stacked_train_pred*0.80 + xgb_train_pred*0.10 + lgb_train_pred*0.10))
@@ -455,12 +456,12 @@ print(rmsle(y_train, stacked_train_pred*0.80 + xgb_train_pred*0.10 + lgb_train_p
 ```
 * 이렇게 가중치를 나눈 이유는 LightGBM과 Xgboost보다 stacking기법의 값이 RSMLE 제일 낮은 평균화된 값을 가지기 때문이다.
 
-#### 3-18. 변수에 저장한다
+#### 3-18. 변수에 저장
 ```python
 ensemble = stacked_pred*0.80 + xgb_pred*0.10 + lgb_pred*0.10
 ```
 
-#### 3-19. test.csv의 id를 토대로 값을 SalePrice의 값에 넣어서 submission.csv에 저장한다.
+#### 3-19. test.csv의 id를 토대로 값을 SalePrice의 값에 넣어서 submission.csv에 저장
 ```python
 sub = pd.DataFrame()
 sub['id'] = test_ID
