@@ -135,7 +135,8 @@ data_tags['tags'] = data_tags['tags'].apply(lambda x : x.split())
 
 
 * Dataframe 'data_tags'의 컬럼 'tags'를 리스트에서 하나의 문장으로 하여금 변환시킵니다.
-* Dataframe 'data_tags'의 컬럼 'tags'를 문장에서 띄워쓰기 기준으로 리스트화 시킵니다. 
+* Dataframe 'data_tags'의 컬럼 'tags'를 문장에서 띄워쓰기 기준으로 리스트화 시킵니다.
+<img src="https://user-images.githubusercontent.com/69491771/89906413-5324a580-dc26-11ea-8988-9e75a0059f8f.PNG" width="400" height="300">
 
 
 
