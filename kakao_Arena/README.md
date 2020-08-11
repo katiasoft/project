@@ -178,7 +178,7 @@ data_tags_song = song_tag.sort_values(by = ['song_id','tag']).groupby('tag').son
 
 
 * Dataframe 'song_tag'에서 tag별로 그룹화를 시켜 곡마다 'song_id'를 합쳐주고 Dataframe 'data_tags_song'에 저장합니다.
-
+<img src="https://user-images.githubusercontent.com/69491771/89907088-2e7cfd80-dc27-11ea-9e49-51a08701d3c3.PNG" width="500" height="300">
 
 
 ```python
