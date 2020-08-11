@@ -1,9 +1,9 @@
 
-## kakao Arena - Melon Playlist Continuation
+# kakao Arena - Melon Playlist Continuation
 
 
 
-### 1. 개요
+## 개요
 * 상세설명 
     + 플레이리스트에 가장 어울리는 곡들을 예측할 수 있을까?
         - 플레이리스트에 있는 곡들과 비슷한 느낌의 곡들을 계속해서 듣고 싶은 적이 있으셨나요?
@@ -32,7 +32,7 @@
 
 
 
-### 2.프로그램 소스코드 설명
+## 프로그램 소스코드 설명
 #### (1) 라이브러리 불러오기
 ``` python
 import pandas as pd
