@@ -454,7 +454,7 @@ print('RMSLE score on train data : ')
 print(rmsle(y_train, stacked_train_pred*0.80 + xgb_train_pred*0.10 + lgb_train_pred*0.10))
 >>> RMSLE score on train data : 0.07559500505171629
 ```
-* 이렇게 가중치를 나눈 이유는 LightGBM과 Xgboost보다 stacking기법의 값이 RSMLE 제일 낮은 평균화된 값을 가지기 때문이다.
+* 이렇게 가중치를 나눈 이유는 LightGBM과 Xgboost보다 stacking기법의 값이 RSMLE 제일 낮은 평균화된 값을 가지기 때문입니다.
 
 #### 3-18. 변수에 저장
 ```python
