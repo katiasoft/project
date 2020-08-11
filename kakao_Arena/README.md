@@ -561,7 +561,8 @@ for i in range(0,len(val_id)) :
 * val_songs_cnt의 value가 0일때 함수 result_dict_tag를 동작시켜서 list 'dic_last_all' 추가합니다.
 * val_tags_cnt의 value가 0이고 val_songs_cnt의 value가 0일때 {'id' : val_id[i], 'songs' : [], 'tags' : []}을 list 'dic_last_all' 추가합니다.
 * 나머지 경우에는 함수 result_dict_song를 동작시켜서 list 'dic_last_all' 추가합니다.(나머지 경우란 val_tags_cnt와 val_songs_cnt가 둘다 있을 경우 입니다.)
-
+* 아래의 이미지는 Plylst_id 5개를 동작시킨 경우입니다. 
+<img src="https://user-images.githubusercontent.com/69491771/89908026-5e78d080-dc28-11ea-9f2a-eeb4d42eb9ed.PNG" width="300" height="100">
 
 
 #### (5) 추천을 받지 못한 경우와 조건에 만족하지못한 플레이리스트 채우기
