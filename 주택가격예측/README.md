@@ -474,4 +474,4 @@ sub['SalePrice'] = ensemble
 sub.to_csv('data/submission.csv',index=False)
 ```
 ## 제출
-<img src="https://user-images.githubusercontent.com/69491771/90846291-d40c3b80-e3a2-11ea-8c44-9de1749acb1e.png" width="1000" height="250">
+<img src="https://user-images.githubusercontent.com/69491771/90846291-d40c3b80-e3a2-11ea-8c44-9de1749acb1e.png" width="1000" height="275">
