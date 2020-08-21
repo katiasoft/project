@@ -1,8 +1,26 @@
 
 # 영화 추천 프로그램
+## 개요
+### 1. 상세설명
+* 넷플릭스나 IPTV에서 영화나 드라마를 추천해주는 알고리즘을 머신러닝을 사용하여 총 3가지의 방법으로 재현 해보기
 
+### 2. 데이터셋 구성
+* credits.csv : 영화에 대한 출연진 및 제작진 정보
+* keyword.csv : 영화에 대한 영화 플롯 키워드
+* links.csv : 영화의 TMDB 및 IMDB ID
+* links_small.csv : 전체 데이터 세트의 9,000 개 영화 중 작은 하위 집합의 TMDB 및 IMDB ID
+* movie_metadata.csv : 기본 영화 메타 데이터 파일
+* ratings.csv : 영화에 대한 700 명의 사용자가 평가
+* ratings_small.csv : 9,000 편의 영화에 대한 700 명의 사용자가 평가 한 100,000 개의 하위 집합
 
-## 1. 활용할 라이브러리와 패키지 불러오기
+### 3. 참가
+* 인원 : 1명
+* 작업툴 : python, VScode, Jupeter Notebook
+* 기간 : 20.06.22 ~ 20.06.28
+
+## 프로그래밍 설명
+
+### 1. 활용할 라이브러리와 패키지 불러오기
 ```python
 %matplotlib inline
 import pandas as pd
@@ -45,7 +63,7 @@ import warnings; warnings.simplefilter('ignore')
   
   
   
-## 2. Data Processing
+### 2. Data Processing
 #### 2-1) 데이터 정보
 * movies_metadata.csv : 주요 영화 메타 데이터 파일. Full MovieLens 데이터 세트에 소개 된 45,000 개의 영화에 대한 정보가 포함되어 있습니다. 포스터, 배경, 예산, 수익, 출시일, 언어, 생산 국가 및 회사 등의 기능이 있습니다.
 * keyword.csv : MovieLens 영화에 대한 영화 플롯 키워드가 들어 있습니다. 문자열 화 된 JSON 객체의 형태로 제공됩니다.
@@ -138,7 +156,7 @@ qualified.head(15)
 
 
 
-## 3. 콘텐츠 기반 필터링(content based filtering)
+### 3. 콘텐츠 기반 필터링(content based filtering)
 
 #### 3-1) 다음을 기반으로 두개의 컨텐츠 기반으로 구축
 * 동영상 개요 및 태그 라인
@@ -267,7 +285,7 @@ get_recommendations('The Dark Knight').head(10)
 
 
 
-## 4. 협업 필터링(Collaborative filtering)
+### 4. 협업 필터링(Collaborative filtering)
 
 
 #### 4-1) RMSE(Root Mean Square Error)를 최소화하고 훌륭한 추천을 하기 위해 SVD(Single Value Discovery)와 같은 매우 강력한 알고리즘을 사용했던 서프라이즈 라이브러리를 사용합니다.
@@ -336,7 +354,7 @@ svd.predict(1, 302, 3)
 
 
 
-## 5. Hybrid Recommend System
+### 5. Hybrid Recommend System
 
 
 #### 5-1) 콘텐츠와 협업 필터링을 통해 아이디어를 모아 특정 사용자에게 영화 제안을 하는 System을 구축합니다.
