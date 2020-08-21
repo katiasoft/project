@@ -665,4 +665,4 @@ with open('results.json', 'w', encoding='utf-8') as make_file:
 * list 'dic_last_all'를 json 파일로 저장해줍니다. 
 
 ## 제출
-<img src="https://user-images.githubusercontent.com/69491771/90846042-57795d00-e3a2-11ea-92c3-558f48084e37.png" width="1000" height="250">
+<img src="https://user-images.githubusercontent.com/69491771/90846042-57795d00-e3a2-11ea-92c3-558f48084e37.png" width="1000" height="200">
