@@ -171,6 +171,7 @@ print('\n테스트 정확도 : ', test_acc)
 ```python
 predictions = model.predict(test_images)
 ```
+* 훈련된 모델을 사용하여 이미지에 대한 예측을 만들 수 있습니다.
 #### 8.2)
 ```python 
 predictions[0]
@@ -178,16 +179,20 @@ predictions[0]
        6.2080517e-06, 1.1042258e-02, 3.2268759e-05, 4.2161353e-02,
        1.7172043e-04, 9.4650525e-01], dtype=float32)
 ```
-#### 8.3)
+* 예측은 10개의 숫자 배열로 나타납니다.
+* 값은 10개의 옷 품목에 상응하는 모델의 신뢰도를 나타냅니다.
+#### 8.3) 
 ```python 
 np.argmax(predictions[0])
 >> 9
 ```
+* 가장 높은 신뢰도를 가진 레이블을 찾아봅니다.
 #### 8.4) 
 ```python 
 test_labels[0]
 >> 9
 ```
+* 값이 맞는지 테스트 레이블을 확인해봅니다.
 #### 8.5) 
 ```python 
 def plot_image(i, predictions_array, true_label, img):
@@ -209,6 +214,8 @@ def plot_image(i, predictions_array, true_label, img):
                                          class_names[true_label]),
                color = color)
 ```
+* 이미지와 예측률을 표시해주는 그래프를 만드는 함수입니다.
+* 올바른 예측은 파랑색으로 잘못된 예측은 빨강색으로 나타냅니다
 #### 8.6) 
 ```python 
 def plot_value_array(i, predictions_array, true_label):
@@ -223,7 +230,9 @@ def plot_value_array(i, predictions_array, true_label):
     thisplot[predicted_label].set_color('red')
     thisplot[true_label].set_color('blue')
 ```
-#### 8.7) 
+* 신뢰도 점수배열을 표시해주는 그래프를 만드는 함수입니다.
+* 올바른 예측은 파랑색으로 잘못된 예측은 빨강색으로 나타냅니다
+#### 8.7)
 ```python 
 i = 0
 plt.figure(figsize=(6,3))
@@ -234,6 +243,8 @@ plot_value_array(i, predictions, test_labels)
 plt.show()
 ```
 <img src="https://user-images.githubusercontent.com/69491771/90952076-8e7f6980-e49b-11ea-9208-aae3e3707804.PNG" width="350" height="180">
+
+* 0번째 원소의 이미지, 예측, 신뢰도 점수 배열을 확인해 보겠습니다.
 
 #### 8.8) 
 ```python 
@@ -246,6 +257,8 @@ plot_value_array(i, predictions, test_labels)
 plt.show()
 ```
 <img src="https://user-images.githubusercontent.com/69491771/90952087-a7881a80-e49b-11ea-8981-1e1e94730366.PNG" width="350" height="180">
+
+* 12번째 원소의 이미지, 예측, 신뢰도 점수 배열을 확인해 보겠습니다.
 
 #### 8.9) 
 ```python 
@@ -268,12 +281,15 @@ img = test_images[0]
 print(img.shape)
 >> (28, 28)
 ```
+*  훈련된 모델을 사용하여 한 이미지에 대한 예측을 만듭니다.
 #### 8.11) 
 ```python 
 img = (np.expand_dims(img,0))
 print(img.shape)
 >> (1, 28, 28)
 ```
+* tf.keras 모델은 한 번에 샘플의 묶음 또는 배치(batch)로 예측을 만드는데 최적화되어 있습니다. 
+* 하나의 이미지를 사용할 때에도 2차원 배열로 만들어야 합니다
 #### 8.12) 
 ```python 
 predictions_single = model.predict(img)
@@ -281,15 +297,19 @@ print(predictions_single)
 >> [[7.5079945e-05 5.8749498e-07 4.9882146e-06 2.4914235e-07 6.2080398e-06
   1.1042264e-02 3.2268763e-05 4.2161305e-02 1.7172060e-04 9.4650531e-01]]
 ```
+* 이미지의 예측을 만듭니다
 #### 8.13) 
 ```python 
 plot_value_array(0, predictions_single, test_labels)
 _ = plt.xticks(range(10),class_names,rotation=45)
 ```
 <img src="https://user-images.githubusercontent.com/69491771/90952105-d1d9d800-e49b-11ea-9d14-29dbbdfcc014.PNG" width="350" height="280">
+* model.predict는 2차원 넘파이 배열을 반환하므로 첫 번째 이미지의 예측을 선택합니다
 
 #### 8.14) 
 ```python 
 np.argmax(predictions_single[0])
 >> 9
 ```
+* 이전과 마찬가지로 모델의 예측은 레이블 9입니다.
+
