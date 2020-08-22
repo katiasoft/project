@@ -86,3 +86,27 @@ plt.show()
 <img src="https://user-images.githubusercontent.com/69491771/90951778-c89b3c00-e498-11ea-9121-546c9f26e7e2.PNG" width="250" height="200">
 
 * 첫 번째 이미지를 보면 픽셀 값의 범위가 0~255 사이라는 것을 알 수 있습니다.
+
+#### 4.2)
+```python
+train_images = train_images / 255.0
+test_images = test_images / 255.0
+```
+* 신경망 모델에 주입하기전에 픽셀 값의 범위를 0~1 사이로 조정해줄 필요가 있습니다.
+* 훈련 세트와 테스트 세트에 255.0으로 나누어줍니다.
+
+#### 4.3)
+```python 
+plt.figure(figsize=(10,10))
+for i  in range(25) :
+    plt.subplot(5,5,i+1)
+    plt.xticks([])
+    plt.yticks([])
+    plt.grid(False)
+    plt.imshow(train_images[i], cmap=plt.cm.binary)
+    plt.xlabel(class_names[train_labels[i]])
+plt.show()
+```
+<img src="https://user-images.githubusercontent.com/69491771/90951822-50814600-e499-11ea-821c-3772bc406b21.PNG" width="550" height="550">
+
+* 훈련 세트에서 25개의 이미지와 class_name을 출력해보겠습니다.
