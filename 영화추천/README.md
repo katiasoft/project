@@ -15,7 +15,7 @@
 
 ### 3. 참가
 * 인원 : 1명
-* 작업툴 : python, VScode, Jupeter Notebook
+* 작업툴 : Python, VScode, Jupeter Notebook, Pandas, Numpy등
 * 기간 : 20.06.22 ~ 20.06.28
 
 ## 프로그래밍 설명
