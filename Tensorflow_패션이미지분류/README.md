@@ -304,6 +304,7 @@ plot_value_array(0, predictions_single, test_labels)
 _ = plt.xticks(range(10),class_names,rotation=45)
 ```
 <img src="https://user-images.githubusercontent.com/69491771/90952105-d1d9d800-e49b-11ea-9d14-29dbbdfcc014.PNG" width="350" height="280">
+
 * model.predict는 2차원 넘파이 배열을 반환하므로 첫 번째 이미지의 예측을 선택합니다
 
 #### 8.14) 
@@ -311,5 +312,5 @@ _ = plt.xticks(range(10),class_names,rotation=45)
 np.argmax(predictions_single[0])
 >> 9
 ```
-* 이전과 마찬가지로 모델의 예측은 레이블 9입니다.
+* 이전과 마찬가지로 모델의 예측은 9입니다.
 
