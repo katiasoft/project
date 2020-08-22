@@ -25,7 +25,7 @@ import matplotlib.pyplot as plt
 ```
 
 ### 2. 패션 MNIST 데이터셋 import하기
-#### 2.1
+#### 2.1)
 ```python 
 fashion_mnist = keras.datasets.fashion_mnist
 
@@ -36,38 +36,38 @@ fashion_mnist = keras.datasets.fashion_mnist
 * test_images와 test_labels 배열은 모델 테스트에 사용되는 테스트세트입니다.
 * image는 28x28 크키의 numpy배열이고 픽셀 값은 0~255 입니다.
 * label은 0~9까지의 정수 배열입니다. 
-#### 2.2
+#### 2.2)
 ```python 
 class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal', 'shirt', 'Sneaker', 'Bag', 'Ankle boot']
 ```
 * label의 정수배열에 맞게 매핑할 수 있는 class_names 의 배열을 만들어 줍니다.
 
 ### 3. 데이터 탐색하기
-#### 3.1
+#### 3.1)
 ```python 
 train_images.shape
 >> (60000, 28, 28)
 ```
 * 훈련세트는 60000개의 image가 있으며, 28x28 픽셀로 표현됩니다.
-#### 3.2
+#### 3.2)
 ```python 
 len(train_labels)
 >> 60000
 ```
 * 훈련세트는 60000개의 label이 가지고 있습니다.
-#### 3.3
+#### 3.3)
 ```python 
 train_labels
 >> array([9, 0, 0, ..., 3, 0, 5], dtype=uint8)
 ```
 * 훈련세트는 label은 0~9의 정수로 이루어집니다.
-#### 3.4
+#### 3.4)
 ```python 
 test_images.shape
 >> (10000, 28, 28)
 ```
 * 테스트 세트는 10000개의 image가 있으며, 28x28 픽셀로 표현됩니다.
-#### 3.5
+#### 3.5)
 ```python 
 len(test_labels)
 >> 10000
@@ -75,7 +75,7 @@ len(test_labels)
 * 테스트 세트는 10000개의 label이 가지고 있습니다.
 
 ### 4. 데이터 전처리하기
-#### 4.1
+#### 4.1)
 ```pyton
 plt.figure()
 plt.imshow(train_images[0])
@@ -83,6 +83,6 @@ plt.colorbar()
 plt.grid(False)
 plt.show()
 ```
-<img src="https://user-images.githubusercontent.com/69491771/90951778-c89b3c00-e498-11ea-9121-546c9f26e7e2.PNG" width="300" height="200">
+<img src="https://user-images.githubusercontent.com/69491771/90951778-c89b3c00-e498-11ea-9121-546c9f26e7e2.PNG" width="250" height="200">
 
 * 첫 번째 이미지를 보면 픽셀 값의 범위가 0~255 사이라는 것을 알 수 있습니다.
