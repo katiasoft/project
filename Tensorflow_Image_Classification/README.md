@@ -10,6 +10,11 @@
 ## 데이터
 * images : 고양이와 개 이미지가 모여있는 폴더이며, 이미지의 이름에서 시작이 대문자일 경우 고양이고 소문자일 경우 개를 뜻하며 품종이 적혀있습니다, 품종마다 약 200개의 이미지를 가지고 있습니다.
 
+## 참고한 논문자료
+* MobileNetV2: Inverted Residuals and Linear Bottlenecks
+* Densely Connected Convolutional Networks
+* Bag of Tricks for Image Classification with Convolutional Neural Networks
+
 ## 프로그래밍
 
 ### 1. 라이브러리 import하기
@@ -26,7 +31,7 @@ import matplotlib.pyplot as plt
 ```
 
 ### 2. 데이터 준비
-#### 2.1)
+#### 2.1) gdown 라이브러리를 import하여 Google Drive에서 oxford_pet.zip 압축파일을 다운받아옵니다.
 ```python
 import gdown
 url = 'https://drive.google.com/uc?id=1dIR9ANjUsV9dWa0pS9J0c2KUGMfpIRG0'
@@ -39,7 +44,8 @@ To: /content/oxford_pet.zip
 811MB [00:04, 185MB/s]
 oxford_pet.zip
 ```
-#### 2.2)
+
+#### 2.2) 다운로드가 잘 되어있는지를 확인합니다.
 ```python
 !ls -l
 # 출력
@@ -47,30 +53,34 @@ oxford_pet.zip
 -rw-r--r-- 1 root root 810565619 Aug 23 10:09 oxford_pet.zip
 drwxr-xr-x 1 root root      4096 Jul 30 16:30 sample_data
 ```
-#### 2.3)
+#### 2.3) 압축파일의 압축을 풀어줍니다.
 ```python
 !unzip -q oxford_pet.zip -d oxford_pet
 ```
-#### 2.4)
+
+#### 2.4) 압축파일이 잘 풀려는 지 확인하고 폴더안에 파일을 확인합니다.
 ```python
 !ls oxford_pet
 # 출력
 >> annotations  images
 ```
-#### 2.5)
+
+#### 2.5) image_dir에 images의 path를 저장합니다.
 ```python
 cur_dir = os.getcwd()
 data_dir = os.path.join(cur_dir, 'oxford_pet')
 image_dir = os.path.join(data_dir,'images')
 ```
-#### 2.6)
+
+#### 2.6) 리스트컴프리헨션을 사용하여 파일형식이 '.jpg'형식인 파일의 이름은 리스트화하여 image_files에 저장합니다.
 ```python
 image_files = [fname for fname in os.listdir(image_dir) if os.path.splitext(fname)[-1] == '.jpg']
 print(len(image_files))
 # 출력
 >> 7390
 ```
-#### 2.7)
+
+#### 2.7) 데이터 전처리에서 특이치 삭제처럼 3채널의 RGB형태가 아닌 파일을 찾아내어 삭제해줍니다. 
 ```python
 for image_file in image_files:
     image_path = os.path.join(image_dir, image_file)
@@ -107,14 +117,15 @@ staffordshire_bull_terrier_22.jpg L
 Egyptian_Mau_145.jpg P
 (188, 216)
 ```
-#### 2.8)
+
+#### 2.8) 형태가 다른 파일을 삭제한 후에 파일의 수를 출력하여 확인합니다.
 ```python
 image_files = [fname for fname in os.listdir(image_dir) if os.path.splitext(fname)[-1] == '.jpg']
 print(len(image_files))
 # 출력
 >> 7378
 ```
-#### 2.9)
+#### 2.9) 집합에서의 중북불가한 특성을 활용하여 고양이와 개의 품종을 리스트화하여 저장해줍니다.
 ```python
 class_list = set()
 for image_file in image_files:
@@ -126,7 +137,8 @@ print(len(class_list))
 # 출력
 >> 37
 ```
-#### 2.10)
+
+#### 2.10) class_list를 정렬하여 출력하여 데이터를 확인해줍니다.
 ```python
 class_list.sort()
 class_list
@@ -169,13 +181,13 @@ class_list
  'wheaten_terrier',
  'yorkshire_terrier']
 ```
-#### 2.11)
+#### 2.11) class_list의 인덱스 1은 Bengal이라는 것을 확인할 수 있습니다.
 ```python
 class_list[1]
 # 출력
 >> Bengal
 ```
-#### 2.12)
+#### 2.12) class_list를 활용하여 인덱스를 붙인 사전형식의 class2idx를 만들어줍니다.
 ```python
 class2idx = {cls:idx for idx, cls in enumerate(class_list)}
 class2idx
@@ -218,24 +230,24 @@ class2idx
  'wheaten_terrier': 35,
  'yorkshire_terrier': 36}
 ```
-#### 2.13)
+#### 2.13) class2idx에서 Bengal의 값을 출력하면 1이 나오게 됩니다.
 ```python
 class2idx['Bengal']
 # 출력
 >> 1
 ```
-#### 2.14)
+#### 2.14) 학습을 위해 사용할 train과 validation의 path를 저장하고 디렉터리를 만들어줍니다.
 ```python
 train_dir = os.path.join(data_dir, 'train')
 val_dir = os.path.join(data_dir, 'validation')
 os.makedirs(train_dir, exist_ok=True)
 os.makedirs(val_dir, exist_ok=True)
 ```
-#### 2.15)
+#### 2.15) image_files을 정렬해줍니다.
 ```python
 image_files.sort()
 ```
-#### 2.16)
+#### 2.16) image_files의 인덱스 9번까지 출력하여줍니다.
 ```python
 image_files[:10]
 # 출력
@@ -250,7 +262,7 @@ image_files[:10]
  'Abyssinian_106.jpg',
  'Abyssinian_107.jpg']
 ```
-#### 2.17)
+#### 2.17) 각각 고양이와 개의 품종들 마다 약 200개의 이미지를 가지고 있는데 160개는 train으로 나머지는 validation으로 사용하기위해 나누어 복사하여 저장합니다.
 ```python
 cnt = 0
 previous_class = ""
@@ -269,18 +281,18 @@ for image_file in image_files:
     shutil.copy(image_path, cpath)
     previous_class = class_name
 ```
-#### 2.18)
+#### 2.18) 각각의 디렉터리의 파일들을 리스트화하여 저장합니다.
 ```python
 train_images = os.listdir(train_dir)
 val_images = os.listdir(val_dir)
 ```
-#### 2.19)
+#### 2.19) 각각의 개수를 출력하여 줍니다.
 ```python
 print(len(train_images),len(val_images))
 # 출력
 >> 5920 1458
 ```
-#### 2.20)
+#### 2.20) train_images의 상위 10개를 출력합니다.
 ```python
 train_images[:10]
 # 출력
@@ -295,7 +307,7 @@ train_images[:10]
  'american_pit_bull_terrier_174.jpg',
  'Persian_44.jpg']
 ```
-#### 2.21)
+#### 2.21) val_images의 상위 10개를 출력합니다.
 ```python
 val_images[:10]
 # 출력
@@ -312,7 +324,13 @@ val_images[:10]
 ```
 
 ### 3. TFRecord File 만들기
-#### 3.1)
+* TFRecord 파일은 Tensorflow로 딥러닝 학습을 하는데 필요한 데이터들을 보관하기 위한 데이터포멧입니다.
+* 흔히들 Tensorflow의 표준 데이터 파일 포멧이라고도 합니다.
+* 장점 
+    - 학습데이터를 분리하여 관리하지 않아서 코드 구현시 더욱 효율적으로 구현이 가능합니다.
+    - 매번 코드에서 인코딩/디코딩 작업을 할 필요가 없어서 학습 속도가 개선됩니다.
+    - 이미지 파일은 TFRecord 파일로 새성하면 파일 사이즈가 작아집니다.
+#### 3.1) 이미지 사이즈를 설정할 때 쓰일 값을 변수에 저장합니다.
 ```python
 IMG_SIZE = 224
 ```
@@ -329,7 +347,7 @@ tfr_val_dir = os.path.join(tfr_dir, 'cls_val.tfr')
 writer_train = tf.io.TFRecordWriter(tfr_train_dir)
 writer_val = tf.io.TFRecordWriter(tfr_val_dir)
 ```
-#### 3.4)
+#### 3.4) Tensorflow홈페이지에서 제공하는 TFRecord 함수를 찾아와 넣어줍니다.  
 ```python
 # The following functions can be used to convert a value to a type compatible
 # with tf.Example.
@@ -348,7 +366,7 @@ def _int64_feature(value):
   """Returns an int64_list from a bool / enum / int / uint."""
   return tf.train.Feature(int64_list=tf.train.Int64List(value=[value]))
 ```
-#### 3.5)
+#### 3.5) train TFRecord File 만들기
 ```python
 n_train = 0
 
@@ -375,7 +393,7 @@ print(n_train)
 # 출력
 >> 5920
 ```
-#### 3.6)
+#### 3.6) val TFRecord File 만들기
 ```python
 n_val = 0
 
@@ -404,7 +422,7 @@ print(n_val)
 ```
 
 ### 4. Classification 모델링 - MobileNetV2
-#### 4.1)
+#### 4.1) 전체적인 설정 값들을 지정하여줍니다.
 ```python
 N_CLASS = len(class_list)
 N_EPOCHS = 50
@@ -416,7 +434,7 @@ learning_rate = 0.0001
 steps_per_epoch = N_TRAIN / N_BATCH
 validation_steps = int(np.ceil(N_VAL / N_BATCH))
 ```
-#### 4.2)
+#### 4.2) TFRecord 파일로 저장한 데이터를 불러와서 image와 label에 각각 저장해줍니다.
 ```python
 def _parse_function(tfrecord_serialized):
     features={'image': tf.io.FixedLenFeature([], tf.string),
@@ -433,7 +451,7 @@ def _parse_function(tfrecord_serialized):
 
     return image, label
 ```
-#### 4.3)
+#### 4.3) cutmix는 사진 두개를 랜덤한 크기로 부분을 잘라서 서로 합쳐서 추가해주는 함수입니다.
 ```python
 def cutmix(images, labels, PROB = 0.5):
     imgs = []; labs =[]
@@ -475,20 +493,22 @@ def cutmix(images, labels, PROB = 0.5):
     return new_imgs, new_labs
 
 ```
-#### 4.4)
+* 이 부분은 기존의 이미지만으로 부족한 데이터를 채울 수 있고 모델의 선능향상에 도움을 줍니다.
+* cutmix는 네이버에서 나온 방법입니다.
+#### 4.4) train_dataset을 만들업줍니다.
 ```python
 train_dataset = tf.data.TFRecordDataset(tfr_train_dir)
 train_dataset = train_dataset.map(_parse_function, num_parallel_calls = tf.data.experimental.AUTOTUNE)
 train_dataset = train_dataset.shuffle(buffer_size = N_TRAIN).prefetch(tf.data.experimental.AUTOTUNE).batch(N_BATCH)
 train_dataset = train_dataset.map(cutmix).repeat()
 ```
-#### 4.5)
+#### 4.5) val_dataset을 만들업줍니다.
 ```python
 val_dataset = tf.data.TFRecordDataset(tfr_val_dir)
 val_dataset = val_dataset.map(_parse_function, num_parallel_calls = tf.data.experimental.AUTOTUNE)
 val_dataset = val_dataset.batch(N_BATCH).repeat()
 ```
-#### 4.6)
+#### 4.6) train_dataset의 한부분을 출력해줍니다.
 ```python
 for image, label in train_dataset.take(1):
     for i in range(N_BATCH):
@@ -498,20 +518,22 @@ for image, label in train_dataset.take(1):
 ```
 <img src="https://user-images.githubusercontent.com/69491771/90979363-89034b80-e58f-11ea-8497-171b49ebafb2.PNG" width="515" height="650">
 
-#### 4.7)
+* 여기서 배열이 0과 1로 이루어져 있으면 cutmix함수가 적용되지않은 이미지이고 0과 1사이의 실수로 나오는 이미지는 cutmix함수가 적용된 이미지입니다. 
+
+#### 4.7) 학습에 필요한 라이브러리를 import해줍니다.
 ```python
 from tensorflow.keras import models
 from tensorflow.keras.applications.mobilenet_v2 import MobileNetV2
 from tensorflow.keras.layers import Conv2D, ReLU, MaxPooling2D, Dense, BatchNormalization, GlobalAveragePooling2D
 ```
-#### 4.8)
+#### 4.8) MobileNetV2를 다운 받아줍니다.
 ```python
 mobilenetv2 = MobileNetV2(weights='imagenet', include_top=False, input_shape=(IMG_SIZE,IMG_SIZE,3))
 # 출력
 >> Downloading data from https://storage.googleapis.com/tensorflow/keras-applications/mobilenet_v2/mobilenet_v2_weights_tf_dim_ordering_tf_kernels_1.0_224_no_top.h5
 9412608/9406464 [==============================] - 0s 0us/step
 ```
-#### 4.9)
+#### 4.9) 모델에 각각 레이어를 추가해주는 함수입니다.
 ```python
 def create_mv_model():
     model = models.Sequential()
@@ -523,7 +545,7 @@ def create_mv_model():
     model.add(Dense(N_CLASS, activation='softmax'))
     return model
 ```
-#### 4.10)
+#### 4.10) 앞에 모델에 레이어를 추가해놓은 함수를 불러와 모델을 구성합니다.
 ```python
 model = create_mv_model()
 
@@ -568,7 +590,7 @@ Trainable params: 2,561,829
 Non-trainable params: 34,624
 _________________________________________________________________
 ```
-#### 4.11)
+#### 4.11) learning_late의 변화를 그래프로 출력해줍니다.
 ```python
 def plot_lr():
     lr = []
@@ -583,7 +605,7 @@ plot_lr()
 ```
 <img src="https://user-images.githubusercontent.com/69491771/90979344-6ffa9a80-e58f-11ea-91e7-4f0648476d21.PNG" width="405" height="245">
 
-#### 4.12)
+#### 4.12) 모델 학습시킵니다.
 ```python
 history = model.fit(
     train_dataset,
@@ -607,25 +629,26 @@ Epoch 49/50
 Epoch 50/50
 148/148 [==============================] - 43s 291ms/step - loss: 1.2234 - accuracy: 0.8861 - val_loss: 0.9220 - val_accuracy: 0.9417
 ```
+* 그 결과 약 94%의 정확도가 나오게 됩니다.
 
 ### 5. Classification 모델링 - DenseNet121 
-#### 5.1)
+#### 5.1) 학습에 필요한 라이브러리를 import해줍니다.
 ```python
 from tensorflow.keras.applications.densenet import DenseNet121
 ```
-#### 5.2)
+#### 5.2) 학습에 필요한 라이브러리를 import해줍니다.
 ```python
 from tensorflow.keras import models
 from tensorflow.keras.layers import Conv2D, ReLU, MaxPooling2D, Dense, BatchNormalization, GlobalAveragePooling2D
 ```
-#### 5.3)
+#### 5.3) DenseNet121 다운 받아줍니다.
 ```python
 densenet = DenseNet121(weights='imagenet', include_top=False, input_shape=(IMG_SIZE, IMG_SIZE, 3))
 # 출력
 >> Downloading data from https://storage.googleapis.com/tensorflow/keras-applications/densenet/densenet121_weights_tf_dim_ordering_tf_kernels_notop.h5
 29089792/29084464 [==============================] - 2s 0us/step
 ```
-#### 5.4)
+#### 5.4) 모델에 각각 레이어를 추가해주는 함수입니다.
 ```python
 def create_dense_model():
   model = models.Sequential()
@@ -637,7 +660,7 @@ def create_dense_model():
   model.add(Dense(N_CLASS, activation='softmax'))
   return model
 ```
-#### 5.5)
+#### 5.5) 앞에 모델에 레이어를 추가해놓은 함수를 불러와 모델을 구성합니다.
 ```python
 model = create_dense_model()
 
@@ -682,7 +705,7 @@ Trainable params: 7,226,277
 Non-trainable params: 84,160
 _________________________________________________________________
 ```
-#### 5.6)
+#### 5.6) 모델 학습시킵니다.
 ```python
 history = model.fit(
     train_dataset,
@@ -706,8 +729,9 @@ Epoch 49/50
 Epoch 50/50
 148/148 [==============================] - 140s 945ms/step - loss: 1.0909 - accuracy: 0.9091 - val_loss: 0.8938 - val_accuracy: 0.9499
 ```
+* 그 결과 약 95%의 정확도가 나오게 됩니다, 앞의 MobileNetV2 보다 정확도 1%가 오른것을 볼 수 있습니다.
 ### 6. 새로운 이미지 받아와서 TEST해보기
-#### 6.1)
+#### 6.1) 새로운 이미지를 업로드 후에 이미지 파일을 모델를 돌릴 수 있게 최적화 시킵니다.
 ```python
 ## Image upload 후 실행
 image = Image.open('솜이.jpg')
@@ -715,32 +739,32 @@ image = image.resize((224, 224))
 image = np.array(image)
 image = image/255.
 ```
-#### 6.2)
+#### 6.2) 이미지를 출력해줍니다.
 ```python
 plt.imshow(image)
 plt.show()
 ```
 <img src="https://user-images.githubusercontent.com/69491771/90979292-1abe8900-e58f-11ea-9d26-d3f8ecf32793.PNG" width="260" height="250">
 
-#### 6.3)
+#### 6.3) 모델를 돌리기위한 형태로 reshape해줍니다.
 ```python
 image = np.reshape(image, (1, 224, 224, 3))
 ```
-#### 6.4)
+#### 6.4) 학습된 모델을 동작시켜줍니다.
 ```python
 prediction = model.predict(image)
 prediction.shape
 # 출력
 >> (1, 37)
 ```
-#### 6.5)
+#### 6.5) max값의 label을 출력합니다.
 ```python
 pred_class = np.argmax(prediction, axis=-1)
 pred_class
 # 출력
 >> array([17])
 ```
-#### 6.6)
+#### 6.6) label을 조회해 품종을 출력해줍니다.
 ```python
 class_list[int(pred_class)]
 # 출력
