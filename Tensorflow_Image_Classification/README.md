@@ -32,6 +32,7 @@ import gdown
 url = 'https://drive.google.com/uc?id=1dIR9ANjUsV9dWa0pS9J0c2KUGMfpIRG0'
 fname = 'oxford_pet.zip'
 gdown.download(url, fname, quiet=False)
+# 출력
 >> Downloading...
 From: https://drive.google.com/uc?id=1dIR9ANjUsV9dWa0pS9J0c2KUGMfpIRG0
 To: /content/oxford_pet.zip
@@ -41,6 +42,7 @@ oxford_pet.zip
 #### 2.2)
 ```python
 !ls -l
+# 출력
 >> total 791576
 -rw-r--r-- 1 root root 810565619 Aug 23 10:09 oxford_pet.zip
 drwxr-xr-x 1 root root      4096 Jul 30 16:30 sample_data
@@ -52,6 +54,7 @@ drwxr-xr-x 1 root root      4096 Jul 30 16:30 sample_data
 #### 2.4)
 ```python
 !ls oxford_pet
+# 출력
 >> annotations  images
 ```
 #### 2.5)
@@ -64,6 +67,7 @@ image_dir = os.path.join(data_dir,'images')
 ```python
 image_files = [fname for fname in os.listdir(image_dir) if os.path.splitext(fname)[-1] == '.jpg']
 print(len(image_files))
+# 출력
 >> 7390
 ```
 #### 2.7)
@@ -77,6 +81,7 @@ for image_file in image_files:
         image = np.asarray(image)
         print(image.shape)
         os.remove(image_path)
+# 출력
 >> Egyptian_Mau_177.jpg P
 (175, 246)
 staffordshire_bull_terrier_2.jpg L
@@ -106,6 +111,7 @@ Egyptian_Mau_145.jpg P
 ```python
 image_files = [fname for fname in os.listdir(image_dir) if os.path.splitext(fname)[-1] == '.jpg']
 print(len(image_files))
+# 출력
 >> 7378
 ```
 #### 2.9)
@@ -117,12 +123,14 @@ for image_file in image_files:
     class_list.add(class_name)
 class_list = list(class_list)
 print(len(class_list))
+# 출력
 >> 37
 ```
 #### 2.10)
 ```python
 class_list.sort()
 class_list
+# 출력
 >> ['Abyssinian',
  'Bengal',
  'Birman',
@@ -164,12 +172,14 @@ class_list
 #### 2.11)
 ```python
 class_list[1]
+# 출력
 >> Bengal
 ```
 #### 2.12)
 ```python
 class2idx = {cls:idx for idx, cls in enumerate(class_list)}
 class2idx
+# 출력
 >> {'Abyssinian': 0,
  'Bengal': 1,
  'Birman': 2,
@@ -211,6 +221,7 @@ class2idx
 #### 2.13)
 ```python
 class2idx['Bengal']
+# 출력
 >> 1
 ```
 #### 2.14)
@@ -227,6 +238,7 @@ image_files.sort()
 #### 2.16)
 ```python
 image_files[:10]
+# 출력
 >> ['Abyssinian_1.jpg',
  'Abyssinian_10.jpg',
  'Abyssinian_100.jpg',
@@ -265,11 +277,13 @@ val_images = os.listdir(val_dir)
 #### 2.19)
 ```python
 print(len(train_images),len(val_images))
+# 출력
 >> 5920 1458
 ```
 #### 2.20)
 ```python
 train_images[:10]
+# 출력
 >> ['english_cocker_spaniel_194.jpg',
  'saint_bernard_36.jpg',
  'Persian_139.jpg',
@@ -284,6 +298,7 @@ train_images[:10]
 #### 2.21)
 ```python
 val_images[:10]
+# 출력
 >> ['pug_64.jpg',
  'Sphynx_8.jpg',
  'Abyssinian_71.jpg',
@@ -357,6 +372,7 @@ for train_file in train_files:
 
 writer_train.close()
 print(n_train)
+# 출력
 >> 5920
 ```
 #### 3.6)
@@ -383,6 +399,7 @@ for val_file in val_files:
 
 writer_val.close()
 print(n_val)
+# 출력
 >> 1458
 ```
 
@@ -490,6 +507,7 @@ from tensorflow.keras.layers import Conv2D, ReLU, MaxPooling2D, Dense, BatchNorm
 #### 4.8)
 ```python
 mobilenetv2 = MobileNetV2(weights='imagenet', include_top=False, input_shape=(IMG_SIZE,IMG_SIZE,3))
+# 출력
 >> Downloading data from https://storage.googleapis.com/tensorflow/keras-applications/mobilenet_v2/mobilenet_v2_weights_tf_dim_ordering_tf_kernels_1.0_224_no_top.h5
 9412608/9406464 [==============================] - 0s 0us/step
 ```
@@ -528,6 +546,7 @@ model.compile(optimizer = tf.keras.optimizers.Adam(LR_INIT),
               loss = tf.keras.losses.CategoricalCrossentropy(label_smoothing=0.1),
               metrics = ['accuracy'])
 model.summary()
+# 출력
 >> Model: "sequential"
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
@@ -574,6 +593,7 @@ history = model.fit(
     validation_steps= validation_steps,
     callbacks= [lr_callback]
 )
+# 출력
 >> Epoch 45/50
 148/148 [==============================] - 44s 298ms/step - loss: 1.2063 - accuracy: 0.8868 - val_loss: 0.9240 - val_accuracy: 0.9390
 Epoch 46/50
@@ -601,6 +621,7 @@ from tensorflow.keras.layers import Conv2D, ReLU, MaxPooling2D, Dense, BatchNorm
 #### 5.3)
 ```python
 densenet = DenseNet121(weights='imagenet', include_top=False, input_shape=(IMG_SIZE, IMG_SIZE, 3))
+# 출력
 >> Downloading data from https://storage.googleapis.com/tensorflow/keras-applications/densenet/densenet121_weights_tf_dim_ordering_tf_kernels_notop.h5
 29089792/29084464 [==============================] - 2s 0us/step
 ```
@@ -639,6 +660,7 @@ model.compile(optimizer=tf.keras.optimizers.Adam(LR_INIT),
               loss=tf.keras.losses.CategoricalCrossentropy(label_smoothing=0.1),
               metrics=['accuracy'])
 model.summary()
+# 출력
 >> Model: "sequential_1"
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
@@ -670,6 +692,7 @@ history = model.fit(
     validation_steps=validation_steps,
     callbacks=[lr_callback]
 )
+# 출력
 >> Epoch 45/50
 148/148 [==============================] - 140s 946ms/step - loss: 1.0980 - accuracy: 0.9014 - val_loss: 0.8890 - val_accuracy: 0.9513
 Epoch 46/50
@@ -707,16 +730,19 @@ image = np.reshape(image, (1, 224, 224, 3))
 ```python
 prediction = model.predict(image)
 prediction.shape
+# 출력
 >> (1, 37)
 ```
 #### 6.5)
 ```python
 pred_class = np.argmax(prediction, axis=-1)
 pred_class
+# 출력
 >> array([17])
 ```
 #### 6.6)
 ```python
 class_list[int(pred_class)]
+# 출력
 >> chihuahua
 ```
