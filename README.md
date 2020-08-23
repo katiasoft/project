@@ -63,3 +63,9 @@
 * 작업툴 : Python, Tensorflow, Numpy, matplotlib, colab등
 * 인원 : 1명
 * 내용 : 패션 MNIST 데이터를 받아와 운동화나 셔츠 같은 옷 이미지를 분류하는 신경망 모델을 훈련하는 프로젝트
+
+### ☞ Tensorflow_Image_Classification
+* 작업툴 : Python, Tensorflow, Numpy, matplotlib, colab등
+* 인원 : 1명
+* 내용 : Oxford pet 데이터을 이용하여 품종별로 고양이와 개 이미지를 학습시켜 새로운 이미지에 대해 고양이인지 개인지 따른 품종을 출력해주는 프로젝트
+
