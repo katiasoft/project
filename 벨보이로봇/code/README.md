@@ -1,5 +1,5 @@
 ```c
-헤더 부분
+// 헤더 부분
 #include <Wire.h>
 #include <Servo.h>  
 #include <LIDARLite.h>
@@ -12,8 +12,8 @@
 #define R_sensor 21   // 모터스피드센서의 출력을 받아오는 핀
 #define mode_sw 52    // 스위치전환으로 모드전환을 받는 핀
 #define lidar_sw 34   // 라이다 온오프스위치역할하는 핀
------------------------------------------------------
-관리자 및 손님 프로그램
+
+// 관리자 및 손님 프로그램
 int z=0,a=0,b=1;
 int R_count=0;
 int countend[15][60]; // 행은 방을 열에서 첫번째는 motion을 두번째는 카운트를 배열에 저장
@@ -167,8 +167,8 @@ void loop()   //  실질적으로 동작하는 함수
     }
   }
 }
---------------------------------------------------------
-- 라이다 프로그램
+
+// 라이다 프로그램
 #define lidar_sig 31 // 라이다프로그램 신호
 Servo microServo0;
 Servo microServo1;
