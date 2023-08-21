@@ -7,6 +7,8 @@
 * 사이트 링크 : <https://deulsale.katiasoft.com/>
 * 참가 인원 수 : 5명
 * 기간 : 2023.05.11 ~ 2023.08.18
+
+### 3. 프로젝트 담당
 * 직책 : 팀장
 * 담당 업무
   * 프로젝트 총괄 및 업무 분배
@@ -18,15 +20,15 @@
   * 예약시스템 개발
   * 모바일 버전 디자인 메뉴 기능 개발
 
-### 3. 프로젝트 설계 및 프로세스
- * 프로그래밍 언어: Java, HTML, CSS, JavaScript, Python, Spring등
- * 개발환경: Intellij, Google Colab
+### 4. 프로젝트 설계 및 프로세스
+ * 언어: Java, HTML, CSS, JavaScript, Python, Spring등
+ * 개발 환경: Intellij, Google Colab
  * 데이터베이스: MariaDB
  * 클라우드 : GoogleCloudPlatform
  * 서버환경: Ubutu, Tomcat
  * 디자인 패턴: MVC2패턴
 
-### 4. 프로젝트 내용
+### 5. 프로젝트 내용
 * 공통
   * 회원가입
   * 로그인
