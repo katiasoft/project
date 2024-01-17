@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>홈페이지</title>
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/base.css}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/member/format.css}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/member/detail.css}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/member/write.css}">
+    <!--    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=8fd7dd98ba79d455c326d89f26387297&libraries=services,clusterer,drawing"></script>-->
+    <!-- kakao API -->
+    <!--    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8fd7dd98ba79d455c326d89f26387297&libraries=services"></script>-->
+    <script defer th:src="@{/resources/scripts/member/format.js}"></script>
+    <script defer th:src="@{/resources/scripts/member/write.js}"></script>
+</head>
+<body>
+<div id="headLine" class="box">
+    <div id="info_type" class="place">
+        <div>
+            <input rel="user" type="button" value="개인">
+            <input rel="entrepreneur" type="button" value="사업자">
+        </div>
+    </div>
+    <div id="info_menu" class="place">
+        <a class="nickname" th:if="${session.user != null}" href="#"></a>
+        <a class="nickname" th:if="${session.user != null}" href="#"></a>
+        <span th:if="${session.user != null}">님</span>
+        <a th:if="${session.user == null}" th:href="@{/user/login}">로그인</a>
+        <a th:if="${session.user != null}" href="#">로그아웃</a>
+        <a th:if="${session.user == null}" th:href="@{/user/register}">회원가입</a>
+        <a th:if="${session.user != null}" th:href="@{/mypage}">마이페이지</a>
+        <a th:href="@{/help/qna}">고객센터</a>
+    </div>
+</div>
+<div id="block" class="box">
+    <div class="logo" th:if="${session.user == null}">
+        <a th:href="@{/}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+    </div>
+    <div class="logo" th:if="${session.user != null}">
+        <a th:if="${session.user.getAuthority() != 2}" th:href="@{/}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+        <a th:if="${session.user.getAuthority() == 2}" th:href="@{/entrepreneur}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+    </div>
+    <div id="search">
+        <label>
+            <div>
+                <img width="24" height="24" src="https://img.icons8.com/material-outlined/24/228B22/search--v1.png"
+                     alt="search--v1"/>
+            </div>
+            <input type="text" placeholder="검색">
+        </label>
+    </div>
+    <div id="marge">
+
+    </div>
+</div>
+<nav id="nav" class="box user">
+    <div class="user">
+        <a th:href="@{/member/recommendation}">
+        <span>
+            추천
+        </span>
+        </a>
+        <a th:href="@{/member/campsite?code=1}">
+        <span>
+            일반야영장
+        </span>
+        </a>
+        <a th:href="@{/member/campsite?code=2}">
+        <span>
+            자동차야영장
+        </span>
+        </a>
+        <a th:href="@{/member/campsite?code=3}">
+        <span>
+            카라반
+        </span>
+        </a>
+        <a th:href="@{/member/campsite?code=4}">
+        <span>
+            글램핑
+        </span>
+        </a>
+    </div>
+    <div class="entrepreneur">
+        <a th:href="@{/entrepreneur/registration}">
+        <span>
+            사업장등록
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/profile}">
+        <span>
+            사업장프로필
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/reservation}">
+        <span>
+            예약서비스
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/event}">
+        <span>
+            이벤트
+        </span>
+        </a>
+    </div>
+</nav>
+<div id="contents" class="box">
+    <div id="subBene" class="subBene box">
+        <div class="title">
+            <span>리뷰 작성</span>
+            <span>즐거운 시간 보내셨나요? 후기를 남겨주세요!</span>
+        </div>
+    </div>
+
+    <div class="subBene box visible">
+        <div class="title">
+            <span>상세보기</span>
+            <span>해당 업체에 대한 상세한 정보 및 예약</span>
+        </div>
+    </div>
+
+    <form id="reviewForm">
+        <input type="hidden" name="reservationIndex" th:value="${reservationIndex}">
+        <input type="hidden" name="campsiteIndex" th:value="${campsite.getIndex()}">
+        <div class="title">
+            <div class="title">
+                <span th:text="${campsite.getName()+' ('+reservation.getSite()+')'}"></span>
+            </div>
+            <div class="backBtn">
+                <span class="backIcon">
+                    <img width="32" height="32" src="https://img.icons8.com/small/32/fafafa/u-turn-to-left.png"
+                         alt="u-turn-to-left"/>
+                </span>
+                <input type="button" value="뒤로가기" onclick="history.back()">
+            </div>
+        </div>
+
+
+        <!--        <img class="img" src="https://img.icons8.com/metro/26/F7DE5A/filled-star.png"/>-->
+
+        <div class="content">
+            <div>
+                <span>
+                    <input class="star" type="radio" id="1-stars" name="rating" value="1" checked/>
+                <label for="1-stars"><img class="img"
+                                          src="https://img.icons8.com/metro/26/F7DE5A/filled-star.png"/></label>
+                <input class="star" type="radio" id="2-stars" name="rating" value="2"/>
+                <label for="2-stars"><img class="img" src="https://img.icons8.com/metro/26/star.png"/></label>
+                <input class="star" type="radio" id="3-stars" name="rating" value="3"/>
+                <label for="3-stars"><img class="img" src="https://img.icons8.com/metro/26/star.png"/></label>
+                <input class="star" type="radio" id="4-stars" name="rating" value="4"/>
+                <label for="4-stars"><img class="img" src="https://img.icons8.com/metro/26/star.png"/></label>
+                <input class="star" type="radio" id="5-stars" name="rating" value="5"/>
+                <label for="5-stars"><img class="img" src="https://img.icons8.com/metro/26/star.png"/></label>
+                </span>
+                <span>
+                    <input class="rating" type="text" name="ratingValue" value="1.0 점"/>
+                </span>
+            </div>
+            <textarea type="text" maxlength="100" name="review" placeholder="리뷰를 작성해주세요! (10자 이상 100이하)">확인중확인중확인중확인중</textarea>
+        </div>
+
+        <div class="file">
+            <label>
+                <input name="someFile" type="file" accept="image/*" multiple onchange="isFileImage(this)">
+                <input type="button" name="file-cancel" value="취소">
+            </label>
+        </div>
+
+        <div class="button">
+            <input type="button" rel="cancel" value="취소" onclick="history.back()">
+            <input type="submit" rel="submit" value="작성하기">
+        </div>
+    </form>
+
+</div>
+<footer id="footer" class="box">
+    <div id="sub_logo" class="">
+        <img th:src="@{/resources/images/로고1_remove.png}" alt="">
+    </div>
+</footer>
+</body>
+</html>

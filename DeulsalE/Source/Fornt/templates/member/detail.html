@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>들살이 - 자세히보기</title>
+    <link rel="shortcut icon" th:href="@{/resources/images/fabicon.png}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/base.css}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/member/format.css}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/member/detail.css}">
+    <script type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=838036477247d7dbd443db2db6075465&libraries=services,clusterer,drawing"></script>
+    <script defer th:src="@{/resources/scripts/member/detail.js}"></script>
+    <script defer th:src="@{/resources/scripts/common.js}"></script>
+</head>
+<body>
+<div id="dialogCover" class=""></div>
+<div id="dialogLayer" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <span class="content fontSmall" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button cancel" type="button" rel="cancel" value="취소">
+        <input class="button confirm" type="submit" rel="confirm" value="확인">
+    </div>
+</div>
+<div id="dialogYesNo" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <span class="content fontSmall" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button confirm" type="submit" rel="confirm" value="예">
+        <input class="button cancel" type="button" rel="cancel" value="아니오">
+    </div>
+</div>
+<input th:if="${session.user != null}" type="hidden" th:value="${session.user['userId']}" class="userId">
+<div id="headLine" class="box">
+    <div id="info_type" class="place">
+        <div>
+            <input class="checked" rel="user" type="button" value="개인">
+            <input rel="entrepreneur" type="button" value="사업자">
+        </div>
+    </div>
+    <div id="info_menu" class="place">
+        <a class="nickname" th:if="${session.user != null}"  th:href="@{/mypage/modify}">
+            <span th:text="${session.user['nickname']}"></span>
+        </a>
+        <span th:if="${session.user != null}">님</span>
+        <a th:if="${session.user == null}" th:href="@{/user/login}">로그인</a>
+        <a th:if="${session.user != null}" class="logout" href="#">로그아웃</a>
+        <a th:if="${session.user == null}" th:href="@{/user/register}">회원가입</a>
+        <a th:if="${session.user != null}" th:href="@{/mypage/modify}">마이페이지</a>
+        <a th:href="@{/help/faq}">고객센터</a>
+    </div>
+</div>
+<div id="block" class="box">
+    <div class="logo" th:if="${session.user == null}">
+        <a th:href="@{/}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+    </div>
+    <div class="logo" th:if="${session.user != null}">
+        <a th:if="${session.user.getAuthority() != 2}" th:href="@{/}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+        <a th:if="${session.user.getAuthority() == 2}" th:href="@{/entrepreneur}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+    </div>
+    <div id="search">
+        <label>
+            <div>
+                <img width="24" height="24" src="https://img.icons8.com/material-outlined/24/228B22/search--v1.png"
+                     alt="search--v1"/>
+            </div>
+            <input id="searchContent" type="text" placeholder="검색">
+        </label>
+    </div>
+    <div id="marge">
+
+    </div>
+</div>
+<nav id="nav" class="box user">
+    <div class="user">
+        <a th:href="@{/member/recommendation}">
+        <span>
+            추천
+        </span>
+        </a>
+        <a th:href="@{/member/campsite?code=1}">
+        <span>
+            일반야영장
+        </span>
+        </a>
+        <a th:href="@{/member/campsite?code=2}">
+        <span>
+            자동차야영장
+        </span>
+        </a>
+        <a th:href="@{/member/campsite?code=3}">
+        <span>
+            카라반
+        </span>
+        </a>
+        <a th:href="@{/member/campsite?code=4}">
+        <span>
+            글램핑
+        </span>
+        </a>
+    </div>
+    <div class="entrepreneur">
+        <a th:href="@{/entrepreneur/registration}">
+        <span>
+            사업장등록
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/profile}">
+        <span>
+            사업장프로필
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/reservation}">
+        <span>
+            예약서비스
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/event}">
+        <span>
+            이벤트
+        </span>
+        </a>
+    </div>
+</nav>
+<div id="contents" class="box">
+    <div class="subBene box visible">
+        <div class="title">
+            <span>상세보기</span>
+            <span>해당 업체에 대한 상세한 정보 및 예약</span>
+        </div>
+    </div>
+    <div th:if="${campsite != null}" id="campsiteDetail" class="content">
+        <div class="contentTop">
+            <div class="img">
+                <div class="imgChecked">
+                    <img th:if="${campsiteImages.length ==0}" class="img"
+                         src="/resources/images/member/noImage.jpg"
+                         alt="등록된 사진이 없습니다">
+                    <img th:if="${campsiteImages.length !=0}" class="img" th:src="@{/member/image/campsite(index=${campsiteImages[0].getIndex()})}">
+                </div>
+                <div th:if="${campsiteImages.length != 0}" class="imgList">
+                    <div class="backBtn btn disabled">❮</div>
+                    <div class="slide">
+                        <div class="images">
+                            <img th:each="index : ${campsiteImages}" th:src="@{/member/image/campsite(index=${index.getIndex()})}">
+                        </div>
+                    </div>
+                    <div class="nextBtn btn">❯</div>
+                </div>
+            </div>
+            <div>
+                <label>
+                    <input class="campsiteIndex" readonly type="hidden" th:value="${campsite.getIndex()}">
+                    <input readonly type="text" th:value="${campsite.getName()}">
+                    <input readonly type="text" th:value="${campsite.getNumberAd()}">
+                    <input readonly type="text" class="campsiteCat">
+                    <input readonly type="hidden" class="generalCnt" th:value="${campsite.getGeneralCnt()}">
+                    <input readonly type="hidden" class="autoCnt" th:value="${campsite.getAutoCnt()}">
+                    <input readonly type="hidden" class="caravanCnt" th:value="${campsite.getCaravanCnt()}">
+                    <input readonly type="hidden" class="glampingCnt" th:value="${campsite.getGlampingCnt()}">
+                </label>
+                <div class="icon">
+                    <label>
+                        <img class="img" src="https://img.icons8.com/small/32/F7DE5A/filled-star.png"/>
+                        <input type="text" th:value="${campsite.getStar()}" readonly>
+                    </label>
+                    <label>
+                        <img class="img" src="https://img.icons8.com/small/32/000000/comments.png"/>
+                        <input type="text" th:value="${campsite.getReviewCnt()}" readonly>
+                    </label>
+                    <img class="bookmark unBook" th:if="${session.user != null && campsiteIsBook.get(campsite.getIndex()) > 0}" src="https://img.icons8.com/small/32/28CB5B/filled-bookmark-ribbon.png" alt="즐겨찾기" onerror="this.src='https://img.icons8.com/small/32/000000/bookmark-ribbon.png'">
+                    <img class="bookmark book" th:if="${session.user == null || campsiteIsBook.get(campsite.getIndex()) == 0}" src="https://img.icons8.com/small/32/000000/bookmark-ribbon.png" alt="즐겨찾기" onerror="this.src='https://img.icons8.com/small/32/000000/bookmark-ribbon.png'">
+                    </a>
+                </div>
+
+
+                <div class="contact">
+                    <label class="characteristics" th:if="${campsite.getCharacteristics() !=null}">
+                        <span>시설 특징</span>
+                        <textarea id="characteristics" class="textarea" readonly type="text" th:text="${campsite.getCharacteristics()}"></textarea>
+                    </label>
+                    <label class="contact">
+                        <img src="https://img.icons8.com/small/32/000000/phone.png" alt="phone"/>
+                        <input readonly type="text" th:if="${campsite.getContact().length() != 0}" th:value="${campsite.getContact()}">
+                        <input readonly type="text" th:if="${campsite.getContact().length() == 0}" value="정보없음">
+                    </label>
+                    <a th:if="${campsite.getUrl() != null && !campsite.getUrl().contains('없음')}" th:href="${campsite.getUrl()}" class="url" th:title="${campsite.getUrl()}"><img src="https://img.icons8.com/small/32/000000/home-page.png" alt="home-page"/><input readonly type="text" th:value="${campsite.getUrl()}">
+                    </a>
+                    <span th:if="${campsite.getUrl() == null || campsite.getUrl().contains('없음')}" class="url"><img src="https://img.icons8.com/small/32/000000/home-page.png" alt="home-page"/><input readonly type="text" value="정보없음">
+                    </span>
+                </div>
+                <a th:href="@{'./reservation' (index = ${campsite.getIndex()})}" th:if="${campsite.isReservation() == true}" class="reservationBtn">
+                    <div>예약하기</div>
+                </a>
+                <a th:if="${campsite.isReservation() == false}" class="reservationBtn disabled">
+                    <div>예약하기</div>
+                </a>
+            </div>
+        </div>
+
+
+        <div class="tabMenu out">
+            <div class="banner">
+                <input type="radio" id="tab1" name="tap" checked><label for="tab1">객실안내</label>
+                <input type="radio" id="tab2" name="tap"><label for="tab2">숙소정보</label>
+<!--                <input type="button" id="tab3" name="tap" th:onclick="|location.href='@{review(campsiteIndex=${campsite.getIndex()})}'|"><label for="tab3">리뷰</label>-->
+            </div>
+            <div class="content">
+                <div class="tabContent1">
+                    <div class="tabCon">
+                        <div id="price" th:if="${campsite.getCostList() != null}">
+                            <input readonly type="hidden" th:value="${campsite.getCostList()}">
+                            <div class="banner">요금안내<span>(요금은 최소인원 기준입니다.)</span></div>
+                            <div class="priceTable">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th>객실</th>
+                                        <th>요금</th>
+                                        <th>인원</th>
+                                        <th>추가비용(1인)</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="costList">
+<!--                                    <tr>-->
+<!--                                        <td>A 글램핑장</td>-->
+<!--                                        <td>150,000</td>-->
+<!--                                    </tr>-->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div th:if="${additionalFacility.isTrailsIn() == true  ||
+                        additionalFacility.isMarket() == true ||
+                        additionalFacility.isFirewood() == true ||
+                        additionalFacility.isWifi() == true ||
+                        additionalFacility.isBoil() == true ||
+                        additionalFacility.isElt() == true ||
+                        additionalFacility.getExtinguish() != 0 ||
+                        additionalFacility.getSink() != 0 ||
+                        additionalFacility.getBath() != 0 ||
+                        additionalFacility.getToilet() != 0}" id="amenity">
+                            <div class="banner">부대시설</div>
+                            <ul>
+                                <li th:if="${additionalFacility.isElt() == true}" class="amen01">전기</li>
+                                <li th:if="${additionalFacility.isBoil() == true}" class="amen02">온수</li>
+                                <li th:if="${additionalFacility.isWifi() == true}" class="amen03">무선인터넷</li>
+                                <li th:if="${additionalFacility.isFirewood() == true}" class="amen04">장작판매</li>
+                                <li th:if="${additionalFacility.isTrailsIn() == true}" class="amen05">산책로</li>
+                                <li th:if="${additionalFacility.isMarket() == true}" class="amen06">마트</li>
+                                <li th:if="${additionalFacility.getToilet() > 0}" class="amen07">화장실(<input readonly class="quantity" type="text" th:value="${additionalFacility.getToilet()}">)</li>
+                                <li th:if="${additionalFacility.getBath() > 0}" class="amen08">샤워실(<input readonly class="quantity" type="text" th:value="${additionalFacility.getBath()}">)</li>
+                                <li th:if="${additionalFacility.getSink() > 0}" class="amen09">싱크대(<input readonly class="quantity" type="text" th:value="${additionalFacility.getSink()}">)</li>
+                                <li th:if="${additionalFacility.getExtinguish() > 0}" class="amen10">소화기(<input readonly class="quantity" type="text" th:value="${additionalFacility.getExtinguish()}">)</li>
+                            </ul>
+                        </div>
+                        <div th:if="${peripheralFacility.isAmuseKid() == true  ||
+                        peripheralFacility.isExCountry() == true ||
+                        peripheralFacility.isExTeen() == true ||
+                        peripheralFacility.isPoll() == true ||
+                        peripheralFacility.isRiver() == true ||
+                        peripheralFacility.isValley() == true ||
+                        peripheralFacility.isLeisure() == true ||
+                        peripheralFacility.isSeaBath() == true ||
+                        peripheralFacility.isTrailsOut() == true ||
+                        peripheralFacility.isExCountry() == true}" id="nearbyFacility">
+                            <div class="banner">주변시설</div>
+                            <ul>
+                                <li th:if="${peripheralFacility.isFishing() == true}" class="near01">낚시</li>
+                                <li th:if="${peripheralFacility.isTrailsOut() == true}" class="near02">산책로</li>
+                                <li th:if="${peripheralFacility.isSeaBath() == true}" class="near03">해수욕</li>
+                                <li th:if="${peripheralFacility.isLeisure() == true}" class="near04">수상레저</li>
+                                <li th:if="${peripheralFacility.isValley() == true}" class="near05">계곡</li>
+                                <li th:if="${peripheralFacility.isRiver() == true}" class="near06">강</li>
+                                <li th:if="${peripheralFacility.isPoll() == true}" class="near07">수영장</li>
+                                <li th:if="${peripheralFacility.isExTeen() == true}" class="near08">청소년체험시설</li>
+                                <li th:if="${peripheralFacility.isExCountry() == true}" class="near09">농어촌체험시설</li>
+                                <li th:if="${peripheralFacility.isAmuseKid() == true}" class="near10">어린이놀이시설</li>
+                            </ul>
+                        </div>
+                        <div th:if="${campsite.getGlampingCnt() > 0}" id="glampingFacility">
+                            <div class="banner">글램핑시설</div>
+                            <ul>
+                                <li th:if="${grampingFacility.isBed() == true}" class="gramping01">침대</li>
+                                <li th:if="${grampingFacility.isTelevision() == true}" class="gramping02">TV</li>
+                                <li th:if="${grampingFacility.isRefrigerator() == true}" class="gramping03">냉장고</li>
+                                <li th:if="${grampingFacility.isInternet() == true}" class="gramping04">유무선인터넷</li>
+                                <li th:if="${grampingFacility.isGrampingToilet() == true}" class="gramping05">화장실</li>
+                                <li th:if="${grampingFacility.isAirConditioner() == true}" class="gramping06">에어컨</li>
+                                <li th:if="${grampingFacility.isHeater() == true}" class="gramping07">난방도구</li>
+                                <li th:if="${grampingFacility.isUtensil() == true}" class="gramping08">취사도구</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="tabContent2">
+                    <div class="tabCon">
+                        <div class="description" th:if="${campsite.getIntroduction() != '알수없음'}">
+                            <div class="banner">상세 소개</div>
+                            <div class="content">
+                                <label>
+                                    <textarea readonly class="textarea" th:text="${campsite.getIntroduction()}"></textarea>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="operate">
+                            <div class="banner">운영 정보</div>
+                            <ul>
+                                <li>
+                                    - 평일 운영 : <label><input readonly th:if="${campsite.isWeekday() == false}" value="미운영"><input readonly th:if="${campsite.isWeekday() == true}" value="운영"></label>
+                                </li>
+                                <li>
+                                    - 주말 운영 : <label><input readonly th:if="${campsite.isWeekend() == false}" value="미운영"><input readonly th:if="${campsite.isWeekend() == true}" value="운영"></label>
+                                </li>
+                                <li>
+                                    <input readonly type="hidden" class="isSpring" th:value="${campsite.isSpring()}">
+                                    <input readonly type="hidden" class="isSummer" th:value="${campsite.isSummer()}">
+                                    <input readonly type="hidden" class="isFall" th:value="${campsite.isFall()}">
+                                    <input readonly type="hidden" class="isWinter" th:value="${campsite.isWinter()}">
+                                    - 계절 운영 : <label><input readonly class="season"></label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mapContainer">
+                            <div class="banner">숙소 위치</div>
+                            <div id="map" class="map">
+                                <input readonly type="hidden" class="lat" th:value="${campsite.getLatitude()}">
+                                <input readonly type="hidden" class="lng" th:value="${campsite.getLongitude()}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${campsite == null}" class="empty">
+        <div class="icon">
+            <img src="https://img.icons8.com/small/96/28CB5B/error.png">
+        </div>
+        <div class="text">찾으시려는 웹페이지가 존재하지 않는 페이지입니다.</div>
+        <div class="btn">
+            <div class="backBtn">이전 페이지</div>
+            <div class="homeBtn">홈 페이지</div>
+        </div>
+    </div>
+</div>
+<footer id="footer" class="box">
+    <div id="sub_logo" class="">
+        <img th:src="@{/resources/images/로고1_remove.png}" alt="">
+    </div>
+</footer>
+</body>
+</html>

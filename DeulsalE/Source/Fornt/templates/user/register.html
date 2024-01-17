@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Register</title>
+    <link rel="shortcut icon" th:href="@{/resources/images/fabicon.png}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/user/register.css}">
+    <script defer th:src="@{/resources/scripts/user/register.js}"></script>
+
+</head>
+<body>
+<form id="registerForm">
+    <header class="header">
+        <div class="headerLogo">
+            <a th:href="@{/}" class="logo">
+                <img th:src="@{/resources/images/user/textLogo02.png}" alt="">
+            </a>
+        </div>
+    </header>
+    <section class="section step-1 visible">
+        <div class="title-container">
+            <h2 class="title">회원가입</h2>
+        </div>
+        <div class="content-container">
+            <div class="allAgreeBtn">
+                <label class="label agreeLabel">
+                    <input class="check" type="checkbox">
+                    <img th:src="@{/resources/images/user/check.png}" class="noneBtn" alt="">
+                    <img th:src="@{/resources/images/user/check-agree2.png}" class="agreeBtn" alt="">
+                    <span> 전체 동의하기 </span>
+                </label>
+            </div>
+            <label class="label agreeLabel">
+                <input class="check" name="agreeServiceTerm" type="checkbox">
+                <img th:src="@{/resources/images/user/check.png}" class="noneBtn" alt="">
+                <img th:src="@{/resources/images/user/check-agree2.png}" class="agreeBtn" alt="">
+                <span> [필수] 서비스 이용 약관 </span>
+            </label>
+            <textarea readonly class="term_box">
+1. 서비스 이용약관의 목적 및 범위
+
+이용약관은 당사와 회원 간의 서비스 이용과 관련하여 규정하는 내용을 의미합니다. 회원은 본 약관에 동의함으로써 서비스를 이용할 수 있습니다.
+
+2. 회원 가입 및 정보 제공
+
+회원 가입 시 제공하는 정보는 정확하고 최신의 정보를 제공해야 합니다. 정보가 변경된 경우에는 즉시 수정하여야 합니다.
+
+3. 개인정보 수집 및 이용
+
+회원 정보는 개인정보 보호 정책에 따라 수집 및 이용됩니다. 자세한 내용은 개인정보 보호 정책을 참고해주세요.
+
+4. 서비스 이용에 관한 사항
+
+서비스 이용 시 관련 법령과 약관을 준수해야 하며, 타인의 권리를 침해하지 않도록 해야 합니다. 또한, 서비스 이용 중에 발생하는 모든 활동과 책임은 회원 본인에게 있습니다.
+
+5. 서비스 제공의 중지 및 변경
+
+서비스 제공은 기술적, 운영적 사유로 인해 변경되거나 중지될 수 있습니다. 이 경우 회원에게 사전 통지할 수 있습니다.
+
+6. 이용약관의 변경
+
+이용약관은 회사의 정책 변경, 법령의 제·개정 등에 따라 변경될 수 있으며, 변경된 약관은 회원에게 통지 후 적용됩니다.
+
+위 내용을 모두 읽고 이해했으며, 서비스 이용약관에 동의합니다."
+            </textarea>
+            <label class="label agreeLabel">
+                <input class="check" name="agreePrivacyTerm" type="checkbox">
+                <img th:src="@{/resources/images/user/check.png}" class="noneBtn" alt="">
+                <img th:src="@{/resources/images/user/check-agree2.png}" class="agreeBtn" alt="">
+                <span> [필수] 개인정보 처리방침 </span>
+            </label>
+            <textarea readonly class="term_box">
+1. 수집하는 개인정보의 종류와 목적
+
+• 수집하는 개인정보의 종류 (예: 이름, 연락처, 이메일 주소, 생년월일 등)
+• 개인정보의 수집 목적 (예: 서비스 제공, 회원 가입 및 관리, 마케팅 등)
+
+2. 개인정보의 수집 방법
+
+• 직접 수집 (회원 가입 시 입력)
+• 간접 수집 (쿠키, 로그 파일 등을 통한 자동 수집)
+
+3. 개인정보의 보유 및 이용 기간
+
+• 개인정보의 보유 기간 (수집한 개인정보를 보관하는 기간)
+• 개인정보의 이용 기간 (개인정보를 수집한 목적을 달성한 후에도 보관/이용하는 경우)
+
+4. 개인정보의 제3자 제공
+
+• 개인정보를 제공받는 자 (외부 파트너, 협력 업체 등)
+• 개인정보 제공의 목적 (서비스 제공, 마케팅, 통계 등)
+
+5. 개인정보의 취급 위탁
+
+• 개인정보를 외부 업체에 위탁하여 처리하는 경우 그 내용과 조치 사항
+
+6. 개인정보의 파기
+
+• 개인정보 파기 기한과 방법 (예: 매월 1일 정기적 파기, 분쇄 등)
+
+7. 이용자의 권리와 행사 방법
+
+• 개인정보 열람, 수정, 삭제 요청 방법과 절차
+• 개인정보 수집 동의 철회 방법과 절차
+
+8. 개인정보 보호 대책
+
+• 개인정보 보호를 위한 기술적, 물리적, 관리적 대책
+
+9. 개인정보 처리방침의 변경
+
+• 개인정보 처리방침이 변경되는 경우 회원에게 사전 통지하는 방법과 절차
+
+10. 개인정보 보호책임자의 연락처
+
+• 개인정보 처리와 관련하여 문의할 수 있는 연락처
+            </textarea>
+            <label class="label agreeLabel">
+                <input class="check" type="checkbox">
+                <img th:src="@{/resources/images/user/check.png}" class="noneBtn" alt="">
+                <img th:src="@{/resources/images/user/check-agree2.png}" class="agreeBtn" alt="">
+                <span> [선택] 이벤트・혜택 정보 수신 </span>
+            </label>
+            <textarea readonly class="term_box">
+이벤트 및 혜택 정보 수신 동의
+
+• 이벤트, 할인 혜택, 새로운 상품 소식 등의 정보를 이메일, SMS, 푸시 알림 등의 방법으로 수신하는 데 동의합니다.
+이와 같이 사용자로부터 이벤트 및 혜택 정보를 수신하는 동의를 받으면, 회원들에게 다양한 이벤트와 혜택을 안내하고 제공할 수 있습니다. 이를 통해 사용자들은 더 많은 혜택을 누리고, 서비스 제공자는 회원들과의 소통과 이용자 만족도를 높일 수 있습니다.
+
+• 개인정보 처리방침에서는 이벤트 및 혜택 정보 수신에 대한 동의 내용과 수신 거부 방법, 수신 주기 등을 명확하게 안내하여 사용자들이 동의 여부를 쉽게 결정하고, 언제든지 동의를 철회할 수 있는 권리를 보장해야 합니다. 또한, 이벤트 및 혜택 정보 수신 동의를 받을 때 개인정보를 안전하게 보호하고, 불필요한 정보를 수집하지 않도록 주의해야 합니다.
+
+• 우리는 사용자들의 개인정보를 중요하게 다루며, 이벤트 및 혜택 정보 수신 동의를 통해 수집한 개인정보는 절대적으로 안전하게 보호됩니다. 우리의 개인정보 처리방침을 통해 사용자들에게 개인정보의 수집 목적, 이용 방법, 보관 기간 등을 상세히 안내하고 있으며, 언제든지 개인정보 처리에 대한 문의 또는 동의 철회를 할 수 있는 방법을 제공합니다.
+
+• 이벤트 및 혜택 정보 수신에 동의하시면, 더욱 다양하고 특별한 혜택을 누리실 수 있으며, 서비스 이용에 더 많은 재미와 편의를 느끼실 수 있습니다. 그러나 이벤트 및 혜택 정보 수신에 동의하지 않으셔도, 우리의 서비스를 계속해서 이용하실 수 있습니다. 사용자의 개인정보 보호와 선택권을 존중하는 것이 우리의 가장 중요한 가치 중 하나입니다.
+            </textarea>
+        </div>
+        <div class="warning-container">
+            <span class="term-warning warning" rel="termWarning"></span>
+        </div>
+        <div class="button-container">
+            <input class="register-button" type="submit" value="다음">
+        </div>
+    </section >
+    <section class="section step-2">
+        <div class="title-container">
+            <h2 class="title">회원가입</h2>
+        </div>
+        <div class="content-container">
+            <div class="radioSelect div">
+                <label class="label">
+                    <input checked name="authority" value="1" type="radio">
+                    <span>개인</span>
+                </label>
+                <label class="label">
+                    <input name="authority" value="2" type="radio">
+                    <span>사업자</span>
+                </label>
+            </div>
+            <div class="userDiv div">
+                <label class="label">
+                    <img th:src="@{/resources/images/user/login.png}" alt="">
+                    <input class="_object-input" minlength="4" maxlength="16" placeholder="아이디(4자 이상 16자 이하 영문, 숫자만 가능)" name="userId" type="text">
+                    <input class="_object-button" name="idCheck" type="button" value="중복확인">
+                </label>
+                <div class="warning-container">
+                    <span class="warning id" rel="idWarning"></span>
+                </div>
+                <label class="label">
+                    <img th:src="@{/resources/images/user/password.png}" alt="">
+                    <input class="_object-input" minlength="8" maxlength="50" name="password" placeholder="비밀번호 (8자 이상 50자 이하)" type="password">
+                </label>
+                <label class="label center">
+                    <img th:src="@{/resources/images/user/password.png}" alt="">
+                    <input class="_object-input" minlength="8" maxlength="50" name="passwordCheck" placeholder="비밀번호 확인" type="password">
+                </label>
+                <div class="warning-container">
+                    <span class="warning password" rel="passwordWarning"></span>
+                </div>
+                <label class="label">
+                    <img th:src="@{/resources/images/user/mail.png}" alt="">
+                    <input class="_object-input" maxlength="50" name="email" placeholder="계정 복구용 이메일" type="email">
+                </label>
+                <div class="warning-container">
+                    <span class="warning email" rel="emailWarning"></span>
+                </div>
+            </div>
+            <div class="infoDiv div">
+                <label class="label">
+                    <img th:src="@{/resources/images/user/login.png}" alt="">
+                    <input class="_object-input" maxlength="50" name="name" placeholder="이름" type="text">
+                </label>
+                <div class="warning-container">
+                    <span class="warning name" rel="nameWarning"></span>
+                </div>
+                <label class="label center">
+                    <img th:src="@{/resources/images/user/login.png}" alt="">
+                    <input class="_object-input" maxlength="10" name="nickname" placeholder="별명" type="text">
+                    <input class="_object-button" name="nicknameCheck" type="button" value="중복확인">
+                </label>
+                <div class="warning-container">
+                    <span class="warning nickname" rel="nicknameWarning"></span>
+                </div>
+                <label class="label">
+                    <img th:src="@{/resources/images/user/birth.png}" alt="">
+                    <input class="_object-input" maxlength="8" name="birth" placeholder="생년월일 8자리" type="date">
+                </label>
+                <div class="warning-container">
+                    <span class="warning birth" rel="birthWarning"></span>
+                </div>
+            </div>
+            <div class="contactDiv div">
+                <label class="label telecom-label">
+                    <img th:src="@{/resources/images/user/radio.png}" alt="">
+                    <select class="telecom-menu">
+                        <option disabled hidden selected value="">통신사 선택</option>
+                        <option value="">KT</option>
+                        <option value="">SKT</option>
+                        <option value="">LG U+</option>
+                    </select>
+                </label>
+                <label class="label center">
+                    <img th:src="@{/resources/images/user/phone.png}" alt="">
+                    <input class="_object-input" maxlength="12" name="contact" placeholder="연락처 ('-' 없이 입력)" type="text">
+                    <input class="_object-button" name="contactSend" type="button" value="인증번호 전송">
+                </label>
+                <label class="label">
+                    <img th:src="@{/resources/images/user/approval.png}" alt="">
+                    <input disabled class="_object-input" maxlength="6" name="contactCode" placeholder="인증번호" type="text">
+                    <input disabled class="_object-button" name="contactVerify" type="button" value="인증번호 확인">
+                </label>
+                <input hidden name="contactSalt" type="hidden">
+                <div class="warning-container">
+                    <span class="warning contact" rel="contactWarning"></span>
+                </div>
+            </div>
+        </div>
+        <div class="button-container">
+            <input class="_object-button" name="cancel" type="button" value="뒤로가기">
+            <input id="nextButton" class="_object-button register-button" type="submit" value="다음">
+        </div>
+    </section>
+    <section class="section step-3">
+        <div class="title-container">
+            <h2 class="title">회원가입</h2>
+        </div>
+        <div class="content-container">
+            <img th:src="@{/resources/images/user/imageLogo01.png}" alt="">
+            <h1 class="welcome">
+                <span class="logo">Deulsal-E</span> 회원가입이 완료되었습니다.
+            </h1>
+        </div>
+        <div class="button-container">
+            <a th:href="@{/}">
+                <span class="register-button">홈으로</span>
+            </a>
+        </div>
+    </section>
+</form>
+</body>
+</html>
+

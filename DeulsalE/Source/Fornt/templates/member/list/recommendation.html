@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>들살이 - 추천결과</title>
+    <link rel="shortcut icon" th:href="@{/resources/images/fabicon.png}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/base.css}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/member/format.css}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/member/campsite.css}">
+<!--    <script defer th:src="@{/resources/scripts/member/campsite.js}"></script>-->
+    <script defer th:src="@{/resources/scripts/common.js}"></script>
+</head>
+<body>
+<div id="dialogCover" class=""></div>
+<div id="dialogLayer" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <span class="content fontSmall" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button cancel" type="button" rel="cancel" value="취소">
+        <input class="button confirm" type="submit" rel="confirm" value="확인">
+    </div>
+</div>
+<div id="dialogYesNo" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <span class="content fontSmall" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button confirm" type="submit" rel="confirm" value="예">
+        <input class="button cancel" type="button" rel="cancel" value="아니오">
+    </div>
+</div>
+<input th:if="${session.user != null}" type="hidden" th:value="${session.user['userId']}" class="userId">
+<div id="headLine" class="box">
+    <div id="info_type" class="place">
+        <div>
+            <input class="checked" rel="user" type="button" value="개인">
+            <input rel="entrepreneur" type="button" value="사업자">
+        </div>
+    </div>
+    <div id="info_menu" class="place">
+        <a class="nickname" th:if="${session.user != null}" th:href="@{/mypage/modify}">
+            <span th:text="${session.user['nickname']}"></span>
+        </a>
+        <span th:if="${session.user != null}">님</span>
+        <a th:if="${session.user == null}" th:href="@{/user/login}">로그인</a>
+        <a th:if="${session.user != null}" class="logout" href="#">로그아웃</a>
+        <a th:if="${session.user == null}" th:href="@{/user/register}">회원가입</a>
+        <a th:if="${session.user != null}" th:href="@{/mypage/modify}">마이페이지</a>
+        <a th:href="@{/help/faq}">고객센터</a>
+    </div>
+</div>
+<div id="block" class="box">
+    <div class="logo" th:if="${session.user == null}">
+        <a th:href="@{/}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+    </div>
+    <div class="logo" th:if="${session.user != null}">
+        <a th:if="${session.user.getAuthority() != 2}" th:href="@{/}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+        <a th:if="${session.user.getAuthority() == 2}" th:href="@{/entrepreneur}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+    </div>
+    <div id="search">
+        <label>
+            <div>
+                <img width="24" height="24" src="https://img.icons8.com/material-outlined/24/228B22/search--v1.png"
+                     alt="search--v1"/>
+            </div>
+            <input id="searchContent" type="text" placeholder="검색">
+        </label>
+    </div>
+    <div id="marge">
+
+    </div>
+</div>
+<nav id="nav" class="box user">
+    <div class="user">
+        <a th:href="@{/member/recommendation}">
+        <span>
+            추천
+        </span>
+        </a>
+        <a th:href="@{/member/campsite?code=1}">
+        <span>
+            일반야영장
+        </span>
+        </a>
+        <a th:href="@{/member/campsite?code=2}">
+        <span>
+            자동차야영장
+        </span>
+        </a>
+        <a th:href="@{/member/campsite?code=3}">
+        <span>
+            카라반
+        </span>
+        </a>
+        <a th:href="@{/member/campsite?code=4}">
+        <span>
+            글램핑
+        </span>
+        </a>
+    </div>
+    <div class="entrepreneur">
+        <a th:href="@{/entrepreneur/registration}">
+        <span>
+            사업장등록
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/profile}">
+        <span>
+            사업장프로필
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/reservation}">
+        <span>
+            예약서비스
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/event}">
+        <span>
+            이벤트
+        </span>
+        </a>
+    </div>
+</nav>
+
+<!--<div id="recommendBtn">-->
+<!--    <div class="recommend_btn">-->
+<!--        <span>나만의 캠핑장 추천받기!</span>-->
+<!--    </div>-->
+<!--</div>-->
+<div id="contents" class="box">
+    <div class="subBene box">
+        <div class="title">
+            <span>추천</span>
+            <span>설문을 통해 회원님에게 맞는 야영장 추천</span>
+        </div>
+    </div>
+    <div class="content">
+        <div class="cntSort">
+            <div class="campsitesCnt">
+                <input readonly type="text" th:if="${pageModel.totalCount !=0}"
+                       th:value="총+' '+${pageModel.totalCount}+건">
+            </div>
+
+            <!-- 서브 버튼(정렬) -->
+            <div id="sort">
+                <input type="radio" id="default" name="sort" th:checked="${sort==1}"><label for="default"><a
+                    th:href="@{/member/recommendation/list(areaName=${areaName},space=${survey.getSpace()},kid=${survey.getKid()},isDog=${survey.getIsDog()},type=${survey.getType()},leisure=${survey.getLeisure()},fireStand=${survey.getFireStand()},mart=${survey.getMart()},sort=${1})}">기본순</a></label>
+                <input type="radio" id="review" name="sort" th:checked="${sort==2}"><label for="review"><a
+                    th:href="@{/member/recommendation/list(areaName=${areaName},space=${survey.getSpace()},kid=${survey.getKid()},isDog=${survey.getIsDog()},type=${survey.getType()},leisure=${survey.getLeisure()},fireStand=${survey.getFireStand()},mart=${survey.getMart()},sort=${2})}">리뷰순</a></label>
+                <input type="radio" id="star" name="sort" th:checked="${sort==3}"><label for="star"><a
+                    th:href="@{/member/recommendation/list(areaName=${areaName},space=${survey.getSpace()},kid=${survey.getKid()},isDog=${survey.getIsDog()},type=${survey.getType()},leisure=${survey.getLeisure()},fireStand=${survey.getFireStand()},mart=${survey.getMart()},sort=${3})}">평점순</a></label>
+                <input type="radio" id="bookmark" name="sort" th:checked="${sort==4}"><label for="bookmark"><a
+                    th:href="@{/member/recommendation/list(areaName=${areaName},space=${survey.getSpace()},kid=${survey.getKid()},isDog=${survey.getIsDog()},type=${survey.getType()},leisure=${survey.getLeisure()},fireStand=${survey.getFireStand()},mart=${survey.getMart()},sort=${4})}">즐겨찾기순</a></label>
+            </div>
+
+        </div>
+
+
+        <div th:if="${pageModel.totalCount !=0}" id="campsites">
+            <input class="campsitesCnt" readonly type="hidden" th:value="${campsites.length}">
+            <div th:each="campsite : ${campsites}" class="campsite"
+                 th:onclick="|location.href='@{/member/detail(index=${campsite.getIndex()})}'|">
+                <div class="containerImg">
+                    <a class="campsiteImg" th:href="@{/member/detail(index=${campsite.getIndex()})}">
+                        <img class="img" th:src="@{/member/image/campsiteMain(campsiteIndex=${campsite.getIndex()})}"
+                             onerror="this.src='/resources/images/member/noImage.jpg'; this.classList.add('not_found')">
+                    </a>
+                </div>
+
+                <div class="contentIcon">
+                    <label class="icon">
+                        <img class="img" src="https://img.icons8.com/small/32/F7DE5A/filled-star.png"/><input type="text"
+                                                                                                              th:value="${campsite.getStar()}"
+                                                                                                              name="rating"
+                                                                                                              readonly>
+                    </label>
+                    <label class="icon">
+                        <img class="img" src="https://img.icons8.com/small/32/000000/comments.png"/><input type="text"
+                                                                                                           th:value="${campsite.getReviewCnt()}"
+                                                                                                           name="reviewCnt"
+                                                                                                           readonly>
+                    </label>
+
+                    <div class="campsiteBookmark">
+                        <img class="bookmark unBook"
+                             th:if="${session.user != null && campsiteIsBook.get(campsite.getIndex()) > 0}"
+                             src="https://img.icons8.com/small/32/28CB5B/filled-bookmark-ribbon.png" alt="즐겨찾기"
+                             onerror="this.src='https://img.icons8.com/small/32/000000/bookmark-ribbon.png'">
+                        <img class="bookmark book"
+                             th:if="${session.user == null || campsiteIsBook.get(campsite.getIndex()) == 0}"
+                             src="https://img.icons8.com/small/32/28CB5B/bookmark-ribbon.png" alt="즐겨찾기"
+                             onerror="this.src='https://img.icons8.com/small/32/000000/bookmark-ribbon.png'">
+                        <input class="campsiteIndex" type="hidden" th:value="${campsite.getIndex()}" name="index"
+                               readonly>
+                    </div>
+
+                </div>
+
+                <div class="content">
+                    <div class="contentData">
+                        <label class="data">
+                            <input type="text" th:value="${campsite.getName()}" name="name" readonly>
+                            <input type="text" th:value="${campsiteCat.get(campsite.getIndex())}" name="category"
+                                   readonly>
+                            <input type="text" th:value="${campsite.getNumberAd()}" name="address" readonly>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="empty" th:if="${pageModel.totalCount ==0}">
+            <div class="icon">
+                <img width="100" height="100" src="https://img.icons8.com/ios/100/42AB42/error--v1.png" alt="error--v1"/>
+            </div>
+            <div class="text">설문에 해당되는 야영장이 존재하지 않습니다.</div>
+        </div>
+
+        <div id="pageContainer">
+            <ul class="pageContainer">
+                <li class="page" th:if="${pageModel.requestPage>1}">
+                    <a class="link"
+                       th:href="@{/member/recommendation/list(areaName=${areaName},space=${survey.getSpace()},kid=${survey.getKid()},isDog=${survey.getIsDog()},type=${survey.getType()},leisure=${survey.getLeisure()},fireStand=${survey.getFireStand()},mart=${survey.getMart()},sort=${sort},page=${pageModel.requestPage})}">
+                        <img width="32" height="32" src="https://img.icons8.com/small/32/double-left.png"
+                             alt="double-left"/>
+                    </a>
+                </li>
+
+                <li class="page"
+                    th:if="${pageModel.requestPage>10}">
+                    <a class="link"
+                       th:href="@{/member/recommendation/list(areaName=${areaName},space=${survey.getSpace()},kid=${survey.getKid()},isDog=${survey.getIsDog()},type=${survey.getType()},leisure=${survey.getLeisure()},fireStand=${survey.getFireStand()},mart=${survey.getMart()},sort=${sort},page=${pageModel.displayStartPage}-10)}">
+                        <img width="32" height="32" src="https://img.icons8.com/small/32/back.png" alt="back"/>
+                    </a>
+                </li>
+                <li class="page"
+                    th:if="${pageModel.requestPage>1}">
+                    <a class="link"
+                       th:href="@{/member/recommendation/list(areaName=${areaName},space=${survey.getSpace()},kid=${survey.getKid()},isDog=${survey.getIsDog()},type=${survey.getType()},leisure=${survey.getLeisure()},fireStand=${survey.getFireStand()},mart=${survey.getMart()},sort=${sort},page=${pageModel.requestPage}-1)}">이전</a>
+                </li>
+
+
+                <li class="page"
+                    th:each="page : ${#numbers.sequence(pageModel.displayStartPage, pageModel.displayEndPage)}">
+                    <a class="link" th:classappend="${pageModel.requestPage == page} ? 'selected' : ''"
+                       th:href="@{/member/recommendation/list(areaName=${areaName},space=${survey.getSpace()},kid=${survey.getKid()},isDog=${survey.getIsDog()},type=${survey.getType()},leisure=${survey.getLeisure()},fireStand=${survey.getFireStand()},mart=${survey.getMart()},sort=${sort},page=${page})}"
+                       th:text="${page}"></a>
+                </li>
+
+
+                <li class="page" th:if="${pageModel.requestPage<pageModel.displayEndPage}">
+                    <a class="link"
+                       th:href="@{/member/recommendation/list(areaName=${areaName},space=${survey.getSpace()},kid=${survey.getKid()},isDog=${survey.getIsDog()},type=${survey.getType()},leisure=${survey.getLeisure()},fireStand=${survey.getFireStand()},mart=${survey.getMart()},sort=${sort},page=${pageModel.requestPage}+1)}">다음</a>
+                </li>
+                <li class="page" th:if="${pageModel.requestPage<pageModel.maxPage}">
+                    <a class="link"
+                       th:href="@{/member/recommendation/list(areaName=${areaName},space=${survey.getSpace()},kid=${survey.getKid()},isDog=${survey.getIsDog()},type=${survey.getType()},leisure=${survey.getLeisure()},fireStand=${survey.getFireStand()},mart=${survey.getMart()},sort=${sort},page=${pageModel.displayStartPage}+10)}">
+                        <img width="32" height="32" src="https://img.icons8.com/small/32/forward.png" alt="forward"/>
+                    </a>
+                </li>
+
+                <li class="page" th:if="${(pageModel.displayStartPage/10)!=(pageModel.maxPage/10)}">
+                    <a class="link"
+                       th:href="@{/member/recommendation/list(areaName=${areaName},space=${survey.getSpace()},kid=${survey.getKid()},isDog=${survey.getIsDog()},type=${survey.getType()},leisure=${survey.getLeisure()},fireStand=${survey.getFireStand()},mart=${survey.getMart()},sort=${sort},page=${pageModel.maxPage})}">
+                        <img width="32" height="32" src="https://img.icons8.com/small/32/double-right.png"
+                             alt="double-right"/>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<footer id="footer" class="box">
+    <div id="sub_logo" class="">
+        <img th:src="@{/resources/images/로고1_remove.png}" alt="">
+    </div>
+</footer>
+</body>
+</html>
+

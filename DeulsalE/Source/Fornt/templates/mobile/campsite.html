@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>들살이 - 간략히보기</title>
+    <link rel="shortcut icon" th:href="@{/resources/images/fabicon.png}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/mobile/format.css}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/mobile/campsite.css}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script defer th:src="@{/resources/scripts/mobile/format.js}"></script>
+    <script defer th:src="@{/resources/scripts/mobile/campsite.js}"></script>
+</head>
+<body>
+<div id="dialogMenu">
+    <div>
+        <div class="menuClose">
+            <img rel="menuClose" width="24" height="24" src="https://img.icons8.com/ios/50/delete-sign--v1.png"
+                 alt="delete-sign--v1"/>
+        </div>
+        <div id="userContainer">
+            <a th:if="${session.user == null}" th:href="@{/mobile/login}">로그인이 필요합니다.</a>
+            <span class="userId" th:if="${session.user != null}" th:text="${session.user.getNickname()}"></span><span
+                th:if="${session.user != null}"> 님</span>
+        </div>
+        <div id="userMenu">
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/myInfo}"><img width="24" height="24"
+                                                                                             src="https://img.icons8.com/ios/50/info--v1.png"
+                                                                                             alt="info--v1"/><span>정보수정</span></a>
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/reservation}"><img width="24" height="24"
+                                                                                                  src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/external-calendar-multimedia-kiranshastry-lineal-kiranshastry.png"
+                                                                                                  alt="external-calendar-multimedia-kiranshastry-lineal-kiranshastry"/><span>예약내역</span></a>
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/bookmark}"><img width="24" height="24"
+                                                                                               src="https://img.icons8.com/ios/50/bookmark-ribbon--v1.png"
+                                                                                               alt="bookmark-ribbon--v1"/><span>즐겨찾기</span></a>
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/qna/list}"><img width="24" height="24"
+                                                                                               src="https://img.icons8.com/ios/50/questions.png"
+                                                                                               alt="questions"/><span>1:1문의내역</span></a>
+        </div>
+        <div id="helpContainer">
+            <table>
+                <tr>
+                    <td><a th:href="@{/mobile/notice}">공지사항</a></td>
+                    <td><a th:href="@{/mobile/event}">이벤트</a></td>
+                </tr>
+                <tr>
+                    <td><a th:href="@{/mobile/qna}">1:1문의</a></td>
+                    <td><a th:href="@{/mobile/faq}">FAQ</a></td>
+                </tr>
+            </table>
+        </div>
+        <div id="buttonContainer">
+            <ul th:if="${session.user == null}">
+                <li><a th:href="@{/mobile/login}"><img width="24" height="24"
+                                                       src="https://img.icons8.com/material-rounded/48/42AB42/enter-2.png"
+                                                       alt="enter-2"/><span>로그인</span></a></li>
+                <li><a th:href="@{/mobile/register}"><img width="24" height="24"
+                                                          src="https://img.icons8.com/ios-glyphs/60/42AB42/user-male-circle.png"
+                                                          alt="user-male-circle"/><span>회원가입</span></a></li>
+            </ul>
+
+            <ul th:if="${session.user != null}">
+                <li><a th:href="@{/mobile/logout}"><img width="24" height="24"
+                                                        src="https://img.icons8.com/material-rounded/48/42AB42/exit.png"
+                                                        alt="exit"/><span>로그아웃</span></a></li>
+                <li><a th:href="@{/mobile/}"><img width="24" height="24"
+                                                  src="https://img.icons8.com/material-sharp/48/42AB42/home.png"
+                                                  alt="home"/><span>홈으로</span></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="warp">
+    <div id="header">
+        <img rel="back" width="24" height="24" src="https://img.icons8.com/ios/50/left--v1.png" alt="left--v1"/>
+        <span th:if="${code==1}">일반야영장</span>
+        <span th:if="${code==2}">자동차야영장</span>
+        <span th:if="${code==3}">카라반</span>
+        <span th:if="${code==4}">글램핑</span>
+        <img rel="home" width="24" height="24" src="https://img.icons8.com/material-rounded/48/home.png" alt="home"/>
+        <img rel="menu" width="24" height="24" src="https://img.icons8.com/material-sharp/48/menu--v1.png"
+             alt="menu--v1"/>
+    </div>
+    <div id="contents" class="box">
+        <div id="campsitesTop">
+        </div>
+        <div class="content">
+            <div id="menu">
+                <div>
+                    <a th:href="@{/mobile/recommendation}">
+                        <img th:src="@{/resources/images/icons/추천.png}" alt="추천">
+                        <span>추천</span>
+                    </a>
+                </div>
+                <div>
+                    <a th:href="@{/mobile/campsite?code=1}">
+                        <img th:src="@{/resources/images/icons/일반3.png}" alt="일반">
+                        <span th:classappend="${code == 1} ? 'selected'">일반야영장</span>
+                    </a>
+                </div>
+                <div>
+                    <a th:href="@{/mobile/campsite?code=2}">
+                        <img th:src="@{/resources/images/icons/자동차.png}" alt="일반">
+                        <span th:classappend="${code == 2} ? 'selected'">자동차야영장</span>
+                    </a>
+                </div>
+                <div>
+                    <a th:href="@{/mobile/campsite?code=3}">
+                        <img th:src="@{/resources/images/icons/카라반.png}" alt="일반">
+                        <span th:classappend="${code == 3} ? 'selected'">카라반</span>
+                    </a>
+                </div>
+                <div>
+                    <a th:href="@{/mobile/campsite?code=4}">
+                        <img th:src="@{/resources/images/icons/글램핑2.png}" alt="일반">
+                        <span th:classappend="${code == 4} ? 'selected'">글램핑</span>
+                    </a>
+                </div>
+            </div>
+            <div id="campsitesSearch">
+                <form id="searchForm">
+                    <label class="search">
+                        <span class="searchBtn"></span>
+                        <input name="code" readonly type="hidden" th:value="${code}">
+                        <input name="sort" readonly type="hidden" th:value="${sort}">
+                        <input name="query" th:value="${query}" class="searchInput" type="text"
+                               placeholder="키워드를 입력해보세요!" maxlength="20" minlength="1">
+                        <span class="cancelBtn invisible"></span>
+                    </label>
+                </form>
+
+                <!--                <div id="searchResult" class="" th:if="${query != ''}">-->
+                <!--                    <a th:href="@{/mobile/campsite(code=${code})}"><img-->
+                <!--                            src="https://img.icons8.com/small/32/delete-sign.png" alt="지역검색 실패"></a>-->
+                <!--                    <label class="search">-->
+                <!--                        <input readonly type="text" value="캠핑장/지역검색 : ">-->
+                <!--                        <input readonly type="text" th:value="${query}">-->
+                <!--                    </label>-->
+                <!--                </div>-->
+            </div>
+
+            <div class="cntSort">
+                <div class="campsitesCnt">
+                    <span th:if="${code == 1}">일반야영장</span>
+                    <span th:if="${code == 2}">자동차야영장</span>
+                    <span th:if="${code == 3}">카라반</span>
+                    <span th:if="${code == 4}">글램핑</span>
+                    <input readonly type="text" th:if="${pageModel.totalCount !=0}"
+                           th:value="총+' '+${pageModel.totalCount}+건">
+                </div>
+
+                <!-- 서브 버튼(정렬) -->
+                <div id="sort">
+                    <button class="dropBtn">
+                        <span th:if="${sort}==1">기본순</span>
+                        <span th:if="${sort}==2">리뷰순</span>
+                        <span th:if="${sort}==3">평점순</span>
+                        <span th:if="${sort}==4">즐겨찾기순</span>
+                        <span class="dropBtn_click">arrow_drop_down</span>
+                    </button>
+                    <div class="dropdown">
+                        <label class="dropdown-content" for="default"><input hidden="" type="radio" id="default"
+                                                                             name="sort" th:checked="${sort==1}"><a
+                                th:href="@{/mobile/campsite(code=${code},sort=${1},query=${query})}">기본순</a></label>
+                        <label class="dropdown-content" for="review"><input hidden="" type="radio" id="review"
+                                                                            name="sort" th:checked="${sort==2}"><a
+                                th:href="@{/mobile/campsite(code=${code},sort=${2},query=${query})}">리뷰순</a></label>
+                        <label class="dropdown-content" for="star"><input hidden="" type="radio" id="star" name="sort"
+                                                                          th:checked="${sort==3}"><a
+                                th:href="@{/mobile/campsite(code=${code},sort=${3},query=${query})}">평점순</a></label>
+                        <label class="dropdown-content" for="bookmark"><input hidden="" type="radio" id="bookmark"
+                                                                              name="sort" th:checked="${sort==4}"><a
+                                th:href="@{/mobile/campsite(code=${code},sort=${4},query=${query})}">즐겨찾기순</a></label>
+                        <!--                    <div class="dropdown-content">-->
+                        <!--                        -->
+                        <!--                    </div>-->
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div th:if="${campsites.length !=0}" id="campsites">
+                <input class="campsitesCnt" readonly type="hidden" th:value="${campsites.length}">
+                <div th:each="campsite : ${campsites}" class="campsite"
+                     th:onclick="|location.href='@{/mobile/detail(index=${campsite.getIndex()})}'|">
+                    <div class="containerImg">
+                        <a class="campsiteImg">
+                            <img class="img"
+                                 th:src="@{/member/image/campsiteMain(campsiteIndex=${campsite.getIndex()})}"
+                                 onerror="this.src='/resources/images/member/noImage.jpg'; this.classList.add('not_found')">
+                        </a>
+                    </div>
+
+                    <div class="contentIcon">
+                        <label class="icon">
+                            <img class="img" src="https://img.icons8.com/small/32/F7DE5A/filled-star.png"/><input
+                                type="text"
+                                th:value="${campsite.getStar()}"
+                                name="rating"
+                                readonly>
+                        </label>
+                        <label class="icon">
+                            <img class="img" src="https://img.icons8.com/small/32/000000/comments.png"/><input
+                                type="text"
+                                th:value="${campsite.getReviewCnt()}"
+                                name="reviewCnt"
+                                readonly>
+                        </label>
+
+                        <div class="campsiteBookmark">
+                            <img class="bookmark unBook"
+                                 th:if="${session.user != null && campsiteIsBook.get(campsite.getIndex()) > 0}"
+                                 src="https://img.icons8.com/small/32/28CB5B/filled-bookmark-ribbon.png" alt="즐겨찾기"
+                                 onerror="this.src='https://img.icons8.com/small/32/000000/bookmark-ribbon.png'">
+                            <img class="bookmark book"
+                                 th:if="${session.user == null || campsiteIsBook.get(campsite.getIndex()) == 0}"
+                                 src="https://img.icons8.com/small/32/28CB5B/bookmark-ribbon.png" alt="즐겨찾기"
+                                 onerror="this.src='https://img.icons8.com/small/32/000000/bookmark-ribbon.png'">
+                            <input class="campsiteIndex" type="hidden" th:value="${campsite.getIndex()}" name="index"
+                                   readonly>
+                        </div>
+
+                    </div>
+
+                    <div class="content">
+                        <div class="contentData">
+                            <label class="data">
+                                <input type="text" th:value="${campsite.getName()}" name="name" readonly>
+                                <input type="text" th:value="${campsiteCat.get(campsite.getIndex())}" name="category"
+                                       readonly>
+                                <input type="text" th:value="${campsite.getNumberAd()}" name="address" readonly>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="campsite empty invisible">
+                <div class="icon">
+                    <img src="https://img.icons8.com/small/96/000000/question.png" alt="검색결과 없음">
+                </div>
+                <div class="text">검색결과가 없습니다. 검색어를 확인해 주세요.</div>
+            </div>
+        </div>
+    </div>
+    <div id="footer" class="box">
+        <ul class="pageContainer">
+            <li class="page" th:if="${pageModel.requestPage > 1}">
+                <a th:href="@{/mobile/campsite(code=${code},sort=${sort},query=${query},page=1)}" class="link">
+                    <img width="16" height="16" src="https://img.icons8.com/small/32/double-left.png"
+                         alt="double-left"/>
+                </a>
+            </li>
+            <li class="page" th:if="${pageModel.requestPage > 3}">
+                <a th:href="@{/mobile/campsite(code=${code},sort=${sort},query=${query},page=${pageModel.requestPage - 3})}"
+                   class="link">
+                    <img width="16" height="16" src="https://img.icons8.com/small/32/back.png" alt="back"/>
+                </a>
+            </li>
+            <li class="page" th:if="${pageModel.requestPage > 1}">
+                <a th:href="@{/mobile/campsite(code=${code},sort=${sort},query=${query},page=${pageModel.requestPage - 1})}"
+                   class="link">이전</a>
+            </li>
+            <li class="page"
+                th:each="page : ${#numbers.sequence(pageModel.displayStartPage, pageModel.displayEndPage)}" th:classappend="${pageModel.requestPage == page} ? 'selected' : ''">
+                <a th:href="@{/mobile/campsite(code=${code},sort=${sort},query=${query},page = ${page})}" class="link"
+                   th:text="${page}"></a>
+            </li>
+            <li class="page" th:if="${pageModel.requestPage < pageModel.displayEndPage}">
+                <a th:href="@{/mobile/campsite(code=${code},sort=${sort},query=${query},page = ${pageModel.requestPage + 1})}"
+                   class="link">다음</a>
+            </li>
+            <li class="page" th:if="${pageModel.displayStartPage + 3 < pageModel.maxPage}">
+                <a th:href="@{/mobile/campsite(code=${code},sort=${sort},query=${query},page = ${pageModel.displayStartPage + 3})}"
+                   class="link">
+                    <img width="16" height="16" src="https://img.icons8.com/small/32/forward.png" alt="forward"/>
+                </a>
+            </li>
+            <li class="page" th:if="${(pageModel.requestPage)!=(pageModel.maxPage)}">
+                <a th:href="@{/mobile/campsite(code=${code},sort=${sort},query=${query},page = ${pageModel.maxPage})}"
+                   class="link">
+                    <img width="16" height="16" src="https://img.icons8.com/small/32/double-right.png"
+                         alt="double-right"/>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>들살이 - 예약내역</title>
+    <link rel="shortcut icon" th:href="@{/resources/images/fabicon.png}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/mobile/format.css}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/mobile/reservation.css}">
+    <script defer th:src="@{/resources/scripts/mobile/format.js}"></script>
+    <script defer th:src="@{/resources/scripts/mobile/reservation.js}"></script>
+</head>
+<body>
+<div id="dialogCover" class=""></div>
+<div id="dialogLayer" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <span class="content fontSmall" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button confirm" type="submit" rel="confirm" value="확인">
+    </div>
+</div>
+<div id="dialogComplete" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <div class="imgLogoContainer">
+        <img th:src="@{/resources/images/로고1_remove.png}">
+    </div>
+    <span class="content" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button cancel" type="button" rel="cancel" value="취소">
+        <input class="button confirm" type="submit" rel="confirm" value="확인">
+    </div>
+</div>
+<div id="dialogMenu">
+    <div>
+        <div class="menuClose">
+            <img rel="menuClose" width="24" height="24" src="https://img.icons8.com/ios/50/delete-sign--v1.png" alt="delete-sign--v1"/>
+        </div>
+        <div id="userContainer">
+            <a th:if="${session.user == null}" th:href="@{/mobile/login}">로그인이 필요합니다.</a>
+            <span class="userId" th:if="${session.user != null}" th:text="${session.user.getNickname()}"></span><span
+                th:if="${session.user != null}"> 님</span>
+        </div>
+        <div id="userMenu">
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/myInfo}"><img width="24" height="24" src="https://img.icons8.com/ios/50/info--v1.png" alt="info--v1"/><span>정보수정</span></a>
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/reservation}"><img width="24" height="24" src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/external-calendar-multimedia-kiranshastry-lineal-kiranshastry.png" alt="external-calendar-multimedia-kiranshastry-lineal-kiranshastry"/><span>예약내역</span></a>
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/bookmark}"><img width="24" height="24" src="https://img.icons8.com/ios/50/bookmark-ribbon--v1.png" alt="bookmark-ribbon--v1"/><span>즐겨찾기</span></a>
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/qna/list}"><img width="24" height="24" src="https://img.icons8.com/ios/50/questions.png" alt="questions"/><span>1:1문의내역</span></a>
+        </div>
+        <div id="helpContainer">
+            <table>
+                <tr>
+                    <td><a th:href="@{/mobile/notice}">공지사항</a></td>
+                    <td><a th:href="@{/mobile/event}">이벤트</a></td>
+                </tr>
+                <tr>
+                    <td><a th:href="@{/mobile/qna}">1:1문의</a></td>
+                    <td><a th:href="@{/mobile/faq}">FAQ</a></td>
+                </tr>
+            </table>
+        </div>
+        <div id="buttonContainer">
+            <ul th:if="${session.user == null}">
+                <li><a th:href="@{/mobile/login}"><img width="24" height="24" src="https://img.icons8.com/material-rounded/48/42AB42/enter-2.png" alt="enter-2"/><span>로그인</span></a></li>
+                <li><a th:href="@{/mobile/register}"><img width="24" height="24" src="https://img.icons8.com/ios-glyphs/60/42AB42/user-male-circle.png" alt="user-male-circle"/><span>회원가입</span></a></li>
+            </ul>
+
+            <ul th:if="${session.user != null}">
+                <li><a th:href="@{/mobile/logout}"><img width="24" height="24" src="https://img.icons8.com/material-rounded/48/42AB42/exit.png" alt="exit"/><span>로그아웃</span></a></li>
+                <li><a th:href="@{/mobile/}"><img width="24" height="24" src="https://img.icons8.com/material-sharp/48/42AB42/home.png" alt="home"/><span>홈으로</span></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="warp">
+    <div id="header">
+        <img rel="back" width="24" height="24" src="https://img.icons8.com/ios/50/left--v1.png" alt="left--v1"/>
+        <span>예약내역</span>
+        <img rel="home" width="24" height="24" src="https://img.icons8.com/material-rounded/48/home.png" alt="home"/>
+        <img rel="menu" width="24" height="24" src="https://img.icons8.com/material-sharp/48/menu--v1.png"
+             alt="menu--v1"/>
+    </div>
+    <div id="noData" th:if="${reservations == null}">
+        <img width="72" height="72" src="https://img.icons8.com/ios/100/42AB42/error--v1.png" alt="error--v1"/>
+        <span>예약내역이 없습니다.</span>
+    </div>
+    <div id="reservationList" th:if="${reservations != null}">
+        <div class="reservation" th:each="reservation, i:${reservations}">
+            <div class="row">
+                <div>
+                    <span class="name" th:text="${reservation.getCampsiteName()}" th:onclick="'moveDetail('+${reservation.getCampsiteIndex()}+')'"></span>
+                    <span class="type" th:text="${'('+reservation.getSite()+')'}"></span>
+                </div>
+                <span class="created" th:text="${#dates.format(reservation.getCreatedAt(),'yyyy-MM-dd')}"></span>
+            </div>
+            <div class="col">
+                <label>
+                    <span>기간:</span>
+                    <span th:text="${#dates.format(reservation.getStartDay(),'yyyy-MM-dd')}"></span>
+                    <span>~</span>
+                    <span th:text="${#dates.format(reservation.getEndDay(),'yyyy-MM-dd')}"></span>
+                </label>
+                <label>
+                    <span>비용:</span>
+                    <span th:text="${reservation.getCost()}"></span>
+                    <span>원</span>
+                </label>
+                <label>
+                    <span>상태:</span>
+                    <span th:if="${reservation.getStatus() == 0}">예약대기</span>
+                    <span th:if="${reservation.getStatus() == 1}">예약거절</span>
+                    <span th:if="${reservation.getStatus() == 2}">예약취소</span>
+                    <span th:if="${reservation.getStatus() == 3}">결제대기</span>
+                    <span th:if="${reservation.getStatus() == 4}">결제완료</span>
+                </label>
+            </div>
+            <div class="button">
+                <input th:if="${reservation.getStatus() != 1 && reservation.getStatus() != 2 && !isCancellable[i.index]}" class="_object-button" type="button" value="예약취소" th:onclick="'decision('+${reservation.getIndex()}+',2)'">
+                <input th:if="${reservation.getStatus() == 1 || reservation.getStatus() == 2 || isCancellable[i.index]}" disabled="disabled" class="_object-button " value="취소불가" type="button">
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <ul class="pageContainer">
+            <li class="page" th:if="${pageModel.requestPage > 1}">
+                <a th:href="@{'./reservation' (page = ${1})}" class="link">
+                    <img width="16" height="16" src="https://img.icons8.com/small/32/double-left.png"
+                         alt="double-left"/>
+                </a>
+            </li>
+            <li class="page" th:if="${pageModel.requestPage > 3}">
+                <a th:href="@{'./reservation' (page = ${pageModel.requestPage - 3})}"
+                   class="link">
+                    <img width="16" height="16" src="https://img.icons8.com/small/32/back.png" alt="back"/>
+                </a>
+            </li>
+            <li class="page" th:if="${pageModel.requestPage > 1}">
+                <a th:href="@{'./reservation' (page = ${pageModel.requestPage - 1})}"
+                   class="link">이전</a>
+            </li>
+            <li class="page"
+                th:each="page : ${#numbers.sequence(pageModel.displayStartPage, pageModel.displayEndPage)}" th:classappend="${pageModel.requestPage == page} ? 'selected' : ''">
+                <a th:href="@{'./reservation' (page = ${page})}" class="link"
+                   th:text="${page}"></a>
+            </li>
+            <li class="page" th:if="${pageModel.requestPage < pageModel.displayEndPage}">
+                <a th:href="@{'./reservation' (page = ${pageModel.requestPage + 1})}"
+                   class="link">다음</a>
+            </li>
+            <li class="page" th:if="${pageModel.displayStartPage + 3 < pageModel.maxPage}">
+                <a th:href="@{'./reservation' (page = ${pageModel.displayStartPage + 3})}"
+                   class="link">
+                    <img width="16" height="16" src="https://img.icons8.com/small/32/forward.png" alt="forward"/>
+                </a>
+            </li>
+            <li class="page" th:if="${(pageModel.requestPage)!=(pageModel.maxPage)}">
+                <a th:href="@{'./reservation' (page = ${pageModel.maxPage})}"
+                   class="link">
+                    <img width="16" height="16" src="https://img.icons8.com/small/32/double-right.png"
+                         alt="double-right"/>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

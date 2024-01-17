@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>들살이 - 관리자</title>
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/base.css}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/Home/admin.css}">
+    <link rel="shortcut icon" th:href="@{/resources/images/fabicon.png}">
+    <script defer th:src="@{/resources/scripts/common.js}"></script>
+    <script defer th:src="@{/resources/scripts/Home/admin.js}"></script>
+    <script defer th:src="@{https://kit.fontawesome.com/42c2fec7f5.js}" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="dialogCover" class=""></div>
+<div id="dialogLayer" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <span class="content fontSmall" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button cancel" type="button" rel="cancel" value="취소">
+        <input class="button confirm" type="submit" rel="confirm" value="확인">
+    </div>
+</div>
+<div id="dialogYesNo" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <span class="content fontSmall" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button confirm" type="submit" rel="confirm" value="예">
+        <input class="button cancel" type="button" rel="cancel" value="아니오">
+    </div>
+</div>
+<div id="dialogComplete" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <div class="imgLogoContainer">
+        <img th:src="@{/resources/images/로고1_remove.png}">
+    </div>
+    <span class="content" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button cancel" type="button" rel="cancel" value="취소">
+        <input class="button confirm" type="submit" rel="confirm" value="확인">
+    </div>
+</div>
+<div id="headLine" class="box">
+    <div id="info_type" class="place">
+        <div>
+            <input class="checked" rel="user" type="button" value="개인">
+            <input rel="entrepreneur" type="button" value="사업자">
+        </div>
+    </div>
+    <div id="info_menu" class="place">
+        <a class="nickname" th:if="${session.user != null}"  th:href="@{/mypage/modify}">
+            <span th:text="${session.user['nickname']}"></span>
+        </a>
+        <span th:if="${session.user != null}">님</span>
+        <a th:if="${session.user == null}" th:href="@{/user/login}">로그인</a>
+        <a th:if="${session.user != null}" class="logout" href="#">로그아웃</a>
+        <a th:if="${session.user == null}" th:href="@{/user/register}">회원가입</a>
+        <a th:if="${session.user != null && session.user.getAuthority() == 0}" th:href="@{/admin}">관리자 홈</a>
+        <a th:if="${session.user != null}" th:href="@{/mypage/modify}">마이페이지</a>
+        <a th:href="@{/help/faq}">고객센터</a>
+    </div>
+</div>
+<div id="block" class="box">
+    <div class="logo" th:if="${session.user == null}">
+        <a th:href="@{/}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+    </div>
+    <div class="logo" th:if="${session.user != null}">
+        <a th:if="${session.user.getAuthority() != 2}" th:href="@{/}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+        <a th:if="${session.user.getAuthority() == 2}" th:href="@{/entrepreneur}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+    </div>
+    <div id="search">
+<!--        <label>-->
+<!--            <div>-->
+<!--                <img width="24" height="24" src="https://img.icons8.com/material-outlined/24/228B22/search&#45;&#45;v1.png" alt="search&#45;&#45;v1"/>-->
+<!--            </div>-->
+<!--            <input id="searchContent" type="text" placeholder="검색">-->
+<!--        </label>-->
+    </div>
+    <div id="marge">
+
+    </div>
+</div>
+<nav id="nav" class="box admin">
+    <div class="admin">
+        <a th:href="@{/admin (sort=${1})}">
+        <span>
+            계정
+        </span>
+        </a>
+        <a th:href="@{/admin (sort=${2})}">
+        <span>
+            캠핑장
+        </span>
+        </a>
+        <a th:href="@{/admin (sort=${3})}">
+        <span>
+            1:1문의
+        </span>
+        </a>
+        <a th:href="@{/admin (sort=${4})}">
+        <span>
+            이벤트
+        </span>
+        </a>
+    </div>
+</nav>
+<div id="noAuthority" th:if="${session.user.getAuthority() != 0}">
+    <img width="100" height="100" src="https://img.icons8.com/ios/100/42AB42/error--v1.png" alt="error--v1"/>
+    <span>접근 권한이 없습니다.</span>
+</div>
+<div id="contents" th:if="${session.user.getAuthority() == 0}">
+    <div class="account" th:if="${sort == 1}">
+        <div>
+            <span class="title">계정 내역</span>
+            <form class="form_wrap_account">
+                <input hidden="hidden" type="text" name="sort" th:value="${sort}">
+                <input type="text" id="searchInput" placeholder="'아이디' 검색" th:value="${searchCriterion}" name="search">
+                <button id="btnSearch">
+                    <span class="fa-solid fa-magnifying-glass fa xl"></span>
+                </button>
+            </form>
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>아이디</th>
+                <th>전화번호</th>
+                <th>이메일</th>
+                <th>이름</th>
+                <th>닉네임</th>
+                <th>생년월일</th>
+                <th>권한</th>
+                <th>생성일</th>
+                <th>삭제</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user, i : ${users}">
+                <td th:text="${i.index + 1 + (15 * (pageModel.requestPage - 1))}"></td>
+                <td th:text="${user.getUserId()}"></td>
+                <td th:text="${user.getContact()}"></td>
+                <td th:text="${user.getEmail()}"></td>
+                <td th:text="${user.getName()}"></td>
+                <td th:text="${user.getNickname()}"></td>
+                <td th:text="${#dates.format(user.getBirth(),'yyyy.MM.dd')}"></td>
+                <td th:text="${user.getAuthority() == 1 ? '일반회원' : '사업자'}"></td>
+                <td th:text="${#dates.format(user.getCreatedAt(),'yyyy.MM.dd')}"></td>
+                <td>
+                    <input class="_object-button small" type="button" value="삭제" th:onclick="'deleteCategory('+${user.getIndex()}+','+${sort}+')'">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <ul class="pageContainer">
+            <li class="page" th:if="${pageModel.requestPage > 1}">
+                <a th:href="@{'/admin' (page = ${1}, sort = ${1}, search = ${searchCriterion})}" class="link">
+                    <img width="32" height="32" src="https://img.icons8.com/small/32/double-left.png" alt="double-left"/>
+                </a>
+            </li>
+            <li class="page" th:if="${pageModel.requestPage > 10}">
+                <a th:href="@{'/admin' (page = ${pageModel.requestPage - 10}, sort = ${1}, search = ${searchCriterion})}"
+                   class="link">
+                    <img width="32" height="32" src="https://img.icons8.com/small/32/back.png" alt="back"/>
+                </a>
+            </li>
+            <li class="page" th:if="${pageModel.requestPage > 1}">
+                <a th:href="@{'/admin' (page = ${pageModel.requestPage - 1}, sort = ${1}, search = ${searchCriterion})}"
+                   class="link">이전</a>
+            </li>
+            <li class="page"
+                th:each="page : ${#numbers.sequence(pageModel.displayStartPage, pageModel.displayEndPage)}">
+                <a th:href="@{'/admin' (page = ${page}, sort = ${1}, search = ${searchCriterion})}" class="link"
+                   th:text="${page}"></a>
+            </li>
+            <li class="page" th:if="${pageModel.requestPage < pageModel.displayEndPage}">
+                <a th:href="@{'/admin' (page = ${pageModel.requestPage + 1}, sort = ${1}, search = ${searchCriterion})}"
+                   class="link">다음</a>
+            </li>
+            <li class="page" th:if="${pageModel.requestPage < pageModel.maxPage}">
+                <a th:href="@{'/admin' (page = ${pageModel.requestPage + 10}, sort = ${1}, search = ${searchCriterion})}"
+                   class="link">
+                    <img width="32" height="32" src="https://img.icons8.com/small/32/forward.png" alt="forward"/>
+                </a>
+            </li>
+            <li class="page" th:if="${(pageModel.displayStartPage/10)!=(pageModel.maxPage/10)}">
+                <a th:href="@{'/admin' (page = ${pageModel.maxPage}, sort = ${1}, search = ${searchCriterion})}"
+                   class="link">
+                    <img width="32" height="32" src="https://img.icons8.com/small/32/double-right.png"
+                         alt="double-right"/>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="campsite" th:if="${sort == 2}">
+        <div>
+            <span class="title">캠핑장 내역</span>
+            <form class="form_wrap_campsite">
+                <input hidden="hidden" type="text" name="sort" th:value="${sort}">
+                <input type="text" placeholder="'이름' 검색" th:value="${searchCriterion}"
+                       name="search">
+                <button>
+                    <span class="fa-solid fa-magnifying-glass fa xl"></span>
+                </button>
+            </form>
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>이름</th>
+                <th>지번주소</th>
+                <th>전화번호</th>
+                <th>유형</th>
+                <th>예약서비스</th>
+                <th>생성일</th>
+                <th>삭제</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="campsite, i : ${campsites}">
+                <td th:text="${i.index + 1 + (15 * (pageModel.requestPage - 1))}"></td>
+                <td th:text="${campsite.getName()}"></td>
+                <td th:text="${campsite.getNumberAd()}"></td>
+                <td th:text="${campsite.getContact()}"></td>
+                <td>
+                    <span th:if="${campsite.getGeneralCnt() > 0}">일반</span>
+                    <span th:if="${campsite.getAutoCnt() > 0}"> 자동차</span>
+                    <span th:if="${campsite.getCaravanCnt() > 0}"> 카라반</span>
+                    <span th:if="${campsite.getGlampingCnt() > 0}"> 글램핑</span>
+                </td>
+                <td th:text="${campsite.isReservation() == true ? '사용' : '미사용'}"></td>
+                <td th:text="${#dates.format(campsite.getCreatedAt(),'yyyy.MM.dd')}"></td>
+                <td>
+                    <input class="_object-button small" type="button" value="삭제" th:onclick="'deleteCategory('+${campsite.getIndex()}+','+${sort}+')'">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <ul class="pageContainer">
+            <li class="page" th:if="${pageModel.requestPage > 1}">
+                <a th:href="@{'/admin' (page = ${1}, sort = ${2}, search = ${searchCriterion})}" class="link">
+                    <img width="32" height="32" src="https://img.icons8.com/small/32/double-left.png" alt="double-left"/>
+                </a>
+            </li>
+            <li class="page" th:if="${pageModel.requestPage > 10}">
+                <a th:href="@{'/admin' (page = ${pageModel.requestPage - 10}, sort = ${2}, search = ${searchCriterion})}"
+                   class="link">
+                    <img width="32" height="32" src="https://img.icons8.com/small/32/back.png" alt="back"/>
+                </a>
+            </li>
+            <li class="page" th:if="${pageModel.requestPage > 1}">
+                <a th:href="@{'/admin' (page = ${pageModel.requestPage - 1}, sort = ${2}, search = ${searchCriterion})}"
+                   class="link">이전</a>
+            </li>
+            <li class="page"
+                th:each="page : ${#numbers.sequence(pageModel.displayStartPage, pageModel.displayEndPage)}">
+                <a th:href="@{'/admin' (page = ${page}, sort = ${2}, search = ${searchCriterion})}" class="link"
+                   th:text="${page}"></a>
+            </li>
+            <li class="page" th:if="${pageModel.requestPage < pageModel.displayEndPage}">
+                <a th:href="@{'/admin' (page = ${pageModel.requestPage + 1}, sort = ${2}, search = ${searchCriterion})}"
+                   class="link">다음</a>
+            </li>
+            <li class="page" th:if="${pageModel.requestPage < pageModel.maxPage}">
+                <a th:href="@{'/admin' (page = ${pageModel.requestPage + 10}, sort = ${2}, search = ${searchCriterion})}"
+                   class="link">
+                    <img width="32" height="32" src="https://img.icons8.com/small/32/forward.png" alt="forward"/>
+                </a>
+            </li>
+            <li class="page" th:if="${(pageModel.displayStartPage/10)!=(pageModel.maxPage/10)}">
+                <a th:href="@{'/admin' (page = ${pageModel.maxPage}, sort = ${2}, search = ${searchCriterion})}"
+                   class="link">
+                    <img width="32" height="32" src="https://img.icons8.com/small/32/double-right.png"
+                         alt="double-right"/>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="qna" th:if="${sort == 3}">
+        <div>
+            <span class="title">1:1문의 내역</span>
+            <form class="form_wrap_qna">
+                <input hidden="hidden" type="text" name="sort" th:value="${sort}">
+                <input type="text" placeholder="'아이디' 검색" th:value="${searchCriterion}"
+                       name="search">
+                <button>
+                    <span class="fa-solid fa-magnifying-glass fa xl"></span>
+                </button>
+            </form>
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>제목</th>
+                <th>아이디</th>
+                <th>IP</th>
+                <th>답변여부</th>
+                <th>생성일</th>
+                <th>이동</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="qna, i : ${qnas}">
+                <td th:text="${i.index + 1 + (15 * (pageModel.requestPage - 1))}"></td>
+                <td th:text="${qna.getTitle()}"></td>
+                <td th:text="${qna.getUserId()}"></td>
+                <td th:text="${qna.getClientIp()}"></td>
+                <td th:text="${qna.isSort() == true ? '완료' : '대기'}"></td>
+                <td th:text="${#dates.format(qna.getCreatedAt(),'yyyy.MM.dd')}"></td>
+                <td>
+                    <input class="_object-button small" type="button" value="이동" th:onclick="'moveQna('+${qna.getIndex()}+')'">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <ul class="pageContainer">
+            <li class="page" th:if="${pageModel.requestPage > 1}">
+                <a th:href="@{'/admin' (page = ${1}, sort = ${3}, search = ${searchCriterion})}" class="link">
+                    <img width="32" height="32" src="https://img.icons8.com/small/32/double-left.png" alt="double-left"/>
+                </a>
+            </li>
+            <li class="page" th:if="${pageModel.requestPage > 10}">
+                <a th:href="@{'/admin' (page = ${pageModel.requestPage - 10}, sort = ${3}, search = ${searchCriterion})}"
+                   class="link">
+                    <img width="32" height="32" src="https://img.icons8.com/small/32/back.png" alt="back"/>
+                </a>
+            </li>
+            <li class="page" th:if="${pageModel.requestPage > 1}">
+                <a th:href="@{'/admin' (page = ${pageModel.requestPage - 1}, sort = ${3}, search = ${searchCriterion})}"
+                   class="link">이전</a>
+            </li>
+            <li class="page"
+                th:each="page : ${#numbers.sequence(pageModel.displayStartPage, pageModel.displayEndPage)}">
+                <a th:href="@{'/admin' (page = ${page}, sort = ${3}, search = ${searchCriterion})}" class="link"
+                   th:text="${page}"></a>
+            </li>
+            <li class="page" th:if="${pageModel.requestPage < pageModel.displayEndPage}">
+                <a th:href="@{'/admin' (page = ${pageModel.requestPage + 1}, sort = ${3}, search = ${searchCriterion})}"
+                   class="link">다음</a>
+            </li>
+            <li class="page" th:if="${pageModel.requestPage < pageModel.maxPage}">
+                <a th:href="@{'/admin' (page = ${pageModel.requestPage + 10}, sort = ${3}, search = ${searchCriterion})}"
+                   class="link">
+                    <img width="32" height="32" src="https://img.icons8.com/small/32/forward.png" alt="forward"/>
+                </a>
+            </li>
+            <li class="page" th:if="${(pageModel.displayStartPage/10)!=(pageModel.maxPage/10)}">
+                <a th:href="@{'/admin' (page = ${pageModel.maxPage}, sort = ${3}, search = ${searchCriterion})}"
+                   class="link">
+                    <img width="32" height="32" src="https://img.icons8.com/small/32/double-right.png"
+                         alt="double-right"/>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="event" th:if="${sort == 4}">
+        <div>
+            <span class="title">이벤트 내역</span>
+            <form class="form_wrap_event">
+                <input hidden="hidden" type="text" name="sort" th:value="${sort}">
+                <input type="text" placeholder="'캠핑장 이름' 검색" th:value="${searchCriterion}"
+                       name="search">
+                <button>
+                    <span class="fa-solid fa-magnifying-glass fa xl"></span>
+                </button>
+            </form>
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>제목</th>
+                <th>캠핑장 이름</th>
+                <th>시작일</th>
+                <th>종료일</th>
+                <th>IP</th>
+                <th>생성일</th>
+                <th>삭제</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="event, i : ${events}">
+                <td th:text="${i.index + 1 + (15 * (pageModel.requestPage - 1))}"></td>
+                <td th:text="${event.getTitle()}"></td>
+                <td th:text="${event.getCampsiteName()}"></td>
+                <td th:text="${#dates.format(event.getStartDay(),'yyyy.MM.dd')}"></td>
+                <td th:text="${#dates.format(event.getEndDay(),'yyyy.MM.dd')}"></td>
+                <td th:text="${event.getClientIp()}"></td>
+                <td th:text="${#dates.format(event.getCreatedAt(),'yyyy.MM.dd')}"></td>
+                <td>
+                    <input class="_object-button small" type="button" value="삭제" th:onclick="'deleteCategory('+${event.getIndex()}+','+${sort}+')'">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <ul class="pageContainer">
+            <li class="page" th:if="${pageModel.requestPage > 1}">
+                <a th:href="@{'/admin' (page = ${1}, sort = ${4}, search = ${searchCriterion})}" class="link">
+                    <img width="32" height="32" src="https://img.icons8.com/small/32/double-left.png" alt="double-left"/>
+                </a>
+            </li>
+            <li class="page" th:if="${pageModel.requestPage > 10}">
+                <a th:href="@{'/admin' (page = ${pageModel.requestPage - 10}, sort = ${4}, search = ${searchCriterion})}"
+                   class="link">
+                    <img width="32" height="32" src="https://img.icons8.com/small/32/back.png" alt="back"/>
+                </a>
+            </li>
+            <li class="page" th:if="${pageModel.requestPage > 1}">
+                <a th:href="@{'/admin' (page = ${pageModel.requestPage - 1}, sort = ${4}, search = ${searchCriterion})}"
+                   class="link">이전</a>
+            </li>
+            <li class="page"
+                th:each="page : ${#numbers.sequence(pageModel.displayStartPage, pageModel.displayEndPage)}">
+                <a th:href="@{'/admin' (page = ${page}, sort = ${4}, search = ${searchCriterion})}" class="link"
+                   th:text="${page}"></a>
+            </li>
+            <li class="page" th:if="${pageModel.requestPage < pageModel.displayEndPage}">
+                <a th:href="@{'/admin' (page = ${pageModel.requestPage + 1}, sort = ${4}, search = ${searchCriterion})}"
+                   class="link">다음</a>
+            </li>
+            <li class="page" th:if="${pageModel.requestPage < pageModel.maxPage}">
+                <a th:href="@{'/admin' (page = ${pageModel.requestPage + 10}, sort = ${4}, search = ${searchCriterion})}"
+                   class="link">
+                    <img width="32" height="32" src="https://img.icons8.com/small/32/forward.png" alt="forward"/>
+                </a>
+            </li>
+            <li class="page" th:if="${(pageModel.displayStartPage/10)!=(pageModel.maxPage/10)}">
+                <a th:href="@{'/admin' (page = ${pageModel.maxPage}, sort = ${4}, search = ${searchCriterion})}"
+                   class="link">
+                    <img width="32" height="32" src="https://img.icons8.com/small/32/double-right.png"
+                         alt="double-right"/>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<footer id="footer" class="box">
+    <div id="sub_logo" class="">
+        <img th:src="@{/resources/images/로고1_remove.png}" alt="">
+    </div>
+</footer>
+</body>
+</html>

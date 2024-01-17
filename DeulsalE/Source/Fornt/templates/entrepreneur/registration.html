@@ -1,0 +1,768 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>사업장등록</title>
+    <link rel="shortcut icon" th:href="@{/resources/images/fabicon.png}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/base.css}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/entrepreneur/registration.css}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/entrepreneur/entrepreneur.css}">
+    <script type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=838036477247d7dbd443db2db6075465&libraries=services,clusterer,drawing"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script defer th:src="@{/resources/scripts/common.js}"></script>
+    <script defer th:src="@{/resources/scripts/map.js}"></script>
+    <script defer th:src="@{/resources/scripts/entrepreneur/format.js}"></script>
+    <script defer th:src="@{/resources/scripts/entrepreneur/registration.js}"></script>
+</head>
+<body th:attrappend="data-not-allowed=${session.user == null || session.user.getAuthority() == 1}?'notEntrepreneur'">
+<div id="dialogCover" class=""></div>
+<div id="addressLayer">
+
+</div>
+<div id="dialogLayer" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <span class="content fontSmall" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button cancel" type="button" rel="cancel" value="취소">
+        <input class="button confirm" type="submit" rel="confirm" value="확인">
+    </div>
+</div>
+<div id="dialogComplete" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <div class="imgLogoContainer">
+        <img th:src="@{/resources/images/로고1_remove.png}">
+    </div>
+    <span class="content" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button cancel" type="button" rel="cancel" value="취소">
+        <input class="button confirm" type="submit" rel="confirm" value="확인">
+    </div>
+</div>
+
+<div id="dialogYesNo" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <span class="content fontSmall" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button confirm" type="submit" rel="confirm" value="예">
+        <input class="button cancel" type="button" rel="cancel" value="아니오">
+    </div>
+</div>
+<div id="headLine" class="box">
+    <div id="info_type" class="place">
+        <div>
+            <input rel="user" type="button" value="개인">
+            <input class="checked" rel="entrepreneur" type="button" value="사업자">
+        </div>
+    </div>
+    <div id="info_menu" class="place">
+        <a class="nickname" th:if="${session.user != null}"  th:href="@{/mypage/modify}">
+            <span th:text="${session.user['nickname']}"></span>
+        </a>
+        <span th:if="${session.user != null}">님</span>
+        <a th:if="${session.user == null}" th:href="@{/user/login}">로그인</a>
+        <a th:if="${session.user != null}" class="logout" href="#">로그아웃</a>
+        <a th:if="${session.user == null}" th:href="@{/user/register}">회원가입</a>
+        <a th:if="${session.user != null}" th:href="@{/mypage/modify}">마이페이지</a>
+        <a th:href="@{/help/faq}">고객센터</a>
+    </div>
+</div>
+<div id="block" class="box">
+    <div class="logo" th:if="${session.user == null}">
+        <a th:href="@{/}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+    </div>
+    <div class="logo" th:if="${session.user != null}">
+        <a th:if="${session.user.getAuthority() != 2}" th:href="@{/}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+        <a th:if="${session.user.getAuthority() == 2}" th:href="@{/entrepreneur}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+    </div>
+    <div id="search">
+        <label>
+            <div>
+                <img width="24" height="24" src="https://img.icons8.com/material-outlined/24/228B22/search--v1.png"
+                     alt="search--v1"/>
+            </div>
+            <input id="searchContent" type="text" placeholder="검색">
+        </label>
+    </div>
+    <div id="marge">
+
+    </div>
+</div>
+<nav id="nav" class="box entrepreneur">
+    <div class="user">
+        <a>
+        <span>
+            일반야영장
+        </span>
+        </a>
+        <a>
+        <span>
+            자동차야영장
+        </span>
+        </a>
+        <a>
+        <span>
+            카라반
+        </span>
+        </a>
+        <a>
+        <span>
+            글램핑
+        </span>
+        </a>
+        <a>
+        <span>
+            추천
+        </span>
+        </a>
+    </div>
+    <div class="entrepreneur">
+        <a th:href="@{/entrepreneur/registration}">
+        <span>
+            사업장등록
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/profile}">
+        <span>
+            사업장프로필
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/reservation}">
+        <span>
+            예약서비스
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/event}">
+        <span>
+            이벤트
+        </span>
+        </a>
+    </div>
+</nav>
+<div id="contents" class="box existing">
+    <div id="subBene" class="subBene box">
+        <div class="title">
+            <span>사업장 등록</span>
+            <span>사업자가 이미 추가되어 있는 사업장의 사업자 등록 혹은 사업장 신규 추가</span>
+        </div>
+    </div>
+    <div class="content">
+        <div class="subMenu">
+            <button rel="existingBtn" class="existingBtn selected">기존 야영장 등록 신청</button>
+            <button class="newCampingBtn" rel="newCampingBtn">신규 추가 신청</button>
+        </div>
+
+        <form class="existing" rel="existingForm">
+            <label id="campsitesSelect">
+                <span class="contentTitle">검색하기</span>
+                <div class="contentText">
+                    <span>캠핑장 이름 : </span>
+                    <input type="text" name="searchCriterion" th:value="${searchCriterion}">
+                    <input class="_object-button _color-concept" type="button" name="existingSearch" value="검색하기">
+                </div>
+            </label>
+            <div>
+                <input hidden="hidden" type="text" name="campsiteIndex">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>이름</th>
+                        <th>구분</th>
+                        <th>주소</th>
+                        <th>전화번호</th>
+                    </tr>
+                    </thead>
+                    <tbody id="commentContainer">
+                    <tr th:each="campsite : ${campsites}" th:id="${campsite.getIndex()}" onclick="insertCampsiteIndex(this.id)">
+                        <td th:text="${campsite.getName()}"></td>
+                        <td>
+                            <span th:if="${campsite.getGeneralCnt() > 0}">일반야영장</span>
+                            <span th:if="${campsite.getAutoCnt() > 0}">자동차야영장</span>
+                            <span th:if="${campsite.getCaravanCnt() > 0}">카라반</span>
+                            <span th:if="${campsite.getGlampingCnt() > 0}">글램핑</span>
+                        </td>
+                        <td th:text="${campsite.getNumberAd()}"></td>
+                        <td th:text="${campsite.getContact()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <ul id="pageContainer">
+                    <li class="page" th:if="${pageModel.requestPage > 1}">
+                        <a th:href="@{'./registration' (page = ${1}, sName = ${searchCriterion})}" class="link">
+                            <img width="32" height="32" src="https://img.icons8.com/small/32/double-left.png" alt="double-left"/>
+                        </a>
+                    </li>
+                    <li class="page" th:if="${pageModel.requestPage > 10}">
+                        <a th:href="@{'./registration' (page = ${pageModel.requestPage - 10}, sName =${searchCriterion})}"
+                           class="link">
+                            <img width="32" height="32" src="https://img.icons8.com/small/32/back.png" alt="back"/>
+                        </a>
+                    </li>
+                    <li class="page" th:if="${pageModel.requestPage > 1}">
+                        <a th:href="@{'./registration' (page = ${pageModel.requestPage - 1}, sName =${searchCriterion})}"
+                           class="link">이전</a>
+                    </li>
+                    <li class="page"
+                        th:each="page : ${#numbers.sequence(pageModel.displayStartPage, pageModel.displayEndPage)}" th:classappend="${pageModel.requestPage == page} ? 'selected' : ''">
+                        <a th:href="@{'./registration' (page = ${page}, sName =${searchCriterion})}" class="link"
+                           th:text="${page}"></a>
+                    </li>
+                    <li class="page" th:if="${pageModel.requestPage<pageModel.displayEndPage}">
+                        <a th:href="@{'./registration' (page = ${pageModel.requestPage + 1}, sName = ${searchCriterion})}"
+                           class="link">다음</a>
+                    </li>
+
+                    <li class="page" th:if="${pageModel.displayStartPage + 10<pageModel.maxPage}">
+                        <a th:href="@{'./registration' (page = ${pageModel.displayStartPage + 10}, sName = ${searchCriterion})}"
+                           class="link">
+                            <img width="32" height="32" src="https://img.icons8.com/small/32/forward.png" alt="forward"/>
+                        </a>
+                    </li>
+
+                    <li class="page" th:if="${(pageModel.displayStartPage/10)!=(pageModel.maxPage/10)}">
+                        <a th:href="@{'./registration' (page = ${pageModel.maxPage}, sName = ${searchCriterion})}"
+                           class="link">
+                            <img width="32" height="32" src="https://img.icons8.com/small/32/double-right.png"
+                                 alt="double-right"/>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="individualContainer">
+                <span class="contentTitle">개인 정보 동의</span>
+                <textarea readonly class="_object-input term">개인 정보 처리방침</textarea>
+                <label class="_object-check-wrapper">
+                    <input class="_check-input" type="checkbox" name="agreeIndividual">
+                    <span class="_check-toggle"></span>
+                    <span>위 개인정보 처리방침을 읽어보았고 이해하였으며 동의합니다.</span>
+                </label>
+            </div>
+
+            <div id="businessContainer">
+                <span class="contentTitle">사업장 정보 동의</span>
+                <textarea readonly class="_object-input term">사업장 정보 처리방침</textarea>
+
+                <label class="_object-check-wrapper">
+                    <input class="_check-input" name="agreeBusiness" type="checkbox">
+                    <span class="_check-toggle"></span>
+                    <span>위 사업장 정보 처리방침을 읽어보았고 이해하였으며 동의합니다.</span>
+                </label>
+            </div>
+
+            <div id="fileContainer">
+                <span class="contentTitle">사업자 등록증 첨부</span>
+                <label class="fileContainer">
+                    <input hidden="hidden" id="uploadFiles" type="file" name="file" onchange="fileUpload(contents.existingForm, this.id)">
+                    <span class="_object-input visible" rel="fileName">파일을 업로드 하여 주세요.</span>
+                    <input rel="fileButton" class="fileButton _object-button _color-concept" type="button"
+                           value="파일 선택">
+                </label>
+            </div>
+
+            <div id="reservationContainer" class="reservation box">
+                <span class="contentTitle">예약 서비스</span>
+                <label class="_object-input-wrapper">
+                    <label>
+                        <input name="isReservation" class="_object-radio" type="radio" value="true" checked>
+                        <span>동의</span>
+                    </label>
+                    <label>
+                        <input name="isReservation" class="_object-radio" type="radio" value="false">
+                        <span>미동의</span>
+                    </label>
+                </label>
+                <span class="contentSubTitle">객실 리스트</span>
+                <div class="createCost lineContainer">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>이름</th>
+                            <th>비용</th>
+                            <th class="small">허용인원</th>
+                            <th class="small">추가가능인원</th>
+                            <th>추가인원비용</th>
+                        </tr>
+                        </thead>
+                        <tbody id="costList">
+                        <tr>
+                            <td>
+                                <input class="_object-input" type="text" rel="siteName">
+                            </td>
+                            <td>
+                                <input class="_object-input" type="number" rel="cost">
+                            </td>
+                            <td>
+                                <input class="_object-input small" type="number" rel="allowPerson">
+                            </td>
+                            <td>
+                                <input class="_object-input small" type="number" rel="addPerson">
+                            </td>
+                            <td>
+                                <input class="_object-input" type="number" rel="addPersonCost">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="lineContainer">
+                    <div>
+                        <input class="_object-button" rel="costAddBtn" type="button" value="추가"
+                               onclick="addCostList(costList)">
+                        <input class="_object-button" rel="costDeleteBtn" type="button" value="삭제"
+                               onclick="deleteCostList(costList)">
+                    </div>
+                </div>
+            </div>
+
+            <input class="_object-button _color-concept" type="submit" value="신청하기">
+        </form>
+
+        <form class="newCamping visible" rel="newCampingForm">
+            <div id="newIndividualContainer">
+                <span class="contentTitle">개인 정보 동의</span>
+                <textarea readonly class="_object-input term">개인 정보 처리방침</textarea>
+                <label class="_object-check-wrapper">
+                    <input class="_check-input" name="agreeIndividual" type="checkbox">
+                    <span class="_check-toggle"></span>
+                    <span>위 개인정보 처리방침을 읽어보았고 이해하였으며 동의합니다.</span>
+                </label>
+            </div>
+
+            <div id="newBusinessContainer">
+                <span class="contentTitle">사업장 정보 동의</span>
+                <textarea readonly class="_object-input term">사업장 정보 처리방침</textarea>
+
+                <label class="_object-check-wrapper">
+                    <input class="_check-input" name="agreeBusiness" type="checkbox">
+                    <span class="_check-toggle"></span>
+                    <span>위 사업장 정보 처리방침을 읽어보았고 이해하였으며 동의합니다.</span>
+                </label>
+            </div>
+
+            <div id="newFileContainer">
+                <span class="contentTitle">사업자 등록증 첨부</span>
+                <label class="fileContainer">
+                    <input hidden="hidden" id="newUploadFiles"  name="file" type="file" onchange="fileUpload(contents.newCampingForm, this.id)">
+                    <span class="_object-input visible" rel="fileName">파일을 업로드 하여 주세요.</span>
+                    <input rel="fileButton" class="fileButton _object-button _color-concept" type="button"
+                           value="파일 선택">
+                </label>
+            </div>
+
+            <div id="basicsContainer" class="basics">
+                <span class="contentTitle">기본 정보</span>
+                <div class="lineContainer">
+                    <label class="name _object-input-wrapper">
+                        <span>사업장명 : </span>
+                        <input name="name" class="_object-input" type="text">
+                    </label>
+                    <label class="_object-input-wrapper">
+                        <span>사업주체 : </span>
+                        <label>
+                            <input name="business" class="_object-radio" type="radio" value="0">
+                            <span>국립공원</span>
+                        </label>
+                        <label>
+                            <input name="business" class="_object-radio" type="radio" value="1">
+                            <span>국민여가</span>
+                        </label>
+                        <label>
+                            <input name="business" class="_object-radio" type="radio" value="2">
+                            <span>민간</span>
+                        </label>
+                        <label>
+                            <input name="business" class="_object-radio" type="radio" value="3">
+                            <span>자연휴양림</span>
+                        </label>
+                        <label>
+                            <input name="business" class="_object-radio" type="radio" value="4">
+                            <span>지자체</span>
+                        </label>
+                    </label>
+                </div>
+                <div class="lineContainer">
+                    <label class="_object-input-wrapper">
+                        <span>전화번호 : </span>
+                        <input name="contactFirst" class="_object-input small" type="text" maxlength="4">
+                        -
+                        <input name="contactSecond" class="_object-input small" type="text" maxlength="4">
+                        -
+                        <input name="contactThird" class="_object-input small" type="text" maxlength="4">
+                    </label>
+                    <label class="_object-input-wrapper">
+                        <span>홈페이지 : </span>
+                        <input name="url" class="_object-input large" type="text">
+                    </label>
+                </div>
+            </div>
+            <div id="operationContainer" class="operation">
+                <span class="contentTitle">운영 정보</span>
+                <div class="lineContainer">
+                    <label class="_object-input-wrapper">
+                        <span>평일 운영 : </span>
+                        <label>
+                            <input name="isWeekday" class="_object-radio" type="radio" value="1">
+                            <span>운영</span>
+                        </label>
+                        <label>
+                            <input name="isWeekday" class="_object-radio" type="radio" value="0">
+                            <span>미운영</span>
+                        </label>
+                    </label>
+                    <label class="_object-input-wrapper">
+                        <span>주말 운영 : </span>
+                        <label>
+                            <input name="isWeekend" class="_object-radio" type="radio" value="1">
+                            <span>운영</span>
+                        </label>
+                        <label>
+                            <input name="isWeekend" class="_object-radio" type="radio" value="0">
+                            <span>미운영</span>
+                        </label>
+                    </label>
+                </div>
+                <div class="lineContainer">
+                    <span>계절 운영 : </span>
+                    <label class="small _object-check-wrapper">
+                        <input name="spring" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">봄</span>
+                    </label>
+                    <label class="small _object-check-wrapper">
+                        <input name="summer" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">여름</span>
+                    </label>
+                    <label class="small _object-check-wrapper">
+                        <input name="fall" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">가을</span>
+                    </label>
+                    <label class="small _object-check-wrapper">
+                        <input name="winter" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">겨울</span>
+                    </label>
+                </div>
+            </div>
+            <div id="facilityContainer" class="facility">
+                <span class="contentTitle">시설 정보</span>
+                <div class="lineContainer">
+                    <label class="_object-check-wrapper">
+                        <input name="generalChk" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">일반야영장</span>
+                        <input disabled name="generalCnt" class="text _object-input large" type="number" min="0">
+                    </label>
+                    <label class="_object-check-wrapper">
+                        <input name="autoChk" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">자동차야영장</span>
+                        <input disabled name="autoCnt" class="text _object-input large" type="number" min="0">
+                    </label>
+                    <label class="_object-check-wrapper">
+                        <input name="glampingChk" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">글램핑</span>
+                        <input disabled name="glampingCnt" class="text _object-input large" type="number" min="0">
+                    </label>
+                    <label class="_object-check-wrapper">
+                        <input name="caravanChk" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">카라반</span>
+                        <input disabled name="caravanCnt" class="text _object-input large" type="number" min="0">
+                    </label>
+                    <label class="_object-check-wrapper">
+                    </label>
+                </div>
+                <input hidden="hidden" type="checkbox" name="additionalChk">
+                <span class="contentSubTitle">부대 시설</span>
+                <div class="lineContainer">
+                    <label class="_object-check-wrapper">
+                        <input name="elt" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">전기</span>
+                    </label>
+                    <label class="_object-check-wrapper">
+                        <input name="boil" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">온수</span>
+                    </label>
+                    <label class="_object-check-wrapper">
+                        <input name="wifi" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">무선인터넷</span>
+                    </label>
+                    <label class="_object-check-wrapper">
+                        <input name="firewood" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">장작판매</span>
+                    </label>
+                    <label class="_object-check-wrapper">
+                        <input name="trailsIn" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">산책로</span>
+                    </label>
+                </div>
+                <div class="lineContainer">
+                    <label class="_object-check-wrapper">
+                        <input name="market" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">마트</span>
+                    </label>
+                    <label class="_object-check-wrapper">
+                        <input name="toiletChk" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">화장실</span>
+                        <input disabled name="toilet" class="text _object-input" type="number" min="0">
+                    </label>
+                    <label class="_object-check-wrapper">
+                        <input name="bathChk" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">샤워실</span>
+                        <input disabled name="bath" class="text _object-input" type="number" min="0">
+                    </label>
+                    <label class="_object-check-wrapper">
+                        <input name="sinkChk" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">싱크대</span>
+                        <input disabled name="sink" class="text _object-input" type="number" min="0">
+                    </label>
+                    <label class="_object-check-wrapper">
+                        <input name="extinguishChk" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">소화기</span>
+                        <input disabled name="extinguish" class="text _object-input" type="number" min="0">
+                    </label>
+                </div>
+                <input hidden="hidden" type="checkbox" name="peripheralChk">
+                <span class="contentSubTitle">주변 시설</span>
+                <div class="lineContainer">
+                    <label class="_object-check-wrapper">
+                        <input name="fishing" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">낚시</span>
+                    </label>
+                    <label class="_object-check-wrapper">
+                        <input name="trailsOut" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">산책로</span>
+                    </label>
+                    <label class="_object-check-wrapper">
+                        <input name="seaBath" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">해수욕</span>
+                    </label>
+                    <label class="_object-check-wrapper">
+                        <input name="leisure" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">수상레저</span>
+                    </label>
+                    <label class="_object-check-wrapper">
+                        <input name="valley" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">계곡</span>
+                    </label>
+                </div>
+                <div class="lineContainer">
+                    <label class="_object-check-wrapper">
+                        <input name="river" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">강</span>
+                    </label>
+                    <label class="_object-check-wrapper">
+                        <input name="poll" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">수영장</span>
+                    </label>
+                    <label class="_object-check-wrapper">
+                        <input name="exTeen" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">청소년체험시설</span>
+                    </label>
+                    <label class="_object-check-wrapper">
+                        <input name="exCountry" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">농어촌체험시설</span>
+                    </label>
+                    <label class="_object-check-wrapper">
+                        <input name="amuseKid" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">어린이놀이시설</span>
+                    </label>
+                </div>
+                <input hidden="hidden" type="checkbox" name="grampingFacilityChk">
+                <span class="contentSubTitle gramping visible">글램핑 시설</span>
+                <div class="lineContainer gramping visible" >
+                    <label class="_object-check-wrapper gramping visible">
+                        <input name="bed" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">침대</span>
+                    </label>
+                    <label class="_object-check-wrapper gramping visible">
+                        <input name="television" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">티비</span>
+                    </label>
+                    <label class="_object-check-wrapper gramping visible">
+                        <input name="refrigerator" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">냉장고</span>
+                    </label>
+                    <label class="_object-check-wrapper gramping visible">
+                        <input name="internet" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">유무선인터넷</span>
+                    </label>
+                    <label class="_object-check-wrapper gramping visible">
+                        <input name="grampingToilet" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">화장실</span>
+                    </label>
+                </div>
+                <div class="lineContainer gramping visible">
+                    <label class="_object-check-wrapper gramping visible">
+                        <input name="airConditioner" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">에어컨</span>
+                    </label>
+                    <label class="_object-check-wrapper gramping visible">
+                        <input name="heater" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">난방도구</span>
+                    </label>
+                    <label class="_object-check-wrapper gramping visible">
+                        <input name="utensil" class="_check-input" type="checkbox">
+                        <span class="_check-toggle"></span>
+                        <span class="contentTitle">취사도구</span>
+                    </label>
+                    <label class="_object-check-wrapper gramping visible">
+                    </label>
+                    <label class="_object-check-wrapper gramping visible">
+                    </label>
+                </div>
+                <input hidden="hidden" type="checkbox" name="characteristicsChk">
+                <span class="contentSubTitle">시설 특징</span>
+                <textarea name="characteristics" class="_object-input term" placeholder="해당 야영장 시설의 특징을 적어주세요."></textarea>
+                <input hidden="hidden" type="checkbox" name="introductionChk">
+                <span class="contentSubTitle">시설 소개글</span>
+                <textarea name="introduction" class="_object-input term" placeholder="해당 야영장의 소개하는 내용을 적어주세요."></textarea>
+            </div>
+            <div id="locationContainer" class="location">
+                <span class="contentTitle">위치 정보</span>
+                <div class="lineContainer">
+                    <div id="map">
+
+                    </div>
+                    <div class="mapContent">
+                        <input hidden="hidden" type="text" name="latitude">
+                        <input hidden="hidden" type="text" name="longitude">
+                        <input hidden="hidden" type="text" name="roadAddress">
+                        <label class="label">
+                            <input readonly class="_object-input mid " name="addressPostal" placeholder="우편번호" type="text">
+                            <input class="_object-button" type="button" name="addressFind" value="우편번호 찾기">
+                        </label>
+                        <label class="label">
+                            <input readonly class="_object-input large" maxlength="100" name="addressPrimary"
+                                   placeholder="'우편 찾기' 버튼을 클릭하여 주소를 지정해 주세요." type="text">
+                        </label>
+                        <label class="label">
+                            <input class="_object-input large" maxlength="100" name="addressSecondary"
+                                   placeholder="상세주소를 입력해 주세요.(건물 이름 및 동, 호 등)" type="text">
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="attachmentContainer" class="attachment">
+                <input hidden="hidden" type="checkbox" name="imageChk">
+                <span class="contentTitle">사진 첨부</span>
+                <label class="imageContainer">
+                    <input multiple hidden="hidden" id="uploadImages" type="file" name="image" onchange="imgUpload(contents.newCampingForm, this.id)">
+                    <span class="_object-input visible" rel="imageName">파일을 업로드 하여 주세요.(10개까지 가능)</span>
+                    <input rel="imageButton" class="fileButton _object-button _color-concept" type="button"
+                           value="파일 선택">
+                </label>
+            </div>
+
+            <div id="newReservationContainer" class="reservation box">
+                <span class="contentTitle">예약 서비스</span>
+                <div class="lineContainer">
+                    <label class="_object-input-wrapper">
+                        <label>
+                            <input name="isReservation" class="_object-radio" type="radio" value="true" checked>
+                            <span>동의</span>
+                        </label>
+                        <label>
+                            <input name="isReservation" class="_object-radio" type="radio" value="false">
+                            <span>미동의</span>
+                        </label>
+                    </label>
+                </div>
+                <span class="contentSubTitle">객실 리스트</span>
+                <div class="createCost lineContainer">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>이름</th>
+                            <th>비용</th>
+                            <th class="small">허용인원</th>
+                            <th class="small">추가가능인원</th>
+                            <th>추가인원비용</th>
+                        </tr>
+                        </thead>
+                        <tbody id="newCostList">
+                        <tr>
+                            <td>
+                                <input class="_object-input" type="text" rel="siteName">
+                            </td>
+                            <td>
+                                <input class="_object-input" type="number" rel="cost">
+                            </td>
+                            <td>
+                                <input class="_object-input small" type="number" rel="allowPerson">
+                            </td>
+                            <td>
+                                <input class="_object-input small" type="number" rel="addPerson">
+                            </td>
+                            <td>
+                                <input class="_object-input" type="number" rel="addPersonCost">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="lineContainer">
+                    <div>
+                        <input class="_object-button" rel="newCostAddBtn" type="button" value="추가"
+                               onclick="addCostList(newCostList)">
+                        <input class="_object-button" rel="newCostDeleteBtn" type="button" value="삭제"
+                               onclick="deleteCostList(newCostList)">
+                    </div>
+                </div>
+
+            </div>
+
+            <input class="_object-button _color-concept" type="submit" value="신청하기">
+        </form>
+    </div>
+</div>
+<footer id="footer" class="box">
+    <div id="sub_logo" class="">
+        <img th:src="@{/resources/images/로고1_remove.png}" alt="">
+    </div>
+</footer>
+</body>
+</html>

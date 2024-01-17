@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>고객센터</title>
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/base.css}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/help/format.css}">
+    <script defer th:src="@{/resources/scripts/help/format.js}"></script>
+</head>
+<body>
+<div id="dialogCover" class=""></div>
+<div id="dialogLayer" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <span class="content fontSmall" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button cancel" type="button" rel="cancel" value="취소">
+        <input class="button confirm" type="submit" rel="confirm" value="확인">
+    </div>
+</div>
+<div id="headLine" class="box">
+    <div id="info_type" class="place">
+        <div>
+            <input rel="user" type="button" value="개인">
+            <input rel="entrepreneur" type="button" value="사업자">
+        </div>
+    </div>
+    <div id="info_menu" class="place">
+        <a class="nickname" th:if="${session.user != null}"  th:href="@{/mypage/modify}">
+            <span th:text="${session.user['nickname']}"></span>
+        </a>
+        <span th:if="${session.user != null}">님</span>
+        <a th:if="${session.user == null}" th:href="@{/user/login}">로그인</a>
+        <a th:if="${session.user != null}" class="logout" href="#">로그아웃</a>
+        <a th:if="${session.user == null}" th:href="@{/user/register}">회원가입</a>
+        <a th:if="${session.user != null}" th:href="@{/mypage/modify}">마이페이지</a>
+        <a th:href="@{/help/faq}">고객센터</a>
+    </div>
+</div>
+<div id="block" class="box">
+    <div class="logo" th:if="${session.user == null}">
+        <a th:href="@{/}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+    </div>
+    <div class="logo" th:if="${session.user != null}">
+        <a th:if="${session.user.getAuthority() != 2}" th:href="@{/}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+        <a th:if="${session.user.getAuthority() == 2}" th:href="@{/entrepreneur}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+    </div>
+    <div id="search">
+        <label>
+            <div>
+                <img width="24" height="24" src="https://img.icons8.com/material-outlined/24/228B22/search--v1.png" alt="search--v1"/>
+            </div>
+            <input type="text" placeholder="검색">
+        </label>
+    </div>
+    <div id="marge">
+
+    </div>
+</div>
+
+<nav id="nav" class="box help">
+    <div class="user">
+        <a>
+        <span>
+            추천
+        </span>
+        </a>
+        <a>
+        <span>
+            일반야영장
+        </span>
+        </a>
+        <a>
+        <span>
+            자동차야영장
+        </span>
+        </a>
+        <a>
+        <span>
+            카라반
+        </span>
+        </a>
+        <a>
+        <span>
+            글램핑
+        </span>
+        </a>
+    </div>
+    <div class="entrepreneur">
+        <a th:href="@{/entrepreneur/registration}">
+        <span>
+            사업장등록
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/profile}">
+        <span>
+            사업장프로필
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/reservation}">
+        <span>
+            예약서비스
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/event}">
+        <span>
+            이벤트
+        </span>
+        </a>
+    </div>
+    <div class="help">
+        <a th:href="@{/help/notice}">
+        <span>
+            공지사항
+        </span>
+        </a>
+        <a th:href="@{/help/event}">
+        <span>
+            이벤트
+        </span>
+        </a>
+        <a th:href="@{/help/faq}">
+        <span>
+            FAQ
+        </span>
+        </a>
+        <a th:href="@{/help/qna}">
+        <span>
+            1:1문의
+        </span>
+        </a>
+    </div>
+</nav>
+<div id="contents" class="box">
+    <div class="subBene box">
+        <div class="title">
+            <span>이벤트</span>
+            <span>사업자가 등록한 사업장의 이벤트(행사)를 추가 및 수정, 삭제</span>
+        </div>
+    </div>
+    <div class="content">
+
+    </div>
+</div>
+
+<footer id="footer" class="box">
+    <div id="sub_logo" class="">
+        <img th:src="@{/resources/images/로고1_remove.png}" alt="">
+    </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>들살이 - 예약</title>
+    <link rel="shortcut icon" th:href="@{/resources/images/fabicon.png}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/mobile/format.css}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/mobile/reserve.css}">
+    <script defer th:src="@{/resources/scripts/mobile/format.js}"></script>
+    <script defer th:src="@{/resources/scripts/mobile/reserve.js}"></script>
+    <script th:inline="javascript">
+        const costData = [[${costMap}]];
+        const campsiteData = [[${campsite}]];
+        console.log(campsiteData);
+    </script>
+</head>
+<body>
+<div id="dialogCover" class=""></div>
+<div id="dialogLayer" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <span class="content fontSmall" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button cancel" type="button" rel="cancel" value="취소">
+        <input class="button confirm" type="submit" rel="confirm" value="확인">
+    </div>
+</div>
+<div id="dialogComplete" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <div class="imgLogoContainer">
+        <img th:src="@{/resources/images/로고1_remove.png}">
+    </div>
+    <span class="content" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button cancel" type="button" rel="cancel" value="취소">
+        <input class="button confirm" type="submit" rel="confirm" value="확인">
+    </div>
+</div>
+<div id="dialogMenu">
+    <div>
+        <div class="menuClose">
+            <img rel="menuClose" width="24" height="24" src="https://img.icons8.com/ios/50/delete-sign--v1.png" alt="delete-sign--v1"/>
+        </div>
+        <div id="userContainer">
+            <a th:if="${session.user == null}" th:href="@{/mobile/login}">로그인이 필요합니다.</a>
+            <span class="userId" th:if="${session.user != null}" th:text="${session.user.getNickname()}"></span><span
+                th:if="${session.user != null}"> 님</span>
+        </div>
+        <div id="userMenu">
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/myInfo}"><img width="24" height="24" src="https://img.icons8.com/ios/50/info--v1.png" alt="info--v1"/><span>정보수정</span></a>
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/reservation}"><img width="24" height="24" src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/external-calendar-multimedia-kiranshastry-lineal-kiranshastry.png" alt="external-calendar-multimedia-kiranshastry-lineal-kiranshastry"/><span>예약내역</span></a>
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/bookmark}"><img width="24" height="24" src="https://img.icons8.com/ios/50/bookmark-ribbon--v1.png" alt="bookmark-ribbon--v1"/><span>즐겨찾기</span></a>
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/qna/list}"><img width="24" height="24" src="https://img.icons8.com/ios/50/questions.png" alt="questions"/><span>1:1문의내역</span></a>
+        </div>
+        <div id="helpContainer">
+            <table>
+                <tr>
+                    <td><a th:href="@{/mobile/notice}">공지사항</a></td>
+                    <td><a th:href="@{/mobile/event}">이벤트</a></td>
+                </tr>
+                <tr>
+                    <td><a th:href="@{/mobile/qna}">1:1문의</a></td>
+                    <td><a th:href="@{/mobile/faq}">FAQ</a></td>
+                </tr>
+            </table>
+        </div>
+        <div id="buttonContainer">
+            <ul th:if="${session.user == null}">
+                <li><a th:href="@{/mobile/login}"><img width="24" height="24" src="https://img.icons8.com/material-rounded/48/42AB42/enter-2.png" alt="enter-2"/><span>로그인</span></a></li>
+                <li><a th:href="@{/mobile/register}"><img width="24" height="24" src="https://img.icons8.com/ios-glyphs/60/42AB42/user-male-circle.png" alt="user-male-circle"/><span>회원가입</span></a></li>
+            </ul>
+
+            <ul th:if="${session.user != null}">
+                <li><a th:href="@{/mobile/logout}"><img width="24" height="24" src="https://img.icons8.com/material-rounded/48/42AB42/exit.png" alt="exit"/><span>로그아웃</span></a></li>
+                <li><a th:href="@{/mobile/}"><img width="24" height="24" src="https://img.icons8.com/material-sharp/48/42AB42/home.png" alt="home"/><span>홈으로</span></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="warp">
+    <div id="header">
+        <img rel="back" width="24" height="24" src="https://img.icons8.com/ios/50/left--v1.png" alt="left--v1"/>
+        <span>예약하기</span>
+        <img rel="home" width="24" height="24" src="https://img.icons8.com/material-rounded/48/home.png" alt="home"/>
+        <img rel="menu" width="24" height="24" src="https://img.icons8.com/material-sharp/48/menu--v1.png"
+             alt="menu--v1"/>
+    </div>
+    <div id="reserveContainer">
+        <form id="reservationForm" class="contentContainer">
+            <label>
+                <span class="title" th:text="${campsite.getName()}"></span>
+            </label>
+            <label class="col">
+                <span class="subTitle">사이트(객실) 선택</span>
+                <select class="_object-input" name="site" id="selectSite">
+                    <option value="">----------------- 객실 선택 -----------------</option>
+                    <option th:each="costMapKey:${costMap.keySet()}" th:value="${costMapKey}" th:text='${"" + costMapKey + "(기본:" + costMap.get(costMapKey).get("allowPerson") + "인 / 추가:" + costMap.get(costMapKey).get("addPerson")+ "인)"}'></option>
+                </select>
+            </label>
+            <label class="col">
+                <div class="CalendarContainer">
+                    <table class="Calendar">
+                        <thead>
+                        <tr>
+                            <td onClick="prevCalendar();" style="cursor:pointer;">&#60;</td>
+                            <td colspan="5">
+                                <span id="calYear"></span>년
+                                <span id="calMonth"></span>월
+                            </td>
+                            <td onClick="nextCalendar();" style="cursor:pointer;">&#62;</td>
+                        </tr>
+                        <tr>
+                            <td>일</td>
+                            <td>월</td>
+                            <td>화</td>
+                            <td>수</td>
+                            <td>목</td>
+                            <td>금</td>
+                            <td>토</td>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        </tbody>
+                    </table>
+
+                    <div>
+                        <span class="subTitle">예약 일자</span>
+                        <span>(최소 1박2일, 최장 6박7일까지 예약가능합니다.)</span>
+                    </div>
+
+                    <div class="content">
+                        <input readonly placeholder="입실 일자" name="start" type="text" class="_object-input date">
+                        <span>~</span>
+                        <input readonly placeholder="퇴실 일자" name="end" type="text" class="_object-input date">
+                    </div>
+                </div>
+            </label>
+            <label class="row">
+                <span class="subTitle">추가 인원 : </span>
+                <input disabled name="addPerson" min="0" placeholder="0" type="number" class="_object-input small">
+            </label>
+            <label class="costLabel">
+                <span class="cost">총 비용 : </span>
+                <span id="allCost" class="cost">0</span>
+                <span class="cost">원</span>
+            </label>
+            <div>
+                <input class="_object-button _color-concept" type="submit" value="예약하기">
+            </div>
+        </form>
+    </div>
+
+    <div id="footer">
+    </div>
+</div>
+
+</body>
+</html>

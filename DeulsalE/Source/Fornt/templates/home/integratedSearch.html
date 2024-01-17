@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>통합검색</title>
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/base.css}">
+<!--    <link rel="stylesheet" th:href="@{/resources/stylesheets/index.home.css}">-->
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/Home/integratedSearch.css}">
+    <link rel="shortcut icon" th:href="@{/resources/images/fabicon.png}">
+    <script defer th:src="@{/resources/scripts/common.js}"></script>
+</head>
+<body>
+<div id="dialogCover" class=""></div>
+<div id="dialogLayer" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <span class="content" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button cancel" type="button" rel="cancel" value="취소">
+        <input class="button confirm" type="submit" rel="confirm" value="변경하기">
+    </div>
+</div>
+<div id="dialogYesNo" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <span class="content fontSmall" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button confirm" type="submit" rel="confirm" value="예">
+        <input class="button cancel" type="button" rel="cancel" value="아니오">
+    </div>
+</div>
+<div id="headLine" class="box">
+    <div id="info_type" class="place">
+        <div th:if="${session.user == null}">
+            <input class="checked" rel="user" type="button" value="개인">
+            <input rel="entrepreneur" type="button" value="사업자">
+        </div>
+
+        <div th:if="${session.user != null}">
+            <input th:class="${session.user.getAuthority()!=2? 'checked':''}" rel="user" type="button" value="개인">
+            <input th:class="${session.user.getAuthority()==2? 'checked':''}" rel="entrepreneur" type="button" value="사업자">
+        </div>
+    </div>
+    <div id="info_menu" class="place">
+        <a class="nickname" th:if="${session.user != null}"  th:href="@{/mypage/modify}">
+            <span th:text="${session.user['nickname']}"></span>
+        </a>
+        <span th:if="${session.user != null}">님</span>
+        <a th:if="${session.user == null}" th:href="@{/user/login}">로그인</a>
+        <a th:if="${session.user != null}" class="logout" href="#">로그아웃</a>
+        <a th:if="${session.user == null}" th:href="@{/user/register}">회원가입</a>
+        <a th:if="${session.user != null}" th:href="@{/mypage/modify}">마이페이지</a>
+        <a th:href="@{/help/faq}">고객센터</a>
+    </div>
+</div>
+<div id="block" class="box">
+    <div class="logo" th:if="${session.user == null}">
+        <a th:href="@{/}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+    </div>
+    <div class="logo" th:if="${session.user != null}">
+        <a th:if="${session.user.getAuthority() != 2}" th:href="@{/}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+        <a th:if="${session.user.getAuthority() == 2}" th:href="@{/entrepreneur}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+    </div>
+    <div id="search">
+        <label>
+            <div>
+                <img width="24" height="24" src="https://img.icons8.com/material-outlined/24/228B22/search--v1.png"
+                     alt="search--v1"/>
+            </div>
+            <input id="searchContent"  type="text" placeholder="검색" th:value="${query}">
+        </label>
+    </div>
+    <div id="marge">
+
+    </div>
+</div>
+<nav id="nav" class="box user visible">
+    <div class="user">
+        <a th:href="@{/templates/member/recommendation}">
+        <span>
+            추천
+        </span>
+        </a>
+        <a th:href="@{/templates/member/format}">
+        <span>
+            일반야영장
+        </span>
+        </a>
+        <a th:href="@{/templates/member/format}">
+        <span>
+            자동차야영장
+        </span>
+        </a>
+        <a th:href="@{/templates/member/format}">
+        <span>
+            카라반
+        </span>
+        </a>
+        <a th:href="@{/templates/member/format}">
+        <span>
+            글램핑
+        </span>
+        </a>
+    </div>
+    <div class="entrepreneur">
+        <a th:href="@{/entrepreneur/registration}">
+        <span>
+            사업장등록
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/profile}">
+        <span>
+            사업장프로필
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/reservation}">
+        <span>
+            예약서비스
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/event}">
+        <span>
+            이벤트
+        </span>
+        </a>
+    </div>
+</nav>
+<div id="contents" class="box">
+    <div id="noneSearch" th:if="${generalCount == 0 && autoCount == 0 && glampingCount == 0 && caravanCount == 0 && noticeCount == 0 && eventCount == 0}">
+        <img width="100" height="100" src="https://img.icons8.com/ios/100/42AB42/error--v1.png" alt="error--v1"/>
+        <span th:text="${query} + ' 에 대한 검색 정보가 없습니다.'"></span>
+    </div>
+    <div th:if="${generals != null && generals.length > 0}" class="border">
+        <span class="subTitle">일반야영장</span>
+        <a class="campsite" th:each="general : ${generals}" th:href="@{/member/detail (index=${general.getIndex()})}">
+            <div>
+                <span class="name" th:text="${general.getName()}"></span>
+                <label class="row">
+                    <span class="text">주소 :</span>
+                    <span th:text="${general.getRoadAd()}"></span>
+                </label>
+                <label class="row">
+                    <span class="text">전화번호 :</span>
+                    <span th:text="${general.getContact()}"></span>
+                </label>
+                <label class="col">
+                    <span>소개</span>
+                    <div readonly class="text" th:text="${general.getIntroduction()}"></div>
+                </label>
+            </div>
+            <img th:src="@{/image (campsiteIndex=${general.getIndex()}) }"  onerror="this.onerror=null; this.src='/resources/images/noimage.png';">
+        </a>
+    </div>
+    <a th:if="${generals != null && generals.length > 0}" class="detail" th:href="@{'/member/campsite?code=1&sort=1&query='+${query}}" th:text="${'검색 결과 더보기('+generalCount+'건)'}"></a>
+    <div th:if="${autos != null && autos.length > 0}" class="border">
+        <span class="subTitle">자동차야영장</span>
+        <a class="campsite" th:each="auto : ${autos}" th:href="@{/member/detail (index=${auto.getIndex()})}">
+            <div>
+                <span class="name" th:text="${auto.getName()}"></span>
+                <label class="row">
+                    <span class="text">주소 :</span>
+                    <span th:text="${auto.getRoadAd()}"></span>
+                </label>
+                <label class="row">
+                    <span class="text">전화번호 :</span>
+                    <span th:text="${auto.getContact()}"></span>
+                </label>
+                <label class="col">
+                    <span>소개</span>
+                    <div readonly class="text" th:text="${auto.getIntroduction()}"></div>
+                </label>
+            </div>
+            <img th:src="@{/image (campsiteIndex=${auto.getIndex()}) }"  onerror="this.onerror=null; this.src='/resources/images/noimage.png';">
+        </a>
+    </div>
+    <a th:if="${autos != null && autos.length > 0}" class="detail" th:href="@{'/member/campsite?code=2&sort=1&query='+${query}}" th:text="${'검색 결과 더보기('+autoCount+'건)'}"></a>
+    <div th:if="${caravans != null && caravans.length > 0}" class="border">
+        <span class="subTitle">카라반</span>
+        <a class="campsite" th:each="caravan : ${caravans}" th:href="@{/member/detail (index=${caravan.getIndex()})}">
+            <div>
+                <span class="name" th:text="${caravan.getName()}"></span>
+                <label class="row">
+                    <span class="text">주소 :</span>
+                    <span th:text="${caravan.getRoadAd()}"></span>
+                </label>
+                <label class="row">
+                    <span class="text">전화번호 :</span>
+                    <span th:text="${caravan.getContact()}"></span>
+                </label>
+                <label class="col">
+                    <span>소개</span>
+                    <div readonly class="text" th:text="${caravan.getIntroduction()}"></div>
+                </label>
+            </div>
+            <img th:src="@{/image (campsiteIndex=${caravan.getIndex()}) }"  onerror="this.onerror=null; this.src='/resources/images/noimage.png';">
+        </a>
+    </div>
+    <a th:if="${caravans != null && caravans.length > 0}" class="detail" th:href="@{'/member/campsite?code=3&sort=1&query='+${query}}" th:text="${'검색 결과 더보기('+caravanCount+'건)'}"></a>
+    <div th:if="${glampings != null && glampings.length > 0}" class="border">
+        <span class="subTitle">글램핑</span>
+        <a class="campsite" th:each="glamping : ${glampings}" th:href="@{/member/detail (index=${glamping.getIndex()})}">
+            <div>
+                <span class="name" th:text="${glamping.getName()}"></span>
+                <label class="row">
+                    <span class="text">주소 :</span>
+                    <span th:text="${glamping.getRoadAd()}"></span>
+                </label>
+                <label class="row">
+                    <span class="text">전화번호 :</span>
+                    <span th:text="${glamping.getContact()}"></span>
+                </label>
+                <label class="col">
+                    <span>소개</span>
+                    <div readonly class="text" th:text="${glamping.getIntroduction()}"></div>
+                </label>
+            </div>
+            <img th:src="@{/image (campsiteIndex=${glamping.getIndex()}) }"  onerror="this.onerror=null; this.src='/resources/images/noimage.png';">
+        </a>
+    </div>
+    <a th:if="${glampings != null && glampings.length > 0}" class="detail" th:href="@{'/member/campsite?code=4&sort=1&query='+${query}}" th:text="${'검색 결과 더보기('+glampingCount+'건)'}"></a>
+    <div th:if="${notices != null && notices.length > 0}" class="border">
+        <span class="subTitle">공지사항</span>
+        <a class="notice" th:each="notice : ${notices}" th:href="@{/help/notice/view (index=${notice.getIndex()})}">
+            <label class="row">
+                <span class="noticeTitle" th:text="${notice.getSubject()}"></span>
+                <span th:text="${#dates.format(notice.getCreatedAt(),'yyyy.MM.dd')}"></span>
+            </label>
+            <label class="col">
+                <div readonly class="text" th:utext="${notice.getContent()}"></div>
+            </label>
+        </a>
+    </div>
+    <a th:if="${notices != null && notices.length > 0}" class="detail" th:href="@{'/help/notice?search='+${query}}" th:text="${'검색 결과 더보기('+noticeCount+'건)'}"></a>
+    <div th:if="${events != null && events.length > 0}" class="border">
+        <span class="subTitle">이벤트</span>
+        <a class="event" th:each="event : ${events}" th:href="@{/help/event/view (index=${event.getIndex()})}">
+            <div>
+                <label class="row">
+                    <span th:text="${event.getCampsiteName()}"></span>
+                    <span th:text="${#dates.format(event.getCreatedAt(), 'yyyy.MM.dd')}"></span>
+                </label>
+                <label class="row">
+                    <span class="eventTitle" th:text="${event.getTitle()}"></span>
+                </label>
+            </div>
+            <img th:src="@{''+${event.getSrc()}}" onerror="this.onerror=null; this.src='/resources/images/event_bg/001.jpg';">
+        </a>
+    </div>
+    <a th:if="${events != null && events.length > 0}" class="detail" th:href="@{'/help/event?search='+${query}}" th:text="${'검색 결과 더보기('+eventCount+'건)'}"></a>
+</div>
+<footer id="footer" class="box">
+    <div id="sub_logo" class="">
+        <img th:src="@{/resources/images/로고1_remove.png}"  onerror="this.onerror=null; this.src='/resources/images/noimage.png';">
+    </div>
+</footer>
+</body>
+</html>

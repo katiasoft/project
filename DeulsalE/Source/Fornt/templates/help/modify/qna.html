@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>들살이 - 1:1문의</title>
+    <link rel="shortcut icon" th:href="@{/resources/images/fabicon.png}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/base.css}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/help/format.css}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/help/modify/qna.css}">
+    <script defer th:src="@{/resources/scripts/help/modify/qna.js}"></script>
+    <script defer th:src="@{/resources/scripts/common.js}"></script>
+    <script src="https://kit.fontawesome.com/07b3d34f7d.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<div id="dialogCover" class=""></div>
+<div id="dialogLayer" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <span class="content fontSmall" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button cancel" type="button" rel="cancel" value="취소">
+        <input class="button confirm" type="submit" rel="confirm" value="확인">
+    </div>
+</div>
+<div id="dialogYesNo" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <span class="content fontSmall" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button cancel" type="button" rel="cancel" value="아니오">
+        <input class="button confirm" type="submit" rel="confirm" value="예">
+    </div>
+</div>
+<div id="dialogComplete" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <div class="imgLogoContainer">
+        <img th:src="@{/resources/images/로고1_remove.png}">
+    </div>
+    <span class="content" rel="content">내용</span>
+    <div class="button-container">
+        <a class="button cancel" rel="cancel" href="/help/qna/modify">취소</a>
+        <a class="button confirm" rel="confirm" th:href="@{/help/qna/view(index=${qnaEntity.getIndex()})}">확인</a>
+    </div>
+</div>
+<div id="headLine" class="box">
+    <div id="info_type" class="place">
+        <div th:if="${session.user == null}">
+            <input class="checked" rel="user" type="button" value="개인">
+            <input rel="entrepreneur" type="button" value="사업자">
+        </div>
+
+        <div th:if="${session.user != null}">
+            <input th:class="${session.user.getAuthority()!=2? 'checked':''}" rel="user" type="button" value="개인">
+            <input th:class="${session.user.getAuthority()==2? 'checked':''}" rel="entrepreneur" type="button" value="사업자">
+        </div>
+    </div>
+    <div id="info_menu" class="place">
+        <a class="nickname" th:if="${session.user != null}" th:href="@{/mypage/modify}">
+            <span th:text="${session.user['nickname']}"></span>
+        </a>
+        <span th:if="${session.user != null}">님</span>
+        <a th:if="${session.user == null}" th:href="@{/user/login}">로그인</a>
+        <a th:if="${session.user != null}" class="logout" href="#">로그아웃</a>
+        <a th:if="${session.user == null}" th:href="@{/user/register}">회원가입</a>
+        <a th:if="${session.user != null}" th:href="@{/mypage/modify}">마이페이지</a>
+        <a th:href="@{/help/faq}">고객센터</a>
+    </div>
+</div>
+<div id="block" class="box">
+    <div class="logo" th:if="${session.user == null}">
+        <a th:href="@{/}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+    </div>
+    <div class="logo" th:if="${session.user != null}">
+        <a th:if="${session.user.getAuthority() != 2}" th:href="@{/}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+        <a th:if="${session.user.getAuthority() == 2}" th:href="@{/entrepreneur}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+    </div>
+    <div id="search">
+        <label>
+            <div>
+                <img width="24" height="24" src="https://img.icons8.com/material-outlined/24/228B22/search--v1.png"
+                     alt="search--v1"/>
+            </div>
+            <input id="searchContent" type="text" placeholder="검색">
+        </label>
+    </div>
+    <div id="marge">
+
+    </div>
+</div>
+
+<nav id="nav" class="box help">
+    <div class="user">
+        <a>
+        <span>
+            추천
+        </span>
+        </a>
+        <a>
+        <span>
+            일반야영장
+        </span>
+        </a>
+        <a>
+        <span>
+            자동차야영장
+        </span>
+        </a>
+        <a>
+        <span>
+            카라반
+        </span>
+        </a>
+        <a>
+        <span>
+            글램핑
+        </span>
+        </a>
+    </div>
+    <div class="entrepreneur">
+        <a th:href="@{/entrepreneur/registration}">
+        <span>
+            사업장등록
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/profile}">
+        <span>
+            사업장프로필
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/reservation}">
+        <span>
+            예약서비스
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/event}">
+        <span>
+            이벤트
+        </span>
+        </a>
+    </div>
+    <div class="help">
+        <a th:href="@{/help/notice}">
+        <span>
+            공지사항
+        </span>
+        </a>
+        <a th:href="@{/help/event}">
+        <span>
+            이벤트
+        </span>
+        </a>
+        <a th:href="@{/help/faq}">
+        <span>
+            FAQ
+        </span>
+        </a>
+        <a th:href="@{/help/qna}">
+        <span>
+            1:1문의
+        </span>
+        </a>
+    </div>
+</nav>
+<div id="contents" class="box">
+    <div class="subBene box">
+        <div class="title">
+            <span>1:1문의</span>
+            <span>이슈사항 문의 및 서비스 개선을 위한 건의</span>
+        </div>
+    </div>
+    <div class="content">
+        <div class="page_form">
+            <div class="container_md px" id="page_inquiry" data-role="page">
+                <form id="qnaForm" rel="qnaForm" name="fo_qna" method="PATCH" enctype="multipart/form-data">
+                    <input type="hidden" name="cmd" value="submit">
+                    <div class="title_area">
+                        <h1>1:1문의 내역 수정</h1>
+                    </div>
+                    <div class="paragraph">
+                        <h3>상담시간</h3>
+                        <p class="txt_dark">평일 월요일~금요일 09:00~18:00 주말 및 공휴일 휴무</p>
+                        <p>운영시간 외에 문의주신 내용은 다음 영업일에 빠르게 답변드릴 수 있도록 노력하겠습니다.
+                            <br>이메일 답변시 스팸으로 처리되는 경우가 있습니다.
+                            <br>답변 수신이 되지 않는 경우, 스팸 등록 여부 확인 부탁드립니다.
+                        </p>
+                        <p class="txt_red m_t_8">※ 본문 및 첨부파일에 불필요한 개인정보가 노출되지 않도록 유의해주세요.</p>
+                    </div>
+
+                    <!--로그인을 한 경우 보이는 내용-->
+                    <div class="form_qna mt_lg" th:if="${session.user != null}">
+                        <input type="hidden" name="index" id="index" th:value="${qnaEntity.getIndex()}">
+                        <dl>
+                            <dt class="txt_xs">아이디</dt>
+                            <dd>
+                                <input name="userId" th:value="${qnaEntity.getUserId()}" id="qna_id" type="text"
+                                       class="form_control txt_gray" readonly>
+                            </dd>
+                            <dt class="txt_xs">제목</dt>
+                            <dd>
+                                <input name="title" th:value="${qnaEntity.getTitle()}" type="text" class="form_control"
+                                       id="txt_title" placeholder="제목을 입력해주세요.">
+                            </dd>
+                            <dt class="txt_xs">문의내용</dt>
+                            <dd class="suggest_text">
+                            <textarea name="content" th:utext="${qnaEntity.getContent()}" rows="7" cols="50"
+                                      class="form_control"
+                                      placeholder="내용을 입력하세요."></textarea>
+                                <span class="restrict">65,000자 제한</span>
+                            </dd>
+                            <dt class="txt_xs">사진첨부</dt>
+                            <dd>
+                                <label id="file_upload" class="form_file" for="upload">
+                                    <label class="btn_gray" for="upload" rel="fileButton">
+                                        <i class="far fa-solid fa-paperclip"></i> 사진첨부</label><br>
+                                    <span>용량 5MB 미만의 파일 3개까지 첨부 가능(파일 확장자: JPG, GIF, PNG)</span>
+                                    <input multiple name="files" type="file" id="upload" class="file"
+                                           accept="image/jpeg,image/png,image/gif">
+                                </label>
+                                <div class="uploaded_imgs"></div>
+                            </dd>
+                        </dl>
+                        <div class="form_qna_noti">
+                            <h4>유의사항</h4>
+                            <ul class="checklist">
+                                <li class="checklist--item m_b_8">정확한 아이디 정보를 기재해 주시기 바랍니다.</li>
+                                <li class="checklist--item m_b_8">원활한 의사소통을 위하여 사이버 예절을 지켜주시기를 요청드립니다.</li>
+                                <li class="checklist--item m_b_8">답변을 준비하는 동안 시일이 소요됩니다. 최대한 신속하게 답변드리겠습니다.</li>
+                                <li class="checklist--item">다양한 주제보다 한가지 주제에 대하여 문의해주시면 답변이 더 빠를 수 있습니다.</li>
+                            </ul>
+                        </div>
+
+                        <div class="form_qna_agree">
+                            <h4>개인정보 수집 및 이용 동의</h4>
+                            <p>※ 동의하지 않을 경우 고객 문의 답변에 제한이 있을 수 있습니다.</p>
+                            <ul class="topic-graybox">
+                                <li class="topic-graybox--item">개인 정보 수집 및 이용목적</li>
+                                <li class="topic-graybox--item">1. 개인 정보 수집항목 : 성명, 전화번호, 이메일, 아이디</li>
+                                <li class="topic-graybox--item">2. 개인 정보 이용목적 : 문의 접수, 고객 불편 사항 확인 및 처리 결과 회신</li>
+                                <li class="topic-graybox--item">3. 개인 정보 이용기간 : 접수 후, 3년간 보관 후 파기</li>
+                            </ul>
+                        </div>
+                        <div class="privacy_check" id="individualContainer">
+                            <div class="term_checkbox m_b_24">
+                                <div class="checkbox">
+                                    <input type="checkbox" id="form_privacy" name="agreeIndividual">
+                                    <label for="form_privacy"><i class="fas fa-check"></i></label>
+                                </div>
+                                <label class="term_checkbox_label flex_start flex_grow cursor_pointer"
+                                       for="form_privacy">
+                                    <span class="txt_red">(필수)</span>
+                                    <span class="flex_grow">개인 정보 수집 및 이용에 동의합니다</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="btn_area">
+                            <input type="submit" class="btn_red btn_block" value="수정하기">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer id="footer" class="box">
+    <div id="sub_logo" class="">
+        <img th:src="@{/resources/images/로고1_remove.png}" alt="">
+    </div>
+</footer>
+</body>
+</html>

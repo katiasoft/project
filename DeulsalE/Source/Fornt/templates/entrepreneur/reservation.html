@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>예약서비스</title>
+    <link rel="shortcut icon" th:href="@{/resources/images/fabicon.png}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/base.css}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/entrepreneur/reservation.css}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/entrepreneur/entrepreneur.css}">
+    <script defer th:src="@{/resources/scripts/common.js}"></script>
+    <script defer th:src="@{/resources/scripts/entrepreneur/format.js}"></script>
+    <script defer th:src="@{/resources/scripts/entrepreneur/reservation.js}"></script>
+    <script th:inline="javascript">
+        const reservations = [[${reservations}]];
+        console.log(reservations);
+    </script>
+</head>
+<body th:attrappend="data-not-allowed=${session.user == null || session.user.getAuthority() == 1}?'notEntrepreneur'">
+<div id="dialogCover" class=""></div>
+<div id="dialogLayer" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <span class="content fontSmall" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button cancel" type="button" rel="cancel" value="취소">
+        <input class="button confirm" type="submit" rel="confirm" value="확인">
+    </div>
+</div>
+<div id="dialogComplete" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <div class="imgLogoContainer">
+        <img th:src="@{/resources/images/로고1_remove.png}">
+    </div>
+    <span class="content" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button cancel" type="button" rel="cancel" value="취소">
+        <input class="button confirm" type="submit" rel="confirm" value="확인">
+    </div>
+</div>
+
+<div id="dialogYesNo" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <span class="content fontSmall" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button confirm" type="submit" rel="confirm" value="예">
+        <input class="button cancel" type="button" rel="cancel" value="아니오">
+    </div>
+</div>
+
+<div id="headLine" class="box">
+    <div id="info_type" class="place">
+        <div>
+            <input rel="user" type="button" value="개인">
+            <input class="checked" rel="entrepreneur" type="button" value="사업자">
+        </div>
+    </div>
+    <div id="info_menu" class="place">
+        <a class="nickname" th:if="${session.user != null}" th:href="@{/mypage/modify}">
+            <span th:text="${session.user['nickname']}"></span>
+        </a>
+        <span th:if="${session.user != null}">님</span>
+        <a th:if="${session.user == null}" th:href="@{/user/login}">로그인</a>
+        <a th:if="${session.user != null}" class="logout" href="#">로그아웃</a>
+        <a th:if="${session.user == null}" th:href="@{/user/register}">회원가입</a>
+        <a th:if="${session.user != null}" th:href="@{/mypage/modify}">마이페이지</a>
+        <a th:href="@{/help/faq}">고객센터</a>
+    </div>
+</div>
+<div id="block" class="box">
+    <div class="logo" th:if="${session.user == null}">
+        <a th:href="@{/}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+    </div>
+    <div class="logo" th:if="${session.user != null}">
+        <a th:if="${session.user.getAuthority() != 2}" th:href="@{/}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+        <a th:if="${session.user.getAuthority() == 2}" th:href="@{/entrepreneur}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+    </div>
+    <div id="search">
+        <label>
+            <div>
+                <img width="24" height="24" src="https://img.icons8.com/material-outlined/24/228B22/search--v1.png"
+                     alt="search--v1"/>
+            </div>
+            <input id="searchContent" type="text" placeholder="검색">
+        </label>
+    </div>
+    <div id="marge">
+
+    </div>
+</div>
+<nav id="nav" class="box entrepreneur">
+    <div class="user">
+        <a>
+        <span>
+            일반야영장
+        </span>
+        </a>
+        <a>
+        <span>
+            자동차야영장
+        </span>
+        </a>
+        <a>
+        <span>
+            카라반
+        </span>
+        </a>
+        <a>
+        <span>
+            글램핑
+        </span>
+        </a>
+        <a>
+        <span>
+            추천
+        </span>
+        </a>
+    </div>
+    <div class="entrepreneur">
+        <a th:href="@{/entrepreneur/registration}">
+        <span>
+            사업장등록
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/profile}">
+        <span>
+            사업장프로필
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/reservation}">
+        <span>
+            예약서비스
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/event}">
+        <span>
+            이벤트
+        </span>
+        </a>
+    </div>
+</nav>
+<div id="contents" class="box">
+    <div class="subBene box">
+        <div class="title">
+            <span>예약서비스</span>
+            <span>사업자가 등록한 사업장에 예약한 일반회원들의 목록 확인 및 승인</span>
+        </div>
+    </div>
+    <div class="content">
+        <div class="subMenu">
+            <a th:href="@{/entrepreneur/reservation}" rel="reservationListBtn" class="reservationListBtn selected">예약 대기
+                목록</a>
+            <a th:href="@{/entrepreneur/reservation/deposit}" class="approvalListBtn" rel="approvalListBtn">입금 대기 목록</a>
+            <a th:href="@{/entrepreneur/reservation/list}" class="refusalListBtn" rel="refusalListBtn">예약 목록</a>
+        </div>
+        <div id="reservationList">
+            <table>
+                <thead>
+                <tr>
+                    <th>아이디</th>
+                    <th>성명</th>
+                    <th>전화번호</th>
+                    <th>객실</th>
+                    <th>비용</th>
+                    <th>예약기간</th>
+                    <th>예약일자</th>
+                    <th>승인여부</th>
+                </tr>
+                </thead>
+                <tbody th:if="${reservations == null}">
+                <tr>
+                    <td colspan="8">예약 대기 목록이 없습니다.</td>
+                </tr>
+                </tbody>
+                <tbody th:if="${reservations != null}">
+                <tr th:if="${reservations.length == 0}">
+                    <td colspan="8">예약 대기 목록이 없습니다.</td>
+                </tr>
+                <tr th:if="${reservations.length > 0}" th:each="reservation , i: ${reservations}">
+                    <td th:text="${reservation.getUserId()}"></td>
+                    <td th:text="${reservation.getUserName()}"></td>
+                    <td th:text="${reservation.getUserContact()}"></td>
+                    <td th:text="${reservation.getSite()}"></td>
+                    <td th:text="${reservation.getCost()}"></td>
+                    <td th:text="${#dates.format(reservation.getStartDay(), 'yy.MM.dd')} + '~' + ${#dates.format(reservation.getEndDay(), 'yy.MM.dd')}"></td>
+                    <td th:text="${#dates.format(reservation.getCreatedAt(), 'yy.MM.dd')}"></td>
+                    <td>
+                        <input class="_object-button _color-concept" type="button" value="승인"
+                               th:onclick="'decision('+${reservation.getIndex()}+',3)'">
+                        <input class="_object-button _color-concept" type="button" value="거절"
+                               th:onclick="'decision('+${reservation.getIndex()}+',1)'">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <ul class="pageContainer">
+                <li class="page" th:if="${pageModel.requestPage > 1}">
+                    <a th:href="@{'./reservation' (page = ${1})}" class="link">
+                        <img width="32" height="32" src="https://img.icons8.com/small/32/double-left.png" alt="double-left"/>
+                    </a>
+                </li>
+                <li class="page" th:if="${pageModel.requestPage > 10}">
+                    <a th:href="@{'./reservation' (page = ${pageModel.requestPage - 10})}"
+                       class="link">
+                        <img width="32" height="32" src="https://img.icons8.com/small/32/back.png" alt="back"/>
+                    </a>
+                </li>
+                <li class="page" th:if="${pageModel.requestPage > 1}">
+                    <a th:href="@{'./reservation' (page = ${pageModel.requestPage - 1})}"
+                       class="link">이전</a>
+                </li>
+                <li class="page"
+                    th:each="page : ${#numbers.sequence(pageModel.displayStartPage, pageModel.displayEndPage)}" th:classappend="${pageModel.requestPage == page} ? 'selected' : ''">
+                    <a th:href="@{'./reservation' (page = ${page})}" class="link"
+                       th:text="${page}"></a>
+                </li>
+                <li class="page" th:if="${pageModel.displayStartPage + 10 < pageModel.displayEndPage}">
+                    <a th:href="@{'./reservation' (page = ${pageModel.requestPage + 1})}"
+                       class="link">다음</a>
+                </li>
+                <li class="page" th:if="${pageModel.requestPage < pageModel.maxPage}">
+                    <a th:href="@{'./reservation' (page = ${pageModel.displayStartPage + 10})}"
+                       class="link">
+                        <img width="32" height="32" src="https://img.icons8.com/small/32/forward.png" alt="forward"/>
+                    </a>
+                </li>
+                <li class="page" th:if="${(pageModel.requestPage)!=(pageModel.maxPage)}">
+                    <a th:href="@{'./reservation' (page = ${pageModel.maxPage})}"
+                       class="link">
+                        <img width="32" height="32" src="https://img.icons8.com/small/32/double-right.png"
+                             alt="double-right"/>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<footer id="footer" class="box">
+    <div id="sub_logo" class="">
+        <img th:src="@{/resources/images/로고1_remove.png}" alt="">
+    </div>
+</footer>
+</body>
+</html>

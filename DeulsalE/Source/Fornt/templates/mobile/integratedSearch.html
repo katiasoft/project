@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>들살이 - 통합검색</title>
+    <link rel="shortcut icon" th:href="@{/resources/images/fabicon.png}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/mobile/format.css}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/mobile/integratedSearch.css}">
+    <script defer th:src="@{/resources/scripts/mobile/format.js}"></script>
+</head>
+<body>
+<div id="dialogMenu">
+    <div>
+        <div class="menuClose">
+            <img rel="menuClose" width="24" height="24" src="https://img.icons8.com/ios/50/delete-sign--v1.png" alt="delete-sign--v1"/>
+        </div>
+        <div id="userContainer">
+            <a th:if="${session.user == null}" th:href="@{/mobile/login}">로그인이 필요합니다.</a>
+            <span class="userId" th:if="${session.user != null}" th:text="${session.user.getNickname()}"></span><span
+                th:if="${session.user != null}"> 님</span>
+        </div>
+        <div id="userMenu">
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/myInfo}"><img width="24" height="24" src="https://img.icons8.com/ios/50/info--v1.png" alt="info--v1"/><span>정보수정</span></a>
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/reservation}"><img width="24" height="24" src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/external-calendar-multimedia-kiranshastry-lineal-kiranshastry.png" alt="external-calendar-multimedia-kiranshastry-lineal-kiranshastry"/><span>예약내역</span></a>
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/bookmark}"><img width="24" height="24" src="https://img.icons8.com/ios/50/bookmark-ribbon--v1.png" alt="bookmark-ribbon--v1"/><span>즐겨찾기</span></a>
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/qna/list}"><img width="24" height="24" src="https://img.icons8.com/ios/50/questions.png" alt="questions"/><span>1:1문의내역</span></a>
+        </div>
+        <div id="helpContainer">
+            <table>
+                <tr>
+                    <td><a th:href="@{/mobile/notice}">공지사항</a></td>
+                    <td><a th:href="@{/mobile/event}">이벤트</a></td>
+                </tr>
+                <tr>
+                    <td><a th:href="@{/mobile/qna}">1:1문의</a></td>
+                    <td><a th:href="@{/mobile/faq}">FAQ</a></td>
+                </tr>
+            </table>
+        </div>
+        <div id="buttonContainer">
+            <ul th:if="${session.user == null}">
+                <li><a th:href="@{/mobile/login}"><img width="24" height="24" src="https://img.icons8.com/material-rounded/48/42AB42/enter-2.png" alt="enter-2"/><span>로그인</span></a></li>
+                <li><a th:href="@{/mobile/register}"><img width="24" height="24" src="https://img.icons8.com/ios-glyphs/60/42AB42/user-male-circle.png" alt="user-male-circle"/><span>회원가입</span></a></li>
+            </ul>
+
+            <ul th:if="${session.user != null}">
+                <li><a th:href="@{/mobile/logout}"><img width="24" height="24" src="https://img.icons8.com/material-rounded/48/42AB42/exit.png" alt="exit"/><span>로그아웃</span></a></li>
+                <li><a th:href="@{/mobile/}"><img width="24" height="24" src="https://img.icons8.com/material-sharp/48/42AB42/home.png" alt="home"/><span>홈으로</span></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="warp">
+    <div id="header">
+        <img rel="back" width="24" height="24" src="https://img.icons8.com/ios/50/left--v1.png" alt="left--v1"/>
+        <span>통합검색</span>
+        <img rel="home" width="24" height="24" src="https://img.icons8.com/material-rounded/48/home.png" alt="home"/>
+        <img rel="menu" width="24" height="24" src="https://img.icons8.com/material-sharp/48/menu--v1.png"
+             alt="menu--v1"/>
+    </div>
+    <div id="search">
+        <label>
+            <div>
+                <img width="24" height="24" src="https://img.icons8.com/material-outlined/24/228B22/search--v1.png"
+                     alt="search--v1"/>
+            </div>
+            <input id="searchContent" type="text" placeholder="검색" th:value="${query}">
+        </label>
+    </div>
+    <div id="contents" class="box">
+        <div id="noneSearch" th:if="${generalCount == 0 && autoCount == 0 && glampingCount == 0 && caravanCount == 0 && noticeCount == 0 && eventCount == 0}">
+            <img width="72" height="72" src="https://img.icons8.com/ios/100/42AB42/error--v1.png" alt="error--v1"/>
+            <span th:text="${query} + ' 에 대한 검색 정보가 없습니다.'"></span>
+        </div>
+        <div th:if="${generals != null && generals.length > 0}" class="border">
+            <span class="subTitle">일반야영장</span>
+            <a class="campsite" th:each="general : ${generals}" th:href="@{/mobile/detail (index=${general.getIndex()})}">
+                <div>
+                    <img th:src="@{/mobile/image (campsiteIndex=${general.getIndex()}) }"  onerror="this.onerror=null; this.src='/resources/images/noimage.png';">
+                    <span class="name" th:text="${general.getName()}"></span>
+                    <label class="row">
+                        <span class="text">주소 :</span>
+                        <span th:text="${general.getRoadAd()}"></span>
+                    </label>
+                    <label class="row">
+                        <span class="text">전화번호 :</span>
+                        <span th:text="${general.getContact()}"></span>
+                    </label>
+                    <label class="col">
+                        <span>소개</span>
+                        <div readonly class="text" th:text="${general.getIntroduction()}"></div>
+                    </label>
+                </div>
+            </a>
+        </div>
+        <a th:if="${generals != null && generals.length > 0}" class="detail" th:href="@{'/mobile/campsite?code=1&sort=1&query='+${query}}" th:text="${'검색 결과 더보기('+generalCount+'건)'}"></a>
+        <div th:if="${autos != null && autos.length > 0}" class="border">
+            <span class="subTitle">자동차야영장</span>
+            <a class="campsite" th:each="auto : ${autos}" th:href="@{/mobile/detail (index=${auto.getIndex()})}">
+                <div>
+                    <img th:src="@{/mobile/image (campsiteIndex=${auto.getIndex()}) }"  onerror="this.onerror=null; this.src='/resources/images/noimage.png';">
+                    <span class="name" th:text="${auto.getName()}"></span>
+                    <label class="row">
+                        <span class="text">주소 :</span>
+                        <span th:text="${auto.getRoadAd()}"></span>
+                    </label>
+                    <label class="row">
+                        <span class="text">전화번호 :</span>
+                        <span th:text="${auto.getContact()}"></span>
+                    </label>
+                    <label class="col">
+                        <span>소개</span>
+                        <div readonly class="text" th:text="${auto.getIntroduction()}"></div>
+                    </label>
+                </div>
+            </a>
+        </div>
+        <a th:if="${autos != null && autos.length > 0}" class="detail" th:href="@{'/mobile/campsite?code=2&sort=1&query='+${query}}" th:text="${'검색 결과 더보기('+autoCount+'건)'}"></a>
+        <div th:if="${caravans != null && caravans.length > 0}" class="border">
+            <span class="subTitle">카라반</span>
+            <a class="campsite" th:each="caravan : ${caravans}" th:href="@{/mobile/detail (index=${caravan.getIndex()})}">
+                <div>
+                    <img th:src="@{/mobile/image (campsiteIndex=${caravan.getIndex()}) }"  onerror="this.onerror=null; this.src='/resources/images/noimage.png';">
+                    <span class="name" th:text="${caravan.getName()}"></span>
+                    <label class="row">
+                        <span class="text">주소 :</span>
+                        <span th:text="${caravan.getRoadAd()}"></span>
+                    </label>
+                    <label class="row">
+                        <span class="text">전화번호 :</span>
+                        <span th:text="${caravan.getContact()}"></span>
+                    </label>
+                    <label class="col">
+                        <span>소개</span>
+                        <div readonly class="text" th:text="${caravan.getIntroduction()}"></div>
+                    </label>
+                </div>
+            </a>
+        </div>
+        <a th:if="${caravans != null && caravans.length > 0}" class="detail" th:href="@{'/mobile/campsite?code=3&sort=1&query='+${query}}" th:text="${'검색 결과 더보기('+caravanCount+'건)'}"></a>
+        <div th:if="${glampings != null && glampings.length > 0}" class="border">
+            <span class="subTitle">글램핑</span>
+            <a class="campsite" th:each="glamping : ${glampings}" th:href="@{/mobile/detail (index=${glamping.getIndex()})}">
+                <div>
+                    <img th:src="@{/mobile/image (campsiteIndex=${glamping.getIndex()}) }"  onerror="this.onerror=null; this.src='/resources/images/noimage.png';">
+                    <span class="name" th:text="${glamping.getName()}"></span>
+                    <label class="row">
+                        <span class="text">주소 :</span>
+                        <span th:text="${glamping.getRoadAd()}"></span>
+                    </label>
+                    <label class="row">
+                        <span class="text">전화번호 :</span>
+                        <span th:text="${glamping.getContact()}"></span>
+                    </label>
+                    <label class="col">
+                        <span>소개</span>
+                        <div readonly class="text" th:text="${glamping.getIntroduction()}"></div>
+                    </label>
+                </div>
+            </a>
+        </div>
+        <a th:if="${glampings != null && glampings.length > 0}" class="detail" th:href="@{'/mobile/campsite?code=4&sort=1&query='+${query}}" th:text="${'검색 결과 더보기('+glampingCount+'건)'}"></a>
+        <div th:if="${notices != null && notices.length > 0}" class="border">
+            <span class="subTitle">공지사항</span>
+            <a class="notice" th:each="notice : ${notices}" th:href="@{/help/notice/view (index=${notice.getIndex()})}">
+                <label class="row">
+                    <span class="noticeTitle" th:text="${notice.getSubject()}"></span>
+                    <span th:text="${#dates.format(notice.getCreatedAt(),'yyyy.MM.dd')}"></span>
+                </label>
+                <label class="col">
+                    <div readonly class="text" th:utext="${notice.getContent()}"></div>
+                </label>
+            </a>
+        </div>
+        <a th:if="${notices != null && notices.length > 0}" class="detail" th:href="@{'/mobile/notice?search='+${query}}" th:text="${'검색 결과 더보기('+noticeCount+'건)'}"></a>
+        <div th:if="${events != null && events.length > 0}" class="border">
+            <span class="subTitle">이벤트</span>
+            <a class="event" th:each="event : ${events}" th:href="@{/help/event/view (index=${event.getIndex()})}">
+                <div>
+                    <img th:src="@{''+${event.getSrc()}}" onerror="this.onerror=null; this.src='/resources/images/event_bg/001.jpg';">
+                    <label class="row">
+                        <span th:text="${event.getCampsiteName()}"></span>
+                        <span th:text="${#dates.format(event.getCreatedAt(), 'yyyy.MM.dd')}"></span>
+                    </label>
+                    <label class="row">
+                        <span class="eventTitle" th:text="${event.getTitle()}"></span>
+                    </label>
+                </div>
+            </a>
+        </div>
+        <a th:if="${events != null && events.length > 0}" class="detail" th:href="@{'/mobile/event?search='+${query}}" th:text="${'검색 결과 더보기('+eventCount+'건)'}"></a>
+    </div>
+
+    <div id="footer">
+
+    </div>
+</div>
+
+</body>
+</html>

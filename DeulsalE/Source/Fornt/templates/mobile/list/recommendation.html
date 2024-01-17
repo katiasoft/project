@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>들살이 - 추천결과</title>
+    <link rel="shortcut icon" th:href="@{/resources/images/fabicon.png}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/mobile/format.css}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/mobile/list/recommendation.css}">
+    <script defer th:src="@{/resources/scripts/mobile/format.js}"></script>
+</head>
+<body>
+<div id="dialogMenu">
+    <div>
+        <div class="menuClose">
+            <img rel="menuClose" width="24" height="24" src="https://img.icons8.com/ios/50/delete-sign--v1.png"
+                 alt="delete-sign--v1"/>
+        </div>
+        <div id="userContainer">
+            <a th:if="${session.user == null}" th:href="@{/mobile/login}">로그인이 필요합니다.</a>
+            <span class="userId" th:if="${session.user != null}" th:text="${session.user.getNickname()}"></span><span
+                th:if="${session.user != null}"> 님</span>
+        </div>
+        <div id="userMenu">
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/myInfo}"><img width="24" height="24" src="https://img.icons8.com/ios/50/info--v1.png" alt="info--v1"/><span>정보수정</span></a>
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/reservation}"><img width="24" height="24" src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/external-calendar-multimedia-kiranshastry-lineal-kiranshastry.png" alt="external-calendar-multimedia-kiranshastry-lineal-kiranshastry"/><span>예약내역</span></a>
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/bookmark}"><img width="24" height="24" src="https://img.icons8.com/ios/50/bookmark-ribbon--v1.png" alt="bookmark-ribbon--v1"/><span>즐겨찾기</span></a>
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/qna/list}"><img width="24" height="24" src="https://img.icons8.com/ios/50/questions.png" alt="questions"/><span>1:1문의내역</span></a>
+        </div>
+        <div id="helpContainer">
+            <table>
+                <tr>
+                    <td><a th:href="@{/mobile/notice}">공지사항</a></td>
+                    <td><a th:href="@{/mobile/event}">이벤트</a></td>
+                </tr>
+                <tr>
+                    <td><a th:href="@{/mobile/qna}">1:1문의</a></td>
+                    <td><a th:href="@{/mobile/faq}">FAQ</a></td>
+                </tr>
+            </table>
+        </div>
+        <div id="buttonContainer">
+            <ul th:if="${session.user == null}">
+                <li><a th:href="@{/mobile/login}"><img width="24" height="24"
+                                                       src="https://img.icons8.com/material-rounded/48/42AB42/enter-2.png"
+                                                       alt="enter-2"/><span>로그인</span></a></li>
+                <li><a th:href="@{/mobile/register}"><img width="24" height="24"
+                                                          src="https://img.icons8.com/ios-glyphs/60/42AB42/user-male-circle.png"
+                                                          alt="user-male-circle"/><span>회원가입</span></a></li>
+
+            <ul th:if="${session.user != null}">
+                <li><a th:href="@{/mobile/logout}"><img width="24" height="24"
+                                                        src="https://img.icons8.com/material-rounded/48/42AB42/exit.png"
+                                                        alt="exit"/><span>로그아웃</span></a></li>
+                <li><a th:href="@{/mobile/}"><img width="24" height="24"
+                                                  src="https://img.icons8.com/material-sharp/48/42AB42/home.png"
+                                                  alt="home"/><span>홈으로</span></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="warp">
+    <div id="header">
+        <img rel="back" width="24" height="24" src="https://img.icons8.com/ios/50/left--v1.png" alt="left--v1"/>
+        <span>추천결과</span>
+        <img rel="home" width="24" height="24" src="https://img.icons8.com/material-rounded/48/home.png" alt="home"/>
+        <img rel="menu" width="24" height="24" src="https://img.icons8.com/material-sharp/48/menu--v1.png"
+             alt="menu--v1"/>
+    </div>
+    <div class="cntSort">
+        <div class="campsitesCnt">
+            <input readonly type="text" th:if="${pageModel.totalCount !=0}"
+                   th:value="총+' '+${pageModel.totalCount}+건">
+        </div>
+        <!-- 서브 버튼(정렬) -->
+        <div id="sort">
+            <input type="radio" id="default" name="sort" th:checked="${sort==1}"><label for="default"><a
+                th:href="@{/mobile/recommendation/list(areaName=${areaName},space=${survey.getSpace()},kid=${survey.getKid()},isDog=${survey.getIsDog()},type=${survey.getType()},leisure=${survey.getLeisure()},fireStand=${survey.getFireStand()},mart=${survey.getMart()},sort=${1})}">기본순</a></label>
+            <input type="radio" id="review" name="sort" th:checked="${sort==2}"><label for="review"><a
+                th:href="@{/mobile/recommendation/list(areaName=${areaName},space=${survey.getSpace()},kid=${survey.getKid()},isDog=${survey.getIsDog()},type=${survey.getType()},leisure=${survey.getLeisure()},fireStand=${survey.getFireStand()},mart=${survey.getMart()},sort=${2})}">리뷰순</a></label>
+            <input type="radio" id="star" name="sort" th:checked="${sort==3}"><label for="star"><a
+                th:href="@{/mobile/recommendation/list(areaName=${areaName},space=${survey.getSpace()},kid=${survey.getKid()},isDog=${survey.getIsDog()},type=${survey.getType()},leisure=${survey.getLeisure()},fireStand=${survey.getFireStand()},mart=${survey.getMart()},sort=${3})}">평점순</a></label>
+            <input type="radio" id="bookmark" name="sort" th:checked="${sort==4}"><label for="bookmark"><a
+                th:href="@{/mobile/recommendation/list(areaName=${areaName},space=${survey.getSpace()},kid=${survey.getKid()},isDog=${survey.getIsDog()},type=${survey.getType()},leisure=${survey.getLeisure()},fireStand=${survey.getFireStand()},mart=${survey.getMart()},sort=${4})}">즐겨찾기순</a></label>
+        </div>
+    </div>
+
+
+    <div th:if="${pageModel.totalCount !=0}" id="campsites">
+        <input class="campsitesCnt" readonly type="hidden" th:value="${campsites.length}">
+        <div th:each="campsite : ${campsites}" class="campsite"
+             th:onclick="|location.href='@{/mobile/detail(index=${campsite.getIndex()})}'|">
+            <div class="containerImg">
+                <a class="campsiteImg" th:href="@{/mobile/detail(index=${campsite.getIndex()})}">
+                    <img class="img" th:src="@{/member/image/campsiteMain(campsiteIndex=${campsite.getIndex()})}"
+                         onerror="this.src='/resources/images/member/noImage.jpg'; this.classList.add('not_found')">
+                </a>
+            </div>
+
+            <div class="contentIcon">
+                <label class="icon">
+                    <img class="img" src="https://img.icons8.com/small/32/F7DE5A/filled-star.png"/><input
+                        type="text"
+                        th:value="${campsite.getStar()}"
+                        name="rating"
+                        readonly>
+                </label>
+                <label class="icon">
+                    <img class="img" src="https://img.icons8.com/small/32/000000/comments.png"/><input type="text"
+                                                                                                       th:value="${campsite.getReviewCnt()}"
+                                                                                                       name="reviewCnt"
+                                                                                                       readonly>
+                </label>
+
+                <div class="campsiteBookmark">
+                    <img class="bookmark unBook"
+                         th:if="${session.user != null && campsiteIsBook.get(campsite.getIndex()) > 0}"
+                         src="https://img.icons8.com/small/32/28CB5B/filled-bookmark-ribbon.png" alt="즐겨찾기"
+                         onerror="this.src='https://img.icons8.com/small/32/000000/bookmark-ribbon.png'">
+                    <img class="bookmark book"
+                         th:if="${session.user == null || campsiteIsBook.get(campsite.getIndex()) == 0}"
+                         src="https://img.icons8.com/small/32/28CB5B/bookmark-ribbon.png" alt="즐겨찾기"
+                         onerror="this.src='https://img.icons8.com/small/32/000000/bookmark-ribbon.png'">
+                    <input class="campsiteIndex" type="hidden" th:value="${campsite.getIndex()}" name="index"
+                           readonly>
+                </div>
+
+            </div>
+
+            <div class="content">
+                <div class="contentData">
+                    <label class="data">
+                        <input type="text" th:value="${campsite.getName()}" name="name" readonly>
+                        <input type="text" th:value="${campsiteCat.get(campsite.getIndex())}" name="category"
+                               readonly>
+                        <input type="text" th:value="${campsite.getNumberAd()}" name="address" readonly>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="noData" th:if="${pageModel.totalCount ==0}">
+        <img width="72" height="72" src="https://img.icons8.com/ios/100/42AB42/error--v1.png" alt="error--v1"/>
+        <span>설문에 해당되는 야영장이 존재하지 않습니다.</span>
+    </div>
+
+    <div id="footer">
+        <ul class="pageContainer">
+            <li class="page" th:if="${pageModel.requestPage>1}">
+                <a class="link"
+                   th:href="@{/mobile/recommendation/list(areaName=${areaName},space=${survey.getSpace()},kid=${survey.getKid()},isDog=${survey.getIsDog()},type=${survey.getType()},leisure=${survey.getLeisure()},fireStand=${survey.getFireStand()},mart=${survey.getMart()},sort=${sort},page=${1})}">
+                    <img width="16" height="16" src="https://img.icons8.com/small/32/double-left.png"
+                         alt="double-left"/>
+                </a>
+            </li>
+
+            <li class="page"
+                th:if="${pageModel.requestPage>3}">
+                <a class="link"
+                   th:href="@{/mobile/recommendation/list(areaName=${areaName},space=${survey.getSpace()},kid=${survey.getKid()},isDog=${survey.getIsDog()},type=${survey.getType()},leisure=${survey.getLeisure()},fireStand=${survey.getFireStand()},mart=${survey.getMart()},sort=${sort},page=${pageModel.displayStartPage}-3)}">
+                    <img width="16" height="16" src="https://img.icons8.com/small/32/back.png" alt="back"/>
+                </a>
+            </li>
+            <li class="page"
+                th:if="${pageModel.requestPage>1}">
+                <a class="link"
+                   th:href="@{/mobile/recommendation/list(areaName=${areaName},space=${survey.getSpace()},kid=${survey.getKid()},isDog=${survey.getIsDog()},type=${survey.getType()},leisure=${survey.getLeisure()},fireStand=${survey.getFireStand()},mart=${survey.getMart()},sort=${sort},page=${pageModel.requestPage}-1)}">이전</a>
+            </li>
+
+
+            <li class="page"
+                th:each="page : ${#numbers.sequence(pageModel.displayStartPage, pageModel.displayEndPage)}">
+                <a class="link" th:classappend="${pageModel.requestPage == page} ? 'selected' : ''"
+                   th:href="@{/mobile/recommendation/list(areaName=${areaName},space=${survey.getSpace()},kid=${survey.getKid()},isDog=${survey.getIsDog()},type=${survey.getType()},leisure=${survey.getLeisure()},fireStand=${survey.getFireStand()},mart=${survey.getMart()},sort=${sort},page=${page})}"
+                   th:text="${page}"></a>
+            </li>
+
+
+            <li class="page" th:if="${pageModel.requestPage<pageModel.displayEndPage}">
+                <a class="link"
+                   th:href="@{/mobile/recommendation/list(areaName=${areaName},space=${survey.getSpace()},kid=${survey.getKid()},isDog=${survey.getIsDog()},type=${survey.getType()},leisure=${survey.getLeisure()},fireStand=${survey.getFireStand()},mart=${survey.getMart()},sort=${sort},page=${pageModel.requestPage}+1)}">다음</a>
+            </li>
+            <li class="page" th:if="${pageModel.displayStartPage + 3<pageModel.maxPage}">
+                <a class="link"
+                   th:href="@{/mobile/recommendation/list(areaName=${areaName},space=${survey.getSpace()},kid=${survey.getKid()},isDog=${survey.getIsDog()},type=${survey.getType()},leisure=${survey.getLeisure()},fireStand=${survey.getFireStand()},mart=${survey.getMart()},sort=${sort},page=${pageModel.displayStartPage}+3)}">
+                    <img width="16" height="16" src="https://img.icons8.com/small/32/forward.png" alt="forward"/>
+                </a>
+            </li>
+
+            <li class="page" th:if="${(pageModel.requestPage)!=(pageModel.maxPage)}">
+                <a class="link"
+                   th:href="@{/mobile/recommendation/list(areaName=${areaName},space=${survey.getSpace()},kid=${survey.getKid()},isDog=${survey.getIsDog()},type=${survey.getType()},leisure=${survey.getLeisure()},fireStand=${survey.getFireStand()},mart=${survey.getMart()},sort=${sort},page=${pageModel.maxPage})}">
+                    <img width="16" height="16" src="https://img.icons8.com/small/32/double-right.png"
+                         alt="double-right"/>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

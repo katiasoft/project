@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>들살이 - 자주묻는질문</title>
+    <link rel="shortcut icon" th:href="@{/resources/images/fabicon.png}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/mobile/view/faq.css}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/mobile/format.css}">
+    <script defer th:src="@{/resources/scripts/mobile/format.js}"></script>
+
+
+</head>
+<body>
+<div id="dialogMenu">
+    <div>
+        <div class="menuClose">
+            <img rel="menuClose" width="24" height="24" src="https://img.icons8.com/ios/50/delete-sign--v1.png"
+                 alt="delete-sign--v1"/>
+        </div>
+        <div id="userContainer">
+            <a th:if="${session.user == null}" th:href="@{/mobile/login}">로그인이 필요합니다.</a>
+            <span class="userId" th:if="${session.user != null}" th:text="${session.user.getNickname()}"></span><span
+                th:if="${session.user != null}"> 님</span>
+        </div>
+        <div id="userMenu">
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/myInfo}"><img width="24" height="24"
+                                                                                             src="https://img.icons8.com/ios/50/info--v1.png"
+                                                                                             alt="info--v1"/><span>정보수정</span></a>
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/reservation}"><img width="24" height="24"
+                                                                                                  src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/external-calendar-multimedia-kiranshastry-lineal-kiranshastry.png"
+                                                                                                  alt="external-calendar-multimedia-kiranshastry-lineal-kiranshastry"/><span>예약내역</span></a>
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/bookmark}"><img width="24" height="24"
+                                                                                               src="https://img.icons8.com/ios/50/bookmark-ribbon--v1.png"
+                                                                                               alt="bookmark-ribbon--v1"/><span>즐겨찾기</span></a>
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/qna/list}"><img width="24" height="24"
+                                                                                               src="https://img.icons8.com/ios/50/questions.png"
+                                                                                               alt="questions"/><span>1:1문의내역</span></a>
+        </div>
+        <div id="helpContainer">
+            <table>
+                <tr>
+                    <td><a th:href="@{/mobile/notice}">공지사항</a></td>
+                    <td><a th:href="@{/mobile/event}">이벤트</a></td>
+                </tr>
+                <tr>
+                    <td><a th:href="@{/mobile/qna}">1:1문의</a></td>
+                    <td><a th:href="@{/mobile/faq}">FAQ</a></td>
+                </tr>
+            </table>
+        </div>
+        <div id="buttonContainer">
+            <ul th:if="${session.user == null}">
+                <li><a th:href="@{/mobile/login}"><img width="24" height="24"
+                                                       src="https://img.icons8.com/material-rounded/48/42AB42/enter-2.png"
+                                                       alt="enter-2"/><span>로그인</span></a></li>
+                <li><a th:href="@{/mobile/register}"><img width="24" height="24"
+                                                          src="https://img.icons8.com/ios-glyphs/60/42AB42/user-male-circle.png"
+                                                          alt="user-male-circle"/><span>회원가입</span></a></li>
+            </ul>
+
+            <ul th:if="${session.user != null}">
+                <li><a th:href="@{/mobile/logout}"><img width="24" height="24"
+                                                        src="https://img.icons8.com/material-rounded/48/42AB42/exit.png"
+                                                        alt="exit"/><span>로그아웃</span></a></li>
+                <li><a th:href="@{/mobile/}"><img width="24" height="24"
+                                                  src="https://img.icons8.com/material-sharp/48/42AB42/home.png"
+                                                  alt="home"/><span>홈으로</span></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="warp">
+    <div id="header">
+        <img rel="back" width="24" height="24" src="https://img.icons8.com/ios/50/left--v1.png" alt="left--v1"/>
+        <span>FAQ</span>
+        <img rel="home" width="24" height="24" src="https://img.icons8.com/material-rounded/48/home.png" alt="home"/>
+        <img rel="menu" width="24" height="24" src="https://img.icons8.com/material-sharp/48/menu--v1.png"
+             alt="menu--v1"/>
+    </div>
+
+    <form id="newForm" rel="newForm">
+        <div class="content" id="content">
+            <div class="board_view">
+                <div class="content" th:if="${faq != null && !faq.isDeleted()}">
+                    <div class="view_wrap">
+                        <div class="view_header">
+                            <div class="tr">
+                                <span th:text="${faq.getSort()}" class="th sort"></span>
+                                <span th:text="${faq.getSubject()}" class="th subject"></span>
+                                <span class="th author"><span class="gm">관리자</span></span>
+                                <span th:text="${#dates.format(faq.getCreatedAt(), 'MM/dd')}"
+                                      class="th date"></span>
+                                <span th:text="${faq.getView()}" class="th count"></span>
+                            </div>
+                        </div>
+                        <div class="content_body">
+                            <div th:utext="${faq.getContent()}"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div id="footer">
+    </div>
+</div>
+
+
+</body>
+</html>

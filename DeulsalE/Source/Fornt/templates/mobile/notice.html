@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>들살이 - 공지사항</title>
+    <link rel="shortcut icon" th:href="@{/resources/images/fabicon.png}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/mobile/notice.css}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/mobile/format.css}">
+    <script defer th:src="@{/resources/scripts/mobile/format.js}"></script>
+    <script defer th:src="@{/resources/scripts/mobile/notice.js}"></script>
+
+
+</head>
+<body>
+<div id="dialogMenu">
+    <div>
+        <div class="menuClose">
+            <img rel="menuClose" width="24" height="24" src="https://img.icons8.com/ios/50/delete-sign--v1.png"
+                 alt="delete-sign--v1"/>
+        </div>
+        <div id="userContainer">
+            <a th:if="${session.user == null}" th:href="@{/mobile/login}">로그인이 필요합니다.</a>
+            <span class="userId" th:if="${session.user != null}" th:text="${session.user.getNickname()}"></span><span
+                th:if="${session.user != null}"> 님</span>
+        </div>
+        <div id="userMenu">
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/myInfo}"><img width="24" height="24"
+                                                                                             src="https://img.icons8.com/ios/50/info--v1.png"
+                                                                                             alt="info--v1"/><span>정보수정</span></a>
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/reservation}"><img width="24" height="24"
+                                                                                                  src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/external-calendar-multimedia-kiranshastry-lineal-kiranshastry.png"
+                                                                                                  alt="external-calendar-multimedia-kiranshastry-lineal-kiranshastry"/><span>예약내역</span></a>
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/bookmark}"><img width="24" height="24"
+                                                                                               src="https://img.icons8.com/ios/50/bookmark-ribbon--v1.png"
+                                                                                               alt="bookmark-ribbon--v1"/><span>즐겨찾기</span></a>
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/qna/list}"><img width="24" height="24"
+                                                                                               src="https://img.icons8.com/ios/50/questions.png"
+                                                                                               alt="questions"/><span>1:1문의내역</span></a>
+        </div>
+        <div id="helpContainer">
+            <table>
+                <tr>
+                    <td><a th:href="@{/mobile/notice}">공지사항</a></td>
+                    <td><a th:href="@{/mobile/event}">이벤트</a></td>
+                </tr>
+                <tr>
+                    <td><a th:href="@{/mobile/qna}">1:1문의</a></td>
+                    <td><a th:href="@{/mobile/faq}">FAQ</a></td>
+                </tr>
+            </table>
+        </div>
+        <div id="buttonContainer">
+            <ul th:if="${session.user == null}">
+                <li><a th:href="@{/mobile/login}"><img width="24" height="24"
+                                                       src="https://img.icons8.com/material-rounded/48/42AB42/enter-2.png"
+                                                       alt="enter-2"/><span>로그인</span></a></li>
+                <li><a th:href="@{/mobile/register}"><img width="24" height="24"
+                                                          src="https://img.icons8.com/ios-glyphs/60/42AB42/user-male-circle.png"
+                                                          alt="user-male-circle"/><span>회원가입</span></a></li>
+            </ul>
+
+            <ul th:if="${session.user != null}">
+                <li><a th:href="@{/mobile/logout}"><img width="24" height="24"
+                                                        src="https://img.icons8.com/material-rounded/48/42AB42/exit.png"
+                                                        alt="exit"/><span>로그아웃</span></a></li>
+                <li><a th:href="@{/mobile/}"><img width="24" height="24"
+                                                  src="https://img.icons8.com/material-sharp/48/42AB42/home.png"
+                                                  alt="home"/><span>홈으로</span></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="warp">
+    <div id="header">
+        <img rel="back" width="24" height="24" src="https://img.icons8.com/ios/50/left--v1.png" alt="left--v1"/>
+        <span>공지사항</span>
+        <img rel="home" width="24" height="24" src="https://img.icons8.com/material-rounded/48/home.png" alt="home"/>
+        <img rel="menu" width="24" height="24" src="https://img.icons8.com/material-sharp/48/menu--v1.png"
+             alt="menu--v1"/>
+    </div>
+
+
+    <div id="noticeSearch">
+        <form id="searchForm" class="searchForm">
+            <label class="search">
+                <button class="searchBtn">
+                    <span class="searchBtn"></span>
+                </button>
+                <input name="search" th:value="${searchCriterion}" class="searchInput" type="text"
+                       placeholder="검색" maxlength="20" minlength="1">
+                <!--                <span class="cancelBtn invisible"></span>-->
+            </label>
+        </form>
+    </div>
+    <div class="tbody">
+        <div id="noneSearch" th:if="${notices.length == 0}">
+            <img width="72" height="72" src="https://img.icons8.com/ios/100/42AB42/error--v1.png" alt="error--v1"/>
+            <span>게시글이 존재하지 않습니다.</span>
+        </div>
+        <div th:if="${notices.length > 0}" th:each="notice : ${notices}" class="tr notice">
+            <a th:href="@{/mobile/notice/view(index=${notice.getIndex()})}">
+                <!--                <span th:text="${notice.getSort()}" class="td sort"></span>-->
+                <span th:text="${notice.getSubject()}" class="td subject"></span>
+                <div class="btm_div">
+                    <span th:text="${#dates.format(notice.getCreatedAt(), 'yyyy.MM.dd')}"
+                          class="td date"></span>
+                </div>
+                <!--                <span th:text="${notice.getView()}" class="td count"></span>-->
+            </a>
+        </div>
+    </div>
+    <div id="footer">
+        <ul class="pageContainer">
+            <li class="page" th:if="${PageModel.requestPage > 1}">
+                <a th:href="@{'./notice' (page = ${1})}" class="link">
+                    <img width="16" height="16" src="https://img.icons8.com/small/32/double-left.png"
+                         alt="double-left"/>
+                </a>
+            </li>
+            <li class="page" th:if="${PageModel.requestPage > 3}">
+                <a th:href="@{'./notice' (page = ${PageModel.requestPage - 3})}"
+                   class="link">
+                    <img width="16" height="16" src="https://img.icons8.com/small/32/back.png" alt="back"/>
+                </a>
+            </li>
+            <li class="page" th:if="${PageModel.requestPage > 1}">
+                <a th:href="@{'./notice' (page = ${PageModel.requestPage - 1})}"
+                   class="link">이전</a>
+            </li>
+            <li class="page"
+                th:each="page : ${#numbers.sequence(PageModel.displayStartPage, PageModel.displayEndPage)}"
+                th:classappend="${PageModel.requestPage == page} ? 'selected' : ''">
+                <a th:href="@{'./notice' (page = ${page})}" class="link"
+                   th:text="${page}"></a>
+            </li>
+            <li class="page" th:if="${PageModel.requestPage < PageModel.displayEndPage}">
+                <a th:href="@{'./notice' (page = ${PageModel.requestPage + 1})}"
+                   class="link">다음</a>
+            </li>
+            <li class="page" th:if="${PageModel.displayStartPage + 3 < PageModel.maxPage}">
+                <a th:href="@{'./notice' (page = ${PageModel.displayStartPage + 3})}"
+                   class="link">
+                    <img width="16" height="16" src="https://img.icons8.com/small/32/forward.png" alt="forward"/>
+                </a>
+            </li>
+            <li class="page" th:if="${(PageModel.requestPage)!=(PageModel.maxPage)}">
+                <a th:href="@{'./notice' (page = ${PageModel.maxPage})}"
+                   class="link">
+                    <img width="16" height="16" src="https://img.icons8.com/small/32/double-right.png"
+                         alt="double-right"/>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+
+</body>
+</html>

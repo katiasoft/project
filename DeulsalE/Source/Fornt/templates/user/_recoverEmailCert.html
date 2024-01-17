@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>[Deulsal-E 계정찾기] 이메일 인증</title>
+</head>
+<body style="background-color: #F7F1E5; margin: 0;">
+<h1 style="color: forestgreen; padding: 3rem 3rem 0;">
+    Deulsal-E
+</h1>
+<div style="background-color: #fafafa; font-size: 14px; line-height: 150%; padding: 0.75rem 3rem; text-align: center; margin-top: 5rem">
+    <h1 style="font-size: 2.25rem; font-weight: bold; text-align: left; margin-bottom: 4rem;">안녕하세요</h1>
+    <p style="font-size: 1.5rem; font-weight: bold; text-align: left;">
+        이 이메일은 <span style="color: forestgreen; font-weight: bold">Deulsal-E</span> 아이디 혹은 비밀번호를 찾기 위해 자동으로 생성됩니다.
+    </p>
+    <p style="font-size: 1.125rem; text-align: justify;">
+         <br>
+        <span style="color: forestgreen; font-weight: bold">Deulsal-E</span> 계정찾기 시도를 하지 않았다면 이 이메일을 무시하고 삭제하면 됩니다. <br>
+        누군가 자신의 이메일 주소를 잘못 입력했을 가능성이 있습니다.<br>
+        귀하께서 보내신 것이 맞으시다면 아래 인증코드로 인증을 완료하여주시기 바랍니다. <br><br>
+    <span rel="salt" style="height: 3rem; background-color: #e0e0e0; display: block; font-size: 4rem; padding-top: 2rem; text-align: center;" th:text="${code}"></span>
+</div>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>들살이 - 예약내역</title>
+    <link rel="shortcut icon" th:href="@{/resources/images/fabicon.png}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/base.css}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/Home/mypage.css}">
+    <script defer th:src="@{/resources/scripts/common.js}"></script>
+    <script defer th:src="@{/resources/scripts/Home/mypage/reservation.js}"></script>
+</head>
+<body>
+<div id="dialogCover" class=""></div>
+<div id="dialogLayer" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <span class="content" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button cancel" type="button" rel="cancel" value="취소">
+        <input class="button confirm" type="submit" rel="confirm" value="변경하기">
+    </div>
+</div>
+<div id="dialogComplete" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <div class="imgLogoContainer">
+        <img th:src="@{/resources/images/로고1_remove.png}">
+    </div>
+    <span class="content" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button cancel" type="button" rel="cancel" value="취소">
+        <input class="button confirm" type="submit" rel="confirm" value="확인">
+    </div>
+</div>
+<div id="dialogYesNo" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <span class="content fontSmall" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button confirm" type="submit" rel="confirm" value="예">
+        <input class="button cancel" type="button" rel="cancel" value="아니오">
+    </div>
+</div>
+<div id="headLine" class="box">
+    <div id="info_type" class="place">
+        <div>
+            <input class="checked" rel="user" type="button" value="개인">
+            <input rel="entrepreneur" type="button" value="사업자">
+        </div>
+    </div>
+    <div id="info_menu" class="place">
+        <a class="nickname" th:if="${session.user != null}"  th:href="@{/mypage/modify}">
+            <span th:text="${session.user['nickname']}"></span>
+        </a>
+        <span th:if="${session.user != null}">님</span>
+        <a th:if="${session.user == null}" th:href="@{/user/login}">로그인</a>
+        <a th:if="${session.user != null}" class="logout" href="#">로그아웃</a>
+        <a th:if="${session.user == null}" th:href="@{/user/register}">회원가입</a>
+        <a th:if="${session.user != null}" th:href="@{/mypage/modify}">마이페이지</a>
+        <a th:href="@{/help/faq}">고객센터</a>
+    </div>
+</div>
+<div id="block" class="box">
+    <div class="logo" th:if="${session.user == null}">
+        <a th:href="@{/}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+    </div>
+    <div class="logo" th:if="${session.user != null}">
+        <a th:if="${session.user.getAuthority() != 2}" th:href="@{/}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+        <a th:if="${session.user.getAuthority() == 2}" th:href="@{/entrepreneur}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+    </div>
+    <div id="search">
+        <label>
+            <div>
+                <img width="24" height="24" src="https://img.icons8.com/material-outlined/24/228B22/search--v1.png"
+                     alt="search--v1"/>
+            </div>
+            <input id="searchContent" type="text" placeholder="검색">
+        </label>
+    </div>
+    <div id="marge">
+
+    </div>
+</div>
+<nav id="nav" class="box user visible">
+    <div class="user">
+        <a th:href="@{/templates/member/recommendation}">
+        <span>
+            추천
+        </span>
+        </a>
+        <a th:href="@{/templates/member/format}">
+        <span>
+            일반야영장
+        </span>
+        </a>
+        <a th:href="@{/templates/member/format}">
+        <span>
+            자동차야영장
+        </span>
+        </a>
+        <a th:href="@{/templates/member/format}">
+        <span>
+            카라반
+        </span>
+        </a>
+        <a th:href="@{/templates/member/format}">
+        <span>
+            글램핑
+        </span>
+        </a>
+    </div>
+    <div class="entrepreneur">
+        <a th:href="@{/entrepreneur/registration}">
+        <span>
+            사업장등록
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/profile}">
+        <span>
+            사업장프로필
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/reservation}">
+        <span>
+            예약서비스
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/event}">
+        <span>
+            이벤트
+        </span>
+        </a>
+    </div>
+</nav>
+<div id="contents" class="box">
+    <div class="subBene box">
+        <div class="title">
+            <span>마이페이지</span>
+            <span>계정 정보 수정 및 각각 항목 내역 확인</span>
+        </div>
+    </div>
+    <div class="content">
+        <div class="subMenu">
+            <button rel="myInfoBtn" class="myInfoBtn" onclick="location.href='/mypage/modify'">개인정보수정</button>
+            <button th:if="${session.user['authority'] != 2}" class="reservationBtn selected" rel="reservationBtn"
+                    onclick="location.href='/mypage/reservation'">예약목록
+            </button>
+            <button th:if="${session.user['authority'] != 2}" class="bookmarkBtn" rel="bookmarkBtn"
+                    onclick="location.href='/mypage/bookmark'">즐겨찾기목록
+            </button>
+            <button class="helpBtn" rel="helpBtn" onclick="location.href='/mypage/qna'">1:1문의내역</button>
+        </div>
+
+        <div id="reservationList">
+            <table>
+                <thead>
+                <tr>
+                    <th>이름</th>
+                    <th>전화번호</th>
+                    <th>객실</th>
+                    <th>비용</th>
+                    <th>예약기간</th>
+                    <th>예약일자</th>
+                    <th>예약상태</th>
+                    <th>예약취소</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${reservations.length == 0}">
+                    <td colspan="8">예약 대기 목록이 없습니다.</td>
+                </tr>
+                <tr th:if="${reservations .length > 0}" th:each="reservation , i: ${reservations}" th:onclick="'moveDetail('+${reservation.getCampsiteIndex()}+')'">
+                    <td th:text="${reservation.getCampsiteName()}"></td>
+                    <td th:text="${reservation.getCampsiteContact()}"></td>
+                    <td th:text="${reservation.getSite()}"></td>
+                    <td th:text="${reservation.getCost()}"></td>
+                    <td th:text="${#dates.format(reservation.getStartDay(), 'yy.MM.dd')} + '~' + ${#dates.format(reservation.getEndDay(), 'yy.MM.dd')}"></td>
+                    <td th:text="${#dates.format(reservation.getCreatedAt(), 'yy.MM.dd')}"></td>
+                    <td>
+                        <span th:if="${reservation.getStatus() == 0}">예약대기</span>
+                        <span th:if="${reservation.getStatus() == 1}">예약거절</span>
+                        <span th:if="${reservation.getStatus() == 2}">예약취소</span>
+                        <span th:if="${reservation.getStatus() == 3}">결제대기</span>
+                        <span th:if="${reservation.getStatus() == 4}">결제완료</span>
+                    </td>
+                    <td>
+                        <input class="_object-button _color-concept" type="button" value="예약취소" th:if="${reservation.getStatus() != 1 && reservation.getStatus() != 2 && !isCancellable[i.index]}"
+                               th:onclick="'decision('+${reservation.getIndex()}+',2)'">
+                        <span th:if="${reservation.getStatus() == 1 || reservation.getStatus() == 2 || isCancellable[i.index]}">취소불가</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <ul class="pageContainer">
+                <li class="page" th:if="${pageModel.requestPage > 1}">
+                    <a th:href="@{'./reservation' (page = ${1})}" class="link">
+                        <img width="32" height="32" src="https://img.icons8.com/small/32/double-left.png" alt="double-left"/>
+                    </a>
+                </li>
+                <li class="page" th:if="${pageModel.requestPage > 10}">
+                    <a th:href="@{'./reservation' (page = ${pageModel.requestPage - 10})}"
+                       class="link">
+                        <img width="32" height="32" src="https://img.icons8.com/small/32/back.png" alt="back"/>
+                    </a>
+                </li>
+                <li class="page" th:if="${pageModel.requestPage > 1}">
+                    <a th:href="@{'./reservation' (page = ${pageModel.requestPage - 1})}"
+                       class="link">이전</a>
+                </li>
+                <li class="page"
+                    th:each="page : ${#numbers.sequence(pageModel.displayStartPage, pageModel.displayEndPage)}">
+                    <a th:href="@{'./reservation' (page = ${page})}" class="link"
+                       th:text="${page}"></a>
+                </li>
+                <li class="page" th:if="${pageModel.requestPage < pageModel.displayEndPage}">
+                    <a th:href="@{'./reservation' (page = ${pageModel.requestPage + 1})}"
+                       class="link">다음</a>
+                </li>
+                <li class="page" th:if="${pageModel.requestPage < pageModel.maxPage}">
+                    <a th:href="@{'./reservation' (page = ${pageModel.requestPage + 10})}"
+                       class="link">
+                        <img width="32" height="32" src="https://img.icons8.com/small/32/forward.png" alt="forward"/>
+                    </a>
+                </li>
+                <li class="page" th:if="${(pageModel.displayStartPage/10)!=(pageModel.maxPage/10)}">
+                    <a th:href="@{'./reservation' (page = ${pageModel.maxPage})}"
+                       class="link">
+                        <img width="32" height="32" src="https://img.icons8.com/small/32/double-right.png"
+                             alt="double-right"/>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+<footer id="footer" class="box">
+    <div id="sub_logo" class="">
+        <img th:src="@{/resources/images/로고1_remove.png}" alt="">
+    </div>
+</footer>
+</body>
+</html>

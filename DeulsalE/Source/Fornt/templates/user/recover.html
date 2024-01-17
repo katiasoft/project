@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Recover</title>
+    <link rel="shortcut icon" th:href="@{/resources/images/fabicon.png}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/user/recover.css}">
+    <script defer th:src="@{/resources/scripts/user/recover.js}"></script>
+</head>
+<body>
+<div id="recoverForm">
+    <header class="header">
+        <div class="headerLogo">
+            <a th:href="@{/}" class="logo">
+                <img th:src="@{/resources/images/user/textLogo02.png}" alt="">
+            </a>
+        </div>
+    </header>
+    <form id="recoverContainer" class="recover-container">
+        <h2 class="title">계정 복구</h2>
+        <div class="option-container">
+            <label class="label email">
+                <input checked class="option option-email" name="option" type="radio" value="email">
+                <span class="text">아이디 찾기</span>
+            </label>
+            <label class="label password">
+                <input class="option option-password" name="option" type="radio" value="password">
+                <span class="text">비밀번호 재설정</span>
+            </label>
+        </div>
+        <div id="emailContainer" class="field email-container">
+            <div class="certificationDiv">
+                <label class="phoneCertification">
+                    <input checked name="emailApproval" type="radio" class="option" rel="phone">
+                    <span class="text">휴대폰으로 인증하기</span>
+                </label>
+                <label class="emailCertification">
+                    <input name="emailApproval" type="radio" class="option email" rel="email">
+                    <span class="text">이메일로 인증하기</span>
+                </label>
+            </div>
+            <div class="certification phone-certification">
+                <label class="label">
+                    <img th:src="@{/resources/images/user/login.png}" alt="">
+                    <input class="_object-input" maxlength="5" name="emailFindPhoneAuthInput" placeholder="이름" type="text">
+                </label>
+                <label class="label">
+                    <img th:src="@{/resources/images/user/phone.png}" alt="">
+                    <input class="_object-input" maxlength="12" name="emailFindPhoneInput" placeholder="연락처 ('-' 없이 입력)"
+                           type="text">
+                    <input class="_object-button" name="emailPhoneAuthCodeInputSend" type="button" value="인증번호 전송">
+                </label>
+                <label class="label">
+                    <img th:src="@{/resources/images/user/approval.png}" alt="">
+                    <input disabled class="_object-input" maxlength="6" name="emailPhoneAuthCodeInput" placeholder="인증번호"
+                           type="text">
+                    <input disabled class="_object-button" name="emailPhoneAuthCodeInputVerify" type="button" value="인증번호 확인">
+                </label>
+                <input hidden name="emailPhoneAuthCodeSalt" type="hidden">
+            </div>
+            <div class="certification email-certification">
+                <label class="label">
+                    <img th:src="@{/resources/images/user/login.png}" alt="">
+                    <input class="_object-input" maxlength="5" name="emailFindEmailAuthInput" placeholder="이름" type="text">
+                </label>
+                <label class="label">
+                    <img th:src="@{/resources/images/user/mail.png}" alt="">
+                    <input class="_object-input" maxlength="50" name="emailFindEmailInput" placeholder="이메일" type="email">
+                    <input class="_object-button" name="emailEmailAuthCodeInputSend" type="button" value="인증번호 전송">
+                </label>
+                <label class="label">
+                    <img th:src="@{/resources/images/user/approval.png}" alt="">
+                    <input disabled class="_object-input" maxlength="6" name="emailAuthCodeInput" placeholder="인증번호"
+                           type="text">
+                    <input disabled class="_object-button" name="emailEmailAuthCodeInputVerify" type="button" value="인증번호 확인">
+                </label>
+                <input hidden name="emailEmailAuthCodeSalt" type="hidden">
+            </div>
+        </div>
+        <div id="passwordContainer" class="field password-container">
+            <div class="certificationDiv">
+                <label class="phoneCertification">
+                    <input checked name="passwordApproval" type="radio" class="option" rel="phone">
+                    <span class="text">휴대폰으로 인증하기</span>
+                </label>
+                <label class="emailCertification">
+                    <input name="passwordApproval" type="radio" class="option email" rel="email">
+                    <span class="text">이메일로 인증하기</span>
+                </label>
+            </div>
+
+            <div class="certification phone-certification">
+                <label class="label">
+                    <img th:src="@{/resources/images/user/login.png}" alt="">
+                    <input class="_object-input" maxlength="50" name="passwordFindPhoneAuthInput" placeholder="아이디" type="text">
+                </label>
+                <label class="label">
+                    <img th:src="@{/resources/images/user/phone.png}" alt="">
+                    <input class="_object-input" maxlength="12" name="passwordFindPhoneInput" placeholder="연락처 ('-' 없이 입력)" type="text">
+                    <input class="_object-button" name="passwordFindPhoneInputSend" type="button" value="인증번호 전송">
+                </label>
+                <label class="label">
+                    <img th:src="@{/resources/images/user/approval.png}" alt="">
+                    <input disabled class="_object-input" maxlength="6" name="passwordPhoneAuthCodeInput" placeholder="인증번호"
+                           type="text">
+                    <input disabled class="_object-button" name="passwordPhoneAuthCodeInputVerify" type="button" value="인증번호 확인">
+                </label>
+                <input hidden name="passwordPhoneAuthCodeSalt" type="hidden">
+            </div>
+
+            <div class="certification email-certification">
+                <label class="label">
+                    <img th:src="@{/resources/images/user/login.png}" alt="">
+                    <input class="_object-input" maxlength="50" name="passwordFindEmailAuthInput" placeholder="아이디" type="text">
+                </label>
+                <label class="label">
+                    <img th:src="@{/resources/images/user/mail.png}" alt="">
+                    <input class="_object-input" maxlength="50" name="passwordFindEmailInput" placeholder="이메일" type="email">
+                    <input class="_object-button" name="passwordFindEmailInputSend" type="button" value="인증번호 전송">
+                </label>
+                <label class="label">
+                    <img th:src="@{/resources/images/user/approval.png}" alt="">
+                    <input disabled class="_object-input" maxlength="6" name="passwordEmailAuthCodeInput" placeholder="인증번호"
+                           type="text">
+                    <input disabled class="_object-button" name="passwordEmailAuthCodeInputVerify" type="button" value="인증번호 확인">
+                </label>
+                <input hidden name="passwordEmailAuthCodeSalt" type="hidden">
+            </div>
+        </div>
+        <span class="warning" rel="warning"></span>
+        <div class="button-container">
+            <input class="nextButton" type="submit" value="다음">
+        </div>
+    </form>
+
+    <form action="" id="recoverPage" class="form visible">
+        <div id="emailDiv">
+            <div class="content-container">
+                <img th:src="@{/resources/images/user/imageLogo01.png}" alt="">
+                <h3 class="remember">
+                    회원님의 아이디는 <span class="rememberId"></span> 입니다.
+                </h3>
+            </div>
+            <div class="button-container">
+                <a th:href="@{/}">
+                    <span class="register-button">홈으로</span>
+                </a>
+            </div>
+        </div>
+        <div id="passwordDiv">
+            <section class="section step-1 ">
+                <h3>변경할 비밀번호를 입력해주세요.</h3>
+                <div class="passwordReset">
+                    <label class="label">
+                        <img th:src="@{/resources/images/user/password.png}" alt="">
+                        <input type="password" name="resetPassword" class="resetPassword" placeholder="비밀번호를 입력해주세요.">
+                    </label>
+                    <label class="label">
+                        <img th:src="@{/resources/images/user/password.png}" alt="">
+                        <input type="password" name="resetPasswordCheck" class="passwordCheck" placeholder="비밀번호를 다시 한 번 입력해 주세요.">
+                    </label>
+                </div>
+                <span class="resetWarning" rel="resetWarning"></span>
+                <div class="button-container">
+                    <input class="resetNextButton" type="submit" value="다음">
+                </div>
+            </section>
+            <section class="section step-2 visible">
+                <div class="content-container">
+                    <img th:src="@{/resources/images/user/imageLogo01.png}" alt="">
+                    <h3>
+                        비밀번호 재설정이 완료 되었습니다.<br>변경된 정보로 로그인 후 이용해주시기 바랍니다.
+                    </h3>
+                </div>
+                <div class="button-container">
+                    <a th:href="@{/}">
+                        <span class="register-button">홈으로</span>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </form>
+
+</div>
+
+</body>
+</html>

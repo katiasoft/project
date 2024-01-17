@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>들살이 - 마이페이지</title>
+    <link rel="shortcut icon" th:href="@{/resources/images/fabicon.png}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/base.css}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/Home/mypage.css}">
+    <script defer th:src="@{/resources/scripts/common.js}"></script>
+    <script defer th:src="@{/resources/scripts/Home/mypage/modify.js}"></script>
+
+</head>
+<body>
+<div id="blurCover" class=""></div>
+<div id="dialogCover" class=""></div>
+<div id="dialogLayer" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <span class="content fontSmall" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button confirm" type="submit" rel="confirm" value="확인">
+    </div>
+</div>
+<div id="dialogYesNo" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <span class="content fontSmall" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button confirm" type="submit" rel="confirm" value="예">
+        <input class="button cancel" type="button" rel="cancel" value="아니오">
+    </div>
+</div>
+<div class="layer" id="emailCertifiedLayer">
+    <form id="emailForm" class="visible">
+        <div class="layerHead">
+            <span>이메일 변경</span>
+            <div class="close" id="emailClose" rel="close"></div>
+        </div>
+        <label>
+            <input class="_object-input large" type="email" name="email" placeholder="변경할 이메일 입력">
+            <input class="_object-button codeSendBtn" type="button" value="전송">
+        </label>
+        <label>
+            <input readonly class="warning" name="warning" value="">
+        </label>
+        <label>
+            <input disabled class="_object-input large" name="salt" type="hidden">
+            <input disabled class="_object-input large" type="text" name="code" placeholder="인증번호 입력">
+            <input disabled class="_object-button verifyBtn" type="button" name="newEmailCodeVerify" value="인증">
+        </label>
+        <input hidden name="newEmailAuthCodeSalt" type="hidden">
+        <a href="/help/faq">인증번호가 오지 않나요?</a>
+        <span class="warning" rel="warning"></span>
+        <div class="button-container">
+            <input class="button cancel" type="button" rel="cancel" value="취소">
+            <input disabled class="button confirm" type="submit" rel="confirm" value="변경하기">
+        </div>
+    </form>
+</div>
+<div class="layer" id="contactCertifiedLayer">
+    <form id="contactForm" class="visible">
+        <div class="layerHead">
+            <span>연락처 변경</span>
+            <div class="close" id="contactClose" rel="contactClose"></div>
+        </div>
+        <span>새로운 연락처</span>
+        <label>
+            <input readonly class="_object-input small" type="text" value="010">
+            <span>-</span>
+            <input class="_object-input small" name="contact" type="text">
+            <span>-</span>
+            <input class="_object-input small" name="contact" type="text">
+            <input class="_object-button codeSendBtn" type="button" value="전송">
+        </label>
+        <label>
+            <input readonly class="warning" name="warning" value="">
+        </label>
+        <label>
+            <input disabled class="_object-input large" name="salt" type="hidden">
+            <input disabled class="_object-input large" name="code" type="text" placeholder="인증번호 입력">
+            <input disabled class="_object-button verifyBtn" type="button" value="인증">
+        </label>
+        <a href="/help/faq">인증번호가 오지 않나요?</a>
+        <div class="button-container">
+            <input class="button cancel" type="button" rel="contactCancel" value="취소">
+            <input disabled class="button confirm" type="submit" rel="confirm" value="변경하기">
+        </div>
+    </form>
+    <form id="passwordForm" class="visible">
+        <div class="layerHead">
+            <span>비밀번호 변경</span>
+            <div class="close" id="passwordClose" rel="passwordClose"></div>
+        </div>
+        <span>새로운 비밀번호</span>
+        <label>
+            <input class="_object-input large" type="password" name="password" placeholder="새로운 비밀번호 입력">
+        </label>
+        <label>
+            <input class="_object-input large" type="password" name="passwordCheck" placeholder="새로운 비밀번호 재입력">
+        </label>
+        <label>
+            <input readonly class="warning" name="warning" value="">
+        </label>
+        <span>휴대폰 인증</span>
+        <label>
+            <input readonly class="_object-input small" type="text" value="010">
+            <span>-</span>
+            <input class="_object-input small" name="contact" type="text">
+            <span>-</span>
+            <input class="_object-input small" name="contact" type="text">
+            <input class="_object-button codeSendBtn" type="button" value="전송">
+        </label>
+        <label>
+            <input disabled class="_object-input large" name="salt" type="hidden">
+            <input disabled class="_object-input large" name="code" type="text" placeholder="인증번호 입력">
+            <input disabled class="_object-button verifyBtn" type="button" value="인증">
+        </label>
+        <a href="/help/faq">인증번호가 오지 않나요?</a>
+        <div class="button-container">
+            <input class="button cancel" type="button" rel="passwordCancel" value="취소">
+            <input disabled class="button confirm" type="submit" rel="confirm" value="변경하기">
+        </div>
+    </form>
+    <form id="nameForm" class="visible">
+        <div class="layerHead">
+            <span>이름 변경</span>
+            <div class="close" id="nameClose" rel="nameClose"></div>
+        </div>
+        <span>새로운 이름</span>
+        <label>
+            <input class="_object-input large" name="newName" type="text" placeholder="새로운 이름 입력" maxlength="10">
+        </label>
+        <span>휴대폰 인증</span>
+        <label>
+            <input readonly class="_object-input small" type="text" value="010">
+            <span>-</span>
+            <input class="_object-input small" name="contact" type="text" maxlength="4">
+            <span>-</span>
+            <input class="_object-input small" name="contact" type="text" maxlength="4">
+            <input class="_object-button codeSendBtn" type="button" value="전송">
+        </label>
+        <label>
+            <input readonly class="warning" name="warning" value="">
+        </label>
+        <label>
+            <input disabled class="_object-input large" name="salt" type="hidden">
+            <input disabled class="_object-input large" name="code" type="text" placeholder="인증번호 입력" maxlength="6">
+            <input disabled class="_object-button verifyBtn" type="button" value="인증">
+        </label>
+        <a href="/help/faq">인증번호가 오지 않나요?</a>
+        <div class="button-container">
+            <input class="button cancel" type="button" rel="nameCancel" value="취소">
+            <input disabled class="button confirm" type="submit" rel="confirm" value="변경하기">
+        </div>
+    </form>
+</div>
+<div id="headLine" class="box">
+    <div id="info_type" class="place">
+        <div th:if="${session.user == null}">
+            <input class="checked" rel="user" type="button" value="개인">
+            <input rel="entrepreneur" type="button" value="사업자">
+        </div>
+
+        <div th:if="${session.user != null}">
+            <input th:class="${session.user.getAuthority()!=2? 'checked':''}" rel="user" type="button" value="개인">
+            <input th:class="${session.user.getAuthority()==2? 'checked':''}" rel="entrepreneur" type="button"
+                   value="사업자">
+        </div>
+    </div>
+    <div id="info_menu" class="place">
+        <a class="nickname" th:if="${session.user != null}" th:href="@{/mypage/modify}">
+            <span th:text="${user.getNickname()}"></span>
+        </a>
+        <span th:if="${session.user != null}">님</span>
+        <a th:if="${session.user == null}" th:href="@{/user/login}">로그인</a>
+        <a th:if="${session.user != null}" class="logout" href="#">로그아웃</a>
+        <a th:if="${session.user == null}" th:href="@{/user/register}">회원가입</a>
+        <a th:if="${session.user != null}" th:href="@{/mypage/modify}">마이페이지</a>
+        <a th:href="@{/help/faq}">고객센터</a>
+    </div>
+</div>
+<div id="block" class="box">
+    <div class="logo" th:if="${session.user == null}">
+        <a th:href="@{/}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+    </div>
+    <div class="logo" th:if="${session.user != null}">
+        <a th:if="${session.user.getAuthority() != 2}" th:href="@{/}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+        <a th:if="${session.user.getAuthority() == 2}" th:href="@{/entrepreneur}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+    </div>
+    <div id="search">
+        <label>
+            <div>
+                <img width="24" height="24" src="https://img.icons8.com/material-outlined/24/228B22/search--v1.png"
+                     alt="search--v1"/>
+            </div>
+            <input id="searchContent" type="text" placeholder="검색">
+        </label>
+    </div>
+    <div id="marge">
+
+    </div>
+</div>
+<nav id="nav" class="box user visible">
+    <div class="user">
+        <a th:href="@{/templates/member/recommendation}">
+        <span>
+            추천
+        </span>
+        </a>
+        <a th:href="@{/templates/member/format}">
+        <span>
+            일반야영장
+        </span>
+        </a>
+        <a th:href="@{/templates/member/format}">
+        <span>
+            자동차야영장
+        </span>
+        </a>
+        <a th:href="@{/templates/member/format}">
+        <span>
+            카라반
+        </span>
+        </a>
+        <a th:href="@{/templates/member/format}">
+        <span>
+            글램핑
+        </span>
+        </a>
+    </div>
+    <div class="entrepreneur">
+        <a th:href="@{/entrepreneur/registration}">
+        <span>
+            사업장등록
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/profile}">
+        <span>
+            사업장프로필
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/reservation}">
+        <span>
+            예약서비스
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/event}">
+        <span>
+            이벤트
+        </span>
+        </a>
+    </div>
+</nav>
+<div id="contents" class="box">
+    <div class="subBene box">
+        <div class="title">
+            <span>마이페이지</span>
+            <span>계정 정보 수정 및 각각 항목 내역 확인</span>
+        </div>
+    </div>
+    <div class="content">
+        <div class="subMenu">
+            <button rel="myInfoBtn" class="myInfoBtn selected" onclick="location.href='/mypage/modify'">개인정보수정</button>
+            <button th:if="${session.user['authority'] != 2}" class="reservationBtn" rel="reservationBtn"
+                    onclick="location.href='/mypage/reservation'">예약목록
+            </button>
+            <button th:if="${session.user['authority'] != 2}" class="bookmarkBtn" rel="bookmarkBtn"
+                    onclick="location.href='/mypage/bookmark'">즐겨찾기목록
+            </button>
+            <button class="helpBtn" rel="helpBtn" onclick="location.href='/mypage/qna'">1:1문의내역</button>
+        </div>
+
+        <div id="myInfoList">
+            <span class="contentTitle">프로필 정보</span>
+            <div>
+                <label class="name">
+                    <span>이름 : </span>
+                    <input readonly class="_object-input preName" type="text" th:placeholder="${user.getName()}">
+                    <input class="_object-button" type="button" rel="nameModify" value="수정">
+                </label>
+
+                <label class="nickname">
+                    <span>별명 : </span>
+                    <input class="_object-input" type="text" th:placeholder="${user.getNickname()}">
+                    <input class="_object-button" type="button" rel="nicknameModify" value="수정">
+                </label>
+            </div>
+            <span class="contentTitle">보안 정보</span>
+            <label class="phone">
+                <span>연락처 : </span>
+                <input readonly class="_object-input small" type="text"
+                       th:placeholder="${user.getContact().substring(0,3)}">
+                <span>-</span>
+                <input readonly class="_object-input small" type="text"
+                       th:placeholder="${user.getContact().substring(3,7)}" maxlength="4">
+                <span>-</span>
+                <input readonly class="_object-input small" type="text"
+                       th:placeholder="${user.getContact().substring(7,11)}" maxlength="4">
+                <input class="_object-button" type="button" rel="phoneModify" value="수정">
+            </label>
+            <label class="email">
+                <span>이메일 : </span>
+                <input readonly class="_object-input mid" type="text" th:value="${user.getEmail().split('@')[0]}">
+                <span>@</span>
+                <input readonly class="_object-input mid" type="text" th:value="${user.getEmail().split('@')[1]}">
+                <input class="_object-button" type="button" rel="emailModify" value="수정">
+            </label>
+            <label class="password">
+                <span>비밀번호 : </span>
+                <input readonly class="_object-input  large" type="password" value="**********">
+                <input class="_object-button" type="button" rel="passwordModify" value="수정">
+            </label>
+        </div>
+
+    </div>
+</div>
+<footer id="footer" class="box">
+    <div id="sub_logo" class="">
+        <img th:src="@{/resources/images/로고1_remove.png}" alt="">
+    </div>
+</footer>
+</body>
+</html>

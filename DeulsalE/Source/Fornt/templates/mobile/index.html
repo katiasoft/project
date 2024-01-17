@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DeulsalE</title>
+    <link rel="shortcut icon" th:href="@{/resources/images/fabicon.png}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/mobile/format.css}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/mobile/index.css}">
+    <script defer th:src="@{/resources/scripts/mobile/format.js}"></script>
+    <script defer th:src="@{/resources/scripts/mobile/index.js}"></script>
+
+</head>
+<body>
+<div id="dialogMenu">
+    <div>
+        <div class="menuClose">
+            <img rel="menuClose" width="24" height="24" src="https://img.icons8.com/ios/50/delete-sign--v1.png"
+                 alt="delete-sign--v1"/>
+        </div>
+        <div id="userContainer">
+            <a th:if="${session.user == null}" th:href="@{/mobile/login}">로그인이 필요합니다.</a>
+            <span class="userId" th:if="${session.user != null}" th:text="${session.user.getNickname()}"></span><span
+                th:if="${session.user != null}"> 님</span>
+        </div>
+        <div id="userMenu">
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/myInfo}"><img width="24" height="24" src="https://img.icons8.com/ios/50/info--v1.png" alt="info--v1"/><span>정보수정</span></a>
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/reservation}"><img width="24" height="24" src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/external-calendar-multimedia-kiranshastry-lineal-kiranshastry.png" alt="external-calendar-multimedia-kiranshastry-lineal-kiranshastry"/><span>예약내역</span></a>
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/bookmark}"><img width="24" height="24" src="https://img.icons8.com/ios/50/bookmark-ribbon--v1.png" alt="bookmark-ribbon--v1"/><span>즐겨찾기</span></a>
+            <a th:class="${session.user == null?'lock':''}" th:href="@{/mobile/qna/list}"><img width="24" height="24" src="https://img.icons8.com/ios/50/questions.png" alt="questions"/><span>1:1문의내역</span></a>
+        </div>
+        <div id="helpContainer">
+            <table>
+                <tr>
+                    <td><a th:href="@{/mobile/notice}">공지사항</a></td>
+                    <td><a th:href="@{/mobile/event}">이벤트</a></td>
+                </tr>
+                <tr>
+                    <td><a th:href="@{/mobile/qna}">1:1문의</a></td>
+                    <td><a th:href="@{/mobile/faq}">FAQ</a></td>
+                </tr>
+            </table>
+        </div>
+        <div id="buttonContainer">
+            <ul th:if="${session.user == null}">
+                <li><a th:href="@{/mobile/login}"><img width="24" height="24"
+                                                       src="https://img.icons8.com/material-rounded/48/42AB42/enter-2.png"
+                                                       alt="enter-2"/><span>로그인</span></a></li>
+                <li><a th:href="@{/mobile/register}"><img width="24" height="24"
+                                                          src="https://img.icons8.com/ios-glyphs/60/42AB42/user-male-circle.png"
+                                                          alt="user-male-circle"/><span>회원가입</span></a></li>
+            </ul>
+
+            <ul th:if="${session.user != null}">
+                <li><a th:href="@{/mobile/logout}"><img width="24" height="24"
+                                                        src="https://img.icons8.com/material-rounded/48/42AB42/exit.png"
+                                                        alt="exit"/><span>로그아웃</span></a></li>
+                <li><a th:href="@{/mobile/}"><img width="24" height="24"
+                                                  src="https://img.icons8.com/material-sharp/48/42AB42/home.png"
+                                                  alt="home"/><span>홈으로</span></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="warp">
+    <div id="header">
+        <a th:href="@{/mobile/}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+        <div id="info_menu">
+            <a th:if="${session.user == null}" th:href="@{/mobile/login}">로그인</a>
+            <a th:if="${session.user != null}" class="logout" th:href="@{/mobile/logout}">로그아웃</a>
+            <img rel="menu" width="24" height="24" src="https://img.icons8.com/material-sharp/48/menu--v1.png"
+                 alt="menu--v1"/>
+        </div>
+    </div>
+    <div id="search">
+        <label>
+            <div>
+                <img width="24" height="24" src="https://img.icons8.com/material-outlined/24/228B22/search--v1.png"
+                     alt="search--v1"/>
+            </div>
+            <input id="searchContent" type="text" placeholder="검색">
+        </label>
+    </div>
+    <div id="bene">
+        <img id="benerImg" th:src="@{/resources/images/bener01.jpg}" alt="">
+    </div>
+    <div id="menu">
+        <div>
+            <a th:href="@{/mobile/recommendation}">
+                <img th:src="@{/resources/images/icons/추천.png}" alt="추천">
+                <span>추천</span>
+            </a>
+        </div>
+        <div>
+            <a th:href="@{/mobile/campsite?code=1}">
+                <img th:src="@{/resources/images/icons/일반3.png}" alt="일반">
+                <span>일반야영장</span>
+            </a>
+        </div>
+        <div>
+            <a th:href="@{/mobile/campsite?code=2}">
+                <img th:src="@{/resources/images/icons/자동차.png}" alt="일반">
+                <span>자동차야영장</span>
+            </a>
+        </div>
+        <div>
+            <a th:href="@{/mobile/campsite?code=3}">
+                <img th:src="@{/resources/images/icons/카라반.png}" alt="일반">
+                <span>카라반</span>
+            </a>
+        </div>
+        <div>
+            <a th:href="@{/mobile/campsite?code=4}">
+                <img th:src="@{/resources/images/icons/글램핑2.png}" alt="일반">
+                <span>글램핑</span>
+            </a>
+        </div>
+    </div>
+    <div id="event" th:if="${events != null}">
+        <label>
+            <span>EVENT</span>
+            <a th:href="@{/mobile/event}">더보기</a>
+        </label>
+        <div>
+            <div th:each="event: ${events}">
+                <div th:onclick="'moveEvent('+${event.getIndex()}+')'">
+                    <img th:src="@{'' + ${event.getSrc()}}"
+                         onerror="this.onerror=null; this.src='/resources/images/event_bg/001.jpg';">
+                </div>
+                <span class="eventTitle" th:text="${event.getTitle()}"></span>
+                <span class="eventCampName" th:text="${event.getCampsiteName()}"></span>
+                <span class="eventDay"
+                      th:text="${#dates.format(event.getStartDay(),'yyyy-MM-dd')}+' ~  '+${#dates.format(event.getEndDay(),'yyyy-MM-dd')}"></span>
+            </div>
+        </div>
+    </div>
+    <div id="notice" th:if="${notices != null}">
+        <label>
+            <span>공지사항</span>
+            <a th:href="@{/mobile/notice}">더보기</a>
+        </label>
+        <div>
+            <table>
+                <thead>
+                <tr>
+                    <th>구분</th>
+                    <th>제목</th>
+                    <th>작성일</th>
+                    <th>조회수</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="notice:${notices}" th:onclick="'moveNotice('+${notice.getIndex()}+')'">
+                    <td th:text="${notice.getSort()}"></td>
+                    <td th:text="${notice.getSubject()}"></td>
+                    <td th:text="${#dates.format(notice.getCreatedAt(),'yyyy.MM.dd')}"></td>
+                    <td th:text="${notice.getView()}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <footer id="footer" class="box">
+
+    </footer>
+</div>
+</body>
+</html>

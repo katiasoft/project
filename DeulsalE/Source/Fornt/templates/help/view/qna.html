@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>들살이 - 1:1문의</title>
+    <link rel="shortcut icon" th:href="@{/resources/images/fabicon.png}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/base.css}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/help/format.css}">
+    <link rel="stylesheet" th:href="@{/resources/stylesheets/help/view/qna.css}">
+    <script defer th:src="@{/resources/scripts/help/view/qna.js}"></script>
+    <script defer th:if="${result.equals('failure')}" th:src="@{/resources/scripts/help/view/qnaReply.js}"></script>
+    <script defer th:if="${result.equals('success')}" th:src="@{/resources/scripts/help/view/deleteQnaReply.js}"></script>
+    <script defer th:src="@{/resources/scripts/common.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/07b3d34f7d.js" crossorigin="anonymous"></script>
+    <script defer th:src="@{https://kit.fontawesome.com/42c2fec7f5.js}" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<div id="dialogCover" class=""></div>
+<div id="dialogLayer" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <span class="content fontSmall" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button cancel" type="button" rel="cancel" value="취소">
+        <input class="button confirm" type="submit" rel="confirm" value="확인">
+    </div>
+</div>
+<div id="dialogComplete" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <div class="imgLogoContainer">
+        <img th:src="@{/resources/images/로고1_remove.png}">
+    </div>
+    <span class="content" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button cancel" type="button" rel="cancel" value="취소">
+        <a class="button confirm" rel="confirm" th:href="@{/help/qna/list}">확인</a>
+    </div>
+</div>
+<div id="dialogYesNo" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <span class="content fontSmall" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button confirm" type="submit" rel="confirm" value="예">
+        <input class="button cancel" type="button" rel="cancel" value="아니오">
+    </div>
+</div>
+<div id="dialogAnswerComplete" class="dialog">
+    <span class="title" rel="title">제목</span>
+    <div class="imgLogoContainer">
+        <img th:src="@{/resources/images/로고1_remove.png}">
+    </div>
+    <span class="content" rel="content">내용</span>
+    <div class="button-container">
+        <input class="button cancel" type="button" rel="cancel" value="취소">
+        <a class="button confirm" rel="confirm" th:href="@{/help/qna/view(index=${qna.getIndex()})}">확인</a>
+    </div>
+</div>
+<div id="headLine" class="box">
+    <div id="info_type" class="place">
+        <div th:if="${session.user == null}">
+            <input class="checked" rel="user" type="button" value="개인">
+            <input rel="entrepreneur" type="button" value="사업자">
+        </div>
+
+        <div th:if="${session.user != null}">
+            <input th:class="${session.user.getAuthority()!=2? 'checked':''}" rel="user" type="button" value="개인">
+            <input th:class="${session.user.getAuthority()==2? 'checked':''}" rel="entrepreneur" type="button" value="사업자">
+        </div>
+    </div>
+    <div id="info_menu" class="place">
+        <a class="nickname" th:if="${session.user != null}"  th:href="@{/mypage/modify}">
+            <span th:text="${session.user['nickname']}"></span>
+        </a>
+        <span th:if="${session.user != null}">님</span>
+        <a th:if="${session.user == null}" th:href="@{/user/login}">로그인</a>
+        <a th:if="${session.user != null}" class="logout" href="#">로그아웃</a>
+        <a th:if="${session.user == null}" th:href="@{/user/register}">회원가입</a>
+        <a th:if="${session.user != null}" th:href="@{/mypage/modify}">마이페이지</a>
+        <a th:href="@{/help/faq}">고객센터</a>
+    </div>
+</div>
+<div id="block" class="box">
+    <div class="logo" th:if="${session.user == null}">
+        <a th:href="@{/}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+    </div>
+    <div class="logo" th:if="${session.user != null}">
+        <a th:if="${session.user.getAuthority() != 2}" th:href="@{/}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+        <a th:if="${session.user.getAuthority() == 2}" th:href="@{/entrepreneur}">
+            <img th:src="@{/resources/images/로고2_remove.png}" alt="">
+        </a>
+    </div>
+    <div id="search">
+        <label>
+            <div>
+                <img width="24" height="24" src="https://img.icons8.com/material-outlined/24/228B22/search--v1.png"
+                     alt="search--v1"/>
+            </div>
+            <input id="searchContent" type="text" placeholder="검색">
+        </label>
+    </div>
+    <div id="marge">
+
+    </div>
+</div>
+
+<nav id="nav" class="box help">
+    <div class="user">
+        <a>
+        <span>
+            추천
+        </span>
+        </a>
+        <a>
+        <span>
+            일반야영장
+        </span>
+        </a>
+        <a>
+        <span>
+            자동차야영장
+        </span>
+        </a>
+        <a>
+        <span>
+            카라반
+        </span>
+        </a>
+        <a>
+        <span>
+            글램핑
+        </span>
+        </a>
+    </div>
+    <div class="entrepreneur">
+        <a th:href="@{/entrepreneur/registration}">
+        <span>
+            사업장등록
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/profile}">
+        <span>
+            사업장프로필
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/reservation}">
+        <span>
+            예약서비스
+        </span>
+        </a>
+        <a th:href="@{/entrepreneur/event}">
+        <span>
+            이벤트
+        </span>
+        </a>
+    </div>
+    <div class="help">
+        <a th:href="@{/help/notice}">
+        <span>
+            공지사항
+        </span>
+        </a>
+        <a th:href="@{/help/event}">
+        <span>
+            이벤트
+        </span>
+        </a>
+        <a th:href="@{/help/faq}">
+        <span>
+            FAQ
+        </span>
+        </a>
+        <a th:href="@{/help/qna}">
+        <span>
+            1:1문의
+        </span>
+        </a>
+    </div>
+</nav>
+<div id="contents" class="box">
+    <div class="subBene box">
+        <div class="title">
+            <span>1:1문의</span>
+            <span>이슈사항 문의 및 서비스 개선을 위한 건의</span>
+        </div>
+    </div>
+    <div class="content">
+        <div class="board_view">
+            <div class="header">
+                <div class="tit">1:1 문의 내역 확인</div>
+                <div class="utils">
+                    <div class="view_back">
+                        <a th:href="@{/help/qna/list}" class="btn_back_list">
+                            <em class="tm">
+                                <span class="fa-solid fa-rotate-left fa-xl"></span>
+                            </em>
+                            <span class="txt">목록으로 돌아가기</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="content" th:if="${qna != null && !qna.isDeleted()}">
+                <div class="view_wrap">
+                    <div class="view_header">
+                        <div class="tr">
+                            <span th:text="${qna.isSort() == true ? '답변완료' : '답변예정'}" class="th sort"></span>
+                            <span th:text="${qna.getTitle()}" class="th subject"></span>
+                            <span class="th author">
+                                <span class="gm" th:text="${qna.getUserId()}"></span>
+                            </span>
+                            <span th:text="${#dates.format(qna.getCreatedAt(), 'yyyy-MM-dd')}" class="th date"></span>
+                            <a th:href="@{/help/qna/modify(index=${qna.getIndex()})}">수정</a>
+                            <input type="button" value="삭제" class="delete" id="deleteButtons" rel="delete"
+                                   th:data-index="${qna.getIndex()}">
+                        </div>
+                    </div>
+                    <div class="content_body">
+                        <p><pre th:utext="${qna.getContent()}"></pre></p>
+                    </div>
+
+                    <div class="view_footer">
+                        <div>
+                            <div>
+                                <img width="16" height="16" src="https://img.icons8.com/ios-glyphs/30/attach.png" alt="attach"/>
+                                <span>첨부파일 (<span id="fileCount" th:text="${attachments != null ? attachments.length : 0}">0</span>)</span>
+                                <span th:if="${attachments == null || attachments.length == 0}">첨부파일이 없습니다.</span>
+                            </div>
+                            <ul id="fileList" th:if="${attachments != null && attachments.length > 0}">
+                                <li th:each="attachment, stat : ${attachments}" >
+                                    <a target="_blank" th:href="@{/help/qna/download(index=${attachment.getIndex()})}"><img width="16" height="16" src="https://img.icons8.com/material-rounded/24/3e3d55/download--v1.png" alt="download--v1"/><span th:text="${attachment.getFileName()}"></span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="line"></div>
+                    <!--답변이 작성된 경우-->
+                    <div class="form-container" th:if="${result.equals('success')}">
+                        <div class="admin_answer">
+                            <div class="answer_body">
+                                <p><pre th:utext="${answer.getContent()}"></pre>
+                                </p>
+                            </div>
+                        </div>
+                        <div th:if="${session.user != null && session.user['authority'] == 0}">
+                            <div class="delete-button">
+                                <input type="button" value="삭제" rel="deleteAnswer" th:data-index="${answer.getQnaIndex()}">
+                            </div>
+                        </div>
+                    </div>
+                    <!--답변을 작성해야 하는 경우-->
+                    <div th:if="${session.user != null && session.user['authority'] == 0}">
+                        <div class="form-container" th:if="${result.equals('failure')}">
+                            <form id="answerForm" rel="answerForm" th:action="@{/qna/view(index=${qna.getIndex()})}"
+                                  method="post">
+                                <input type="hidden" name="qnaIndex" th:value="${qna.getIndex()}">
+                                <div class="admin_answer">
+                                    <div class="answer_body">
+                                        <p>
+                                        <textarea name="content" rows="10" id="reply"
+                                                  placeholder="문의에 대한 답변을 기재해주세요."></textarea>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="answerBtn">
+                                    <input type="submit" value="완료">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!--   차후  hidden  -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer id="footer" class="box">
+    <div id="sub_logo" class="">
+        <img th:src="@{/resources/images/로고1_remove.png}" alt="">
+    </div>
+</footer>
+</body>
+</html>
