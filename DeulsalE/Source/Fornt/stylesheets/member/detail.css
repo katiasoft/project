@@ -1,0 +1,634 @@
+
+.invisible {
+    display: none;
+}
+
+#contents textarea {
+    width: 100%;
+    border: none;
+    resize: none;
+    line-height: 1.4;
+}
+
+#contents > .content > .contentTop {
+    width: 100%;
+    max-height: 38rem;
+    margin: 2rem 0 3rem 0;
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    grid-gap: 2rem;
+}
+
+#contents > .content > .contentTop > .img > .imgChecked {
+    width: 100%;
+    max-height: 28.83rem;
+    aspect-ratio: 3/2;
+    background-color: #ffffff;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+}
+
+#contents > .content > .contentTop > .img > .imgChecked > img {
+    height: 100%;
+    /*border-radius: 0.8rem;*/
+
+    object-fit: contain;
+}
+
+#contents > .content > .contentTop > .img > .imgList {
+    margin: 1rem 0 0 0;
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#contents > .content > .contentTop > .img > .imgList > .slide{
+    width: 39.5rem;
+    overflow: hidden;
+}
+#contents > .content > .contentTop > .img > .imgList > .slide > .images{
+    display: flex;
+    height: 7.5rem;
+    transition: transform 0.5s;
+}
+#contents > .content > .contentTop > .img > .imgList > .slide > .images > img{
+    width: 7.5rem; height: 7.5rem;
+    opacity: 0.5;
+    border-radius: 0.8rem;
+}
+
+#contents > .content > .contentTop > .img > .imgList > .slide > .images > img.selected {
+    opacity: 1;
+}
+#contents > .content > .contentTop > .img > .imgList > .slide > .images > img:hover {
+    opacity: 1;
+}
+
+#contents > .content > .contentTop > .img > .imgList > .slide > .images > img + img {
+    margin-left: 0.5rem;
+}
+
+/**버튼디자인**/
+#contents > .content > .contentTop > .img > .imgList > .btn{
+    width: 1.875rem; height: 1.875rem;
+    font-size: 1.25rem;
+    color: rgba(1,1,1,0.65);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#contents > .content > .contentTop > .img > .imgList > .btn:not(.disabled){
+    cursor: pointer;
+}
+
+#contents > .content > .contentTop > .img > .imgList > .btn:not(.disabled):active{
+    background: rgba(1,1,1,0.2);
+}
+#contents > .content > .contentTop > .img > .imgList > .btn.disabled{
+    color: rgba(1,1,1,0.2);
+}
+
+#contents > .content > .contentTop > div > label {
+    display: flex;
+    flex-direction: column;
+}
+
+#contents > .content > .contentTop > div > label > input {
+    width: 100%;
+}
+
+#contents > .content > .contentTop > div > label > input:nth-child(2) {
+    font-size: 2rem;
+    font-weight: 500;
+    margin: 0 0 0 1rem;
+}
+
+#contents > .content > .contentTop > div > label > input:nth-child(3) {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 1.5rem 0 0 1rem;
+}
+
+#contents > .content > .contentTop > div > label > input:nth-child(4) {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 1rem 0 0 1rem;
+}
+
+#contents > .content > .contentTop > div > .icon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: right;
+    padding: 0 0.8rem 0 0;
+    margin: 1rem 0 0 0;
+}
+
+#contents > .content > .contentTop > div > .icon > * {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#contents > .content > .contentTop > div > .icon > .bookmark {
+    width: 1.8rem; height: 1.8rem;
+    cursor: pointer;
+}
+
+#contents > .content > .contentTop > div > .contact {
+    border-top: 0.125rem solid rgba(0, 0, 0, 0.3);
+    margin: 1rem 0 0 0;
+}
+
+#contents > .content > .contentTop > div > .icon > label > input {
+    width: 2.5rem;
+    font-size: 1rem;
+    margin: 0 0 0 0.5rem;
+}
+#contents > .content > .contentTop > div > .icon > label:nth-child(2) > input {
+    width: 100%;
+}
+#contents > .content > .contentTop > div > .icon > label:nth-child(2) {
+    margin-right: auto;
+}
+
+#contents > .content > .contentTop > div > .contact {
+    display: flex;
+    flex-direction: column;
+}
+
+#contents > .content > .contentTop > div > .contact > * {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#contents > .content > .contentTop > div > .contact > label.characteristics > input {
+    font-size: 1.1rem;
+}
+
+#contents > .content > .contentTop > div > .contact > label.characteristics {
+    background-color: #eeeeee60;
+    border-radius: 0.8rem;
+    flex-direction: column;
+    margin: 1.5rem 0.8rem 0 0.8rem;
+    padding: 0.8rem;
+}
+
+#contents > .content > .contentTop > div > .contact > label.characteristics > * {
+    width: 100%;
+    background: none;
+}
+
+#contents > .content > .contentTop > div > .contact > label.characteristics > *:nth-child(1) {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0 0 0 1rem;
+}
+
+#contents > .content > .contentTop > div > .contact > label.characteristics > *:nth-child(2) {
+    margin: 1rem 1.5rem 0.5rem 1.5rem;
+    height: 4rem;
+}
+
+#contents > .content > .contentTop > div > .contact > label > img,
+#contents > .content > .contentTop > div > .contact > .url > img {
+    width: 1.5rem;
+    height: 1.5rem;
+
+    margin: 0 0.5rem 0 0;
+}
+
+#contents > .content > .contentTop > div > .contact > a.url {
+    cursor: pointer;
+}
+
+#contents > .content > .contentTop > div > .contact > a.url > * {
+    cursor: pointer;
+}
+
+#contents > .content > .contentTop > div > .contact > .url > input {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#contents > .content > .contentTop > div > .contact > .contact {
+    margin: 1.5rem 0 0 1rem;
+}
+
+#contents > .content > .contentTop > div > .contact > .url
+{
+    margin: 0.5rem 1rem 0 1rem;
+}
+
+#contents > .content > .contentTop > div > .reservationBtn {
+    height: 3.5rem;
+    /*background-color: rgba(40, 203, 91, 0.5);*/
+    background-color: #42ab42;
+    color: rgba(255, 255, 255, 1);
+    border-radius: 1rem;
+    margin: 2rem 0.8rem 0 0.8rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#contents > .content > .contentTop > div > .reservationBtn.disabled {
+    cursor: no-drop;
+    background-color: #eeeeee60;
+    color: #818181;
+}
+
+#contents > .content > .contentTop > div > .reservationBtn:not(.disabled):hover {
+    cursor: pointer;
+    /*background-color: rgba(40, 203, 91, 0.8);*/
+    filter: brightness(95%);
+    /*box-shadow: 0 0.0625rem 0.1875rem 0 rgba(0, 0, 0, 0), 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.24);*/
+}
+
+#contents > .content > .contentTop > div > .reservationBtn:not(.disabled):active {
+    cursor: pointer;
+    filter: brightness(90%);
+    /*box-shadow: 0 0.0625rem 0.1875rem 0 rgba(0, 0, 0, 0), 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.24);*/
+}
+
+#contents > .content > .contentTop > div > .reservationBtn > div {
+    font-size: 1.25rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.tabMenu {
+    display: flex;
+    flex-direction: column;
+}
+
+.tabMenu > .banner {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    background-color: #f9f9f9;
+}
+
+.tabMenu > .banner > a {
+    width: 33.3%;
+    line-height: 24px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.5rem;
+    background-color: #ffffff;
+    padding: 1rem 0;
+
+    color: #818181;
+    border-bottom: 0.0625rem solid;
+
+}
+
+
+.tabMenu > .banner input[type=radio] {
+    display: none;
+}
+
+
+
+.tabMenu > .banner > input + label {
+    display: inline-block;
+    /*width: 33.3%;*/
+    width: 50%;
+    line-height: 1.5rem;
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.5rem;
+    background-color: #ffffff;
+    padding: 1rem 0;
+
+    color: #818181;
+    border-bottom: 0.0625rem solid;
+}
+
+.tabMenu > .banner input + label {
+    cursor: pointer;
+}
+
+.tabMenu > .banner input[type=radio]:checked + label {
+    background-color: #ffffff;
+    color: black;
+    border: 0.0625rem solid;
+    border-bottom: none;
+    font-size: 1.5rem;
+}
+
+.tabContent2 {
+    display: none;
+}
+
+.tabMenu > .content {
+    /*background-color: #eeeeee60;*/
+}
+
+.tabMenu > .content > div {
+    margin: 0.5rem;
+}
+
+.tabMenu > .content > div > .tabCon {
+    /*background-color: #eeeeee;*/
+    display: flex;
+    flex-direction: column;
+    /*padding: 0 0 4rem 0;*/
+}
+
+.tabCon .banner {
+    font-size: 1.75rem;
+    font-weight: 400;
+    margin: 2rem 1.5rem 2rem 1.5rem;
+    padding-bottom: 0.5rem;
+    box-sizing: border-box;
+    border-bottom: 0.25rem solid;
+}
+
+#price > .priceTable {
+    background-color: #f9f9f9;
+    margin: 0 1.5rem 0 1.5rem;
+    padding: 0 1rem;
+}
+
+#price > .banner > span {
+    margin-left: 0.5rem;
+    box-sizing: border-box;
+    font-size: 1rem;
+    color: #515151;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#price th {
+    font-size: 1.125rem;
+    font-weight: 500;
+    padding: 0.8rem 0;
+}
+
+#price td {
+    width: 25%;
+    font-size: 1rem;
+    /*border-left: 0.125rem solid #eeeeee;*/
+}
+
+#price tbody tr {
+    border-top: 0.15rem solid #eeeeee;
+}
+
+
+#price tr td {
+    text-align: center;
+    padding: 0.5rem 0;
+}
+
+.tabCon > * {
+    margin: 0 0 2rem 0;
+}
+
+.tabCon ul {
+    background-color: #f9f9f9;
+    margin: 0 1.5rem;
+    padding: 2.5rem 4rem;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-gap: 1rem;
+}
+
+.tabCon ul li {
+    text-align: center;
+    padding: 2.5rem 0 0 0;
+}
+
+.tabCon > .description {
+    display: flex;
+    flex-direction: column;
+}
+
+.tabCon > .description > .content {
+    background-color: #f9f9f9;
+    margin: 0 1.5rem;
+}
+
+.tabCon > .description > .content > label {
+    display: block;
+    width: 100%;
+}
+
+.tabCon > .description > .content > label > textarea {
+    height: 11rem;
+    padding: 1.5rem 1rem;
+}
+
+.tabCon > .operate ul {
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    grid-gap: 0;
+
+    width: 30rem;
+}
+
+.tabCon > .operate ul li {
+    padding: 0;
+    text-align: left;
+    font-size: 1rem;
+}
+
+.tabCon > .operate ul > * + * {
+    margin: 1rem 0 0 0;
+}
+
+.tabCon > .mapContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.tabCon > .mapContainer > .map {
+    /*width: 100%;/*/
+    height: 40rem;
+    background-color: #f9f9f9;
+    margin: 0 1.5rem;
+}
+
+
+
+.amen01 {
+    background: url("https://img.icons8.com/small/32/000000/wall-socket.png") no-repeat center top;
+}
+
+.amen02 {
+    background: url("https://img.icons8.com/small/32/000000/heating.png") no-repeat center top;
+}
+
+.amen03 {
+    background: url("https://img.icons8.com/small/32/000000/wifi--v1.png") no-repeat center top;
+}
+
+.amen04 {
+    background: url("https://img.icons8.com/small/32/000000/campfire.png") no-repeat center top;
+}
+
+.amen05 {
+    background: url("https://img.icons8.com/small/32/000000/shoes.png") no-repeat center top;
+}
+
+.amen06 {
+    background: url("https://img.icons8.com/small/32/000000/shop.png") no-repeat center top;
+}
+
+.amen07 {
+    background: url("https://img.icons8.com/small/32/000000/toilet-bowl.png") no-repeat center top;
+}
+
+.amen08 {
+    background: url("https://img.icons8.com/small/32/000000/shower.png") no-repeat center top;
+}
+
+.amen09 {
+    background: url("https://img.icons8.com/small/32/000000/dishwasher.png") no-repeat center top;
+}
+
+.amen10 {
+    background: url("https://img.icons8.com/small/32/000000/fire-extinguisher.png") no-repeat center top;
+}
+
+.near01 {
+    background: url("https://img.icons8.com/small/32/000000/fishing-pole.png") no-repeat center top;
+}
+
+.near02 {
+    /*background: url("https://img.icons8.com/small/32/000000/right-shoe.png") no-repeat center top;*/
+    background: url("https://img.icons8.com/small/32/000000/shoes.png") no-repeat center top;
+    background: url("https://img.icons8.com/small/32/000000/shoes.png") no-repeat center top;
+}
+
+.near03 {
+    background: url("https://img.icons8.com/small/32/000000/beach.png") no-repeat center top;
+}
+
+.near04 {
+    background: url("https://img.icons8.com/small/32/000000/waterskiing.png") no-repeat center top;
+}
+
+.near05 {
+    background: url("https://img.icons8.com/small/32/000000/waterfall.png") no-repeat center top;
+}
+
+.near06 {
+    background: url("https://img.icons8.com/small/32/000000/sea-waves.png") no-repeat center top;
+}
+
+.near07 {
+    background: url("https://img.icons8.com/small/32/000000/outdoor-swimming-pool.png") no-repeat center top;
+}
+
+.near08 {
+    background: url("https://img.icons8.com/small/32/000000/teenager-male.png") no-repeat center top;
+}
+
+.near09 {
+    background: url("https://img.icons8.com/small/32/000000/healthy-food.png") no-repeat center top;
+}
+
+.near10 {
+    background: url("https://img.icons8.com/small/32/000000/seesaw.png") no-repeat center top;
+}
+
+.gramping01 {
+    background: url("https://img.icons8.com/small/32/000000/bed.png") no-repeat center top;
+}
+
+.gramping02 {
+    background: url("https://img.icons8.com/small/32/000000/tv.png") no-repeat center top;
+}
+
+.gramping03 {
+    background: url("https://img.icons8.com/small/32/000000/fridge.png") no-repeat center top;
+}
+
+.gramping04 {
+    background: url("https://img.icons8.com/small/32/000000/wifi--v1.png") no-repeat center top;
+}
+
+.gramping05 {
+    background: url("https://img.icons8.com/small/32/000000/toilet-bowl.png") no-repeat center top;
+}
+
+.gramping06 {
+    background: url("https://img.icons8.com/small/32/000000/air-conditioner.png") no-repeat center top;
+}
+
+.gramping07 {
+    background: url("https://img.icons8.com/small/32/000000/heating-room.png") no-repeat center top;
+}
+
+.gramping08 {
+    background: url("https://img.icons8.com/small/32/000000/cooking-pot.png") no-repeat center top;
+}
+
+li .quantity {
+    width: 1.5rem;
+    text-align: center;
+}
+
+#contents > .empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#contents > .empty > .icon {
+    height: 8rem;
+    margin: 8rem 0 0 0;
+}
+
+#contents > .empty > .icon > img {
+    height: 100%;
+}
+
+#contents > .empty > .text {
+    margin: 3rem 0 0 0;
+    font-size: 2rem;
+}
+
+#contents > .empty > .btn {
+    display: flex;
+    flex-direction: row;
+    margin: 4rem 0 8rem 0;
+}
+
+#contents > .empty > .btn > * {
+    width: 10rem;
+    height: 3rem;
+    background-color: rgba(40, 203, 91, 0.8);
+    border-radius: 0.375rem;
+    font-size: 1.325rem;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#contents > .empty > .btn > *:hover {
+    cursor: pointer;
+    background-color: rgba(40, 203, 91, 1);
+
+}
+#contents > .empty > .btn > * + * {
+
+    margin: 0 0 0 2rem;
+}
+
+

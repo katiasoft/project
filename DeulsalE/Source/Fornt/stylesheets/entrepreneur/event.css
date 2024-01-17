@@ -1,0 +1,339 @@
+@charset "UTF-8";
+.ck-editor__editable {
+    min-height: 30rem;
+}
+
+#contents {
+    width: 100%;
+    padding-bottom: 3rem;
+    /* 사이즈를 정하지 않고 작업시에는 아래 두개를 지워주세요. */
+    /*height: 100%;*/
+    /*min-height: 50rem;*/
+}
+
+
+#contents > .subBene {
+    width: 100%;
+    min-height: 12rem;
+    padding: 0 2rem;
+
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    background-image: url("../../images/subBene/005.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#contents > .subBene.visible {
+    display: none;
+}
+
+#contents > .subBene > .title {
+    width: 100%;
+    min-height: 5rem;
+    margin-top: 2rem;
+    font-weight: 600;
+    color: #515151;
+
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#contents > .subBene > .title > span:first-child {
+    font-size: 2.75rem;
+}
+
+#contents > .subBene > .title > span:nth-child(2) {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    color: #818181;
+}
+
+
+#contents > .content > .subMenu {
+    width: 100%;
+    min-height: 4rem;
+    margin-top: 2rem;
+
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+}
+
+#contents > .content > .subMenu > a {
+    width: 100%;
+    min-height: 4rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    background-color: white;
+    border-left: 0.0625rem solid #eaeaea;
+    border-top: 0.0625rem solid #eaeaea;
+    border-right: 0.0625rem solid #eaeaea;
+    border-bottom: 0.0625rem solid;
+}
+
+#contents > .content > .subMenu > a + a {
+    border-left: none;
+}
+
+#contents > .content > .subMenu > .newBtn.selected,
+#contents > .content > .subMenu > .modifyBtn.selected {
+    border-left: 0.0625rem solid;
+    border-top: 0.0625rem solid;
+    border-right: 0.0625rem solid;
+    border-bottom: none;
+}
+
+#contents > .content > form {
+    width: 100%;
+    padding-top: 1.5rem;
+    box-sizing: border-box;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#contents > .content > form > label {
+    width: 100%;
+}
+
+#contents > .content > form > label > .text {
+    display: inline-block;
+    min-width: 23.5rem;
+}
+
+#contents > .content > form > label > .date {
+    min-width: 5rem;
+}
+
+#contents > .content > form > label > .date + span {
+    margin: 0 1rem;
+}
+
+#contents > .content > form > label + label {
+    margin-top: 1.5rem;
+}
+
+#contents > .content > #newForm.visible,
+#contents > .content > #modifyForm.visible,
+#contents > .content > #eventList.visible {
+    display: none;
+}
+
+#contents > .content > form > .contentContainer {
+    width: 100%;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#contents > .content > form > .contentContainer > div {
+    width: 100%;
+}
+
+#contents > .content > form > .contentTitle {
+    width: 100%;
+    font-size: 1rem;
+    box-sizing: border-box;
+    padding-bottom: 0.5rem;
+    border-bottom: 0.25rem solid;
+    margin-top: 1.25rem;
+    margin-bottom: 0.75rem;
+}
+
+#contents > .content > form > .contentTitle.list {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+#contents > .content > form > label + span {
+    margin-top: 1rem;
+}
+
+/*.ck.ck-editor {*/
+/*    width: 100%;*/
+/*}*/
+
+.ck-editor__editable {
+    min-height: 30rem;
+}
+
+
+#contents > .content > form > .contentTitle {
+    width: 100%;
+    font-size: 1.75rem;
+    box-sizing: border-box;
+    padding-bottom: 0.5rem;
+    border-bottom: 0.25rem solid;
+}
+
+.fileContainer > span {
+    width: 25rem;
+    margin-right: 0.5rem;
+}
+
+#contents > .content > form > div:not(.campsiteList) {
+    width: 100%;
+    border-top: 0.0625rem solid;
+    padding-top: 3rem;
+    box-sizing: border-box;
+
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#contents > .content > form > label + div {
+    margin-top: 1.5rem;
+}
+
+.campsiteList {
+    width: 100%;
+    margin-bottom: 1rem;
+
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.campsiteList > table {
+    width: 100%;
+    border-top: 0.25rem solid;
+}
+
+.campsiteList > table > thead > tr,
+.campsiteList > table > tbody > tr {
+    height: 3rem;
+}
+
+.campsiteList > table > thead > tr > th {
+    border-bottom: 0.0625rem solid;
+    text-align: center;
+}
+
+.campsiteList > table > thead > tr > th:nth-child(5) {
+    width: 7rem;
+}
+
+.campsiteList > table > tbody > tr > td {
+    border-bottom: 0.0625rem solid #eaeaea;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+#eventList {
+    width: 100%;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 1.5rem;
+}
+
+#eventList > span {
+    width: 100%;
+    font-size: 1.75rem;
+    box-sizing: border-box;
+    margin: 1.25rem 0 0.75rem 0;
+}
+
+#contents > .content > div > table {
+    /*margin-top: 1rem;*/
+    width: 100%;
+    border-top: 0.25rem solid;
+}
+
+#contents > .content > div > table > thead > tr,
+#contents > .content > div > table > tbody > tr {
+    height: 3rem;
+}
+
+#contents > .content > div > table > thead > tr > th {
+    border-bottom: 0.0625rem solid;
+    text-align: center;
+}
+
+#contents > .content > div > table > tbody > tr > td {
+    border-bottom: 0.0625rem solid #eaeaea;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.pageContainer {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.pageContainer > .page {
+    background-color: #eaecee;
+}
+
+.pageContainer > .page.selected {
+    background-color: #d5d8dc;
+    pointer-events: none;
+}
+
+.pageContainer > .page:hover {
+    background-color: #d5d8dc;
+}
+
+.pageContainer > .page:first-child {
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+}
+
+.pageContainer > .page:last-child {
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+.pageContainer > .page > .link {
+    min-width: 2.5rem;
+    height: 2.5rem;
+    align-items: center;
+    box-sizing: border-box;
+    color: inherit;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0 0.75rem;
+    text-decoration: none;
+}
+
+
+#contents > .content > form > div > input {
+    width: 15rem;
+    height: 3.5rem;
+}
+
+#contents > .content > form > div > input.mid {
+    width: 10rem;
+}
+
+#contents > .content > form > div > input + input{
+    margin-left: 0.5rem;
+}

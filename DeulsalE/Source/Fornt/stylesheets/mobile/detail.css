@@ -1,0 +1,945 @@
+.warp {
+    width: 100%;
+    height: 100vh;
+    max-width: 40rem;
+    margin: 0 auto;
+    overflow: hidden;
+    /*border: 0.0625rem solid;*/
+    box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.05);
+
+
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#header {
+    width: 100%;
+    max-width: 40rem;
+    height: 4rem;
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+    position: fixed;
+    box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.05);
+    background-color: #FFFFFF;
+    /*z-index: 8;*/
+
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+}
+
+#header > span {
+    width: 100%;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-left: 1.5rem;
+}
+
+#header > img{
+    cursor: pointer;
+}
+
+#header > img + img {
+    margin-left: 0.5rem;
+}
+.invisible {
+    display: none;
+}
+
+#contents {
+    margin: 4rem 0;
+    width: 100%;
+    overflow-y: auto;
+}
+
+#contents textarea {
+    width: 100%;
+    border: none;
+    resize: none;
+    line-height: 1.4;
+}
+
+/*#contents > .content > .contentTop {*/
+/*    margin: 2rem 0 0 0;*/
+/*    padding: 0 0 0.5rem 0;*/
+/*}*/
+
+#contents > .content > .contentTop > .img {
+    padding: 0 0.5rem;
+    margin: 0.5rem 0 0 0;
+}
+
+#contents > .content > .contentTop > .img > .imgChecked {
+    aspect-ratio: 3/2;
+    background-color: #ffffff;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+}
+
+#contents > .content > .contentTop > .img > .imgChecked > img {
+    border-radius: 0.8rem;
+
+    object-fit: contain;
+}
+
+#contents > .content > .contentTop > .img > .imgList {
+    margin: 1rem 0 0 0;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#contents > .content > .contentTop > .img > .imgList > .slide {
+    width: 39.5rem;
+    overflow: hidden;
+}
+
+#contents > .content > .contentTop > .img > .imgList > .slide > .images {
+    display: flex;
+    justify-content: flex-start;
+    /*height: 7.5rem;*/
+    height: 5.5rem;
+    transition: transform 0.5s;
+}
+
+#contents > .content > .contentTop > .img > .imgList > .slide > .images > img {
+    width: 5.5rem;
+    height: 5.5rem;
+    /*width: 25%;*/
+    opacity: 0.5;
+    border-radius: 0.8rem;
+}
+
+#contents > .content > .contentTop > .img > .imgList > .slide > .images > img.selected {
+    opacity: 1;
+}
+
+#contents > .content > .contentTop > .img > .imgList > .slide > .images > img:hover {
+    opacity: 1;
+}
+
+
+/**버튼디자인**/
+#contents > .content > .contentTop > .img > .imgList > .btn {
+    width: 1.875rem;
+    height: 1.875rem;
+    padding: 0 0.3rem;
+    font-size: 1.25rem;
+    color: rgba(1, 1, 1, 0.65);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#contents > .content > .contentTop > .img > .imgList > .btn:not(.disabled) {
+    cursor: pointer;
+}
+
+#contents > .content > .contentTop > .img > .imgList > .btn:not(.disabled):active {
+    background: rgba(1, 1, 1, 0.2);
+}
+
+#contents > .content > .contentTop > .img > .imgList > .btn.disabled {
+    color: rgba(1, 1, 1, 0.2);
+}
+
+#contents > .content > .contentTop > label {
+    display: flex;
+    flex-direction: column;
+
+    /*margin: 1rem 0 0 0;*/
+    padding: 0 1rem;
+    /*border-top: 0.0125rem solid rgba(0, 0, 0, 0.3);*/
+}
+
+#contents > .content > .contentTop > div > .reservationBtn {
+    height: 3rem;
+    background-color: #42ab42;
+    color: rgba(255, 255, 255, 1);
+    border-radius: 1rem;
+    margin: 1rem 0.8rem 1rem 0.8rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#contents > .content > .contentTop > div > .reservationBtn.disabled {
+    cursor: no-drop;
+    background-color: #eeeeee60;
+    color: #818181;
+}
+
+#contents > .content > .contentTop > div > .reservationBtn:not(.disabled):hover {
+    cursor: pointer;
+    filter: brightness(95%);
+}
+
+#contents > .content > .contentTop > div > .reservationBtn:not(.disabled):active {
+    cursor: pointer;
+    filter: brightness(90%);
+}
+
+
+.tabMenu {
+    display: flex;
+    flex-direction: column;
+}
+
+.tabMenu > .banner {
+    display: flex;
+    flex-direction: row;
+    background-color: #f9f9f9;
+}
+
+.tabMenu > .banner input[type=radio] {
+    display: none;
+}
+
+.tabMenu > .banner input[type=radio]:checked + label {
+    background-color: #ffffff;
+    color: rgba(40, 203, 91, 0.8);
+}
+
+.tabMenu > .banner input[type=radio]:not(:checked) + label {
+    border-bottom: none;
+}
+
+.tabContent2 {
+    display: none;
+}
+
+.tabMenu > .content > div {
+    margin: 0.5rem;
+}
+
+.tabMenu > .content > div > .tabCon {
+    display: flex;
+    flex-direction: column;
+}
+
+
+#price > .priceTable {
+    background-color: #f9f9f9;
+    margin: 0 0.5rem;
+    padding: 0 1rem;
+}
+
+#price > .banner > span {
+    /*display: block;*/
+    /*padding-top: 0.5rem;*/
+    margin-left: 0.25rem;
+    box-sizing: border-box;
+    font-size: 0.8rem;
+    color: #515151;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#price th {
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.8rem 0;
+}
+
+#price td {
+    width: 25%;
+    font-size: 0.7rem;
+}
+
+#price tbody tr {
+    border-top: 0.15rem solid #eeeeee;
+}
+
+
+#price tr td {
+    text-align: center;
+    padding: 0.5rem 0;
+}
+
+.tabCon > * {
+    margin: 0 0 2rem 0;
+}
+
+.tabCon ul {
+    background-color: #f9f9f9;
+    margin: 0 0.5rem;
+    padding: 2rem 0.5rem;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fill, 4.35rem);
+    grid-gap: 1rem;
+}
+
+
+.tabCon > .description {
+    display: flex;
+    flex-direction: column;
+}
+
+.tabCon > .description > .content {
+    background-color: #f9f9f9;
+    margin: 0 0.5rem;
+}
+
+.tabCon > .description > .content > label {
+    display: block;
+    width: 100%;
+}
+
+
+.tabCon > .operate ul {
+    padding: 1rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    grid-gap: 0;
+}
+
+.tabCon > .operate ul li {
+    padding: 0;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+.tabCon > .operate ul > * + * {
+    margin: 1rem 0 0 0;
+}
+
+.tabCon > .mapContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+@media all and (min-width: 0px) and (max-width: 600px) {
+    .tabCon > .mapContainer > .map {
+        height: 20rem;
+        background-color: #f9f9f9;
+        margin: 0 0.5rem;
+    }
+}
+
+@media all and (min-width: 600px) and (max-width: 2000px) {
+    .tabCon > .mapContainer > .map {
+        height: 40rem;
+        background-color: #f9f9f9;
+        margin: 0 0.5rem;
+    }
+}
+
+
+.amen01 {
+    background: url("https://img.icons8.com/small/32/000000/wall-socket.png") no-repeat center top;
+}
+
+.amen02 {
+    background: url("https://img.icons8.com/small/32/000000/heating.png") no-repeat center top;
+}
+
+.amen03 {
+    background: url("https://img.icons8.com/small/32/000000/wifi--v1.png") no-repeat center top;
+}
+
+.amen04 {
+    background: url("https://img.icons8.com/small/32/000000/campfire.png") no-repeat center top;
+}
+
+.amen05 {
+    background: url("https://img.icons8.com/small/32/000000/shoes.png") no-repeat center top;
+}
+
+.amen06 {
+    background: url("https://img.icons8.com/small/32/000000/shop.png") no-repeat center top;
+}
+
+.amen07 {
+    background: url("https://img.icons8.com/small/32/000000/toilet-bowl.png") no-repeat center top;
+}
+
+.amen08 {
+    background: url("https://img.icons8.com/small/32/000000/shower.png") no-repeat center top;
+}
+
+.amen09 {
+    background: url("https://img.icons8.com/small/32/000000/dishwasher.png") no-repeat center top;
+}
+
+.amen10 {
+    background: url("https://img.icons8.com/small/32/000000/fire-extinguisher.png") no-repeat center top;
+}
+
+.near01 {
+    background: url("https://img.icons8.com/small/32/000000/fishing-pole.png") no-repeat center top;
+}
+
+.near02 {
+    /*background: url("https://img.icons8.com/small/32/000000/right-shoe.png") no-repeat center top;*/
+    background: url("https://img.icons8.com/small/32/000000/shoes.png") no-repeat center top;
+    background: url("https://img.icons8.com/small/32/000000/shoes.png") no-repeat center top;
+}
+
+.near03 {
+    background: url("https://img.icons8.com/small/32/000000/beach.png") no-repeat center top;
+}
+
+.near04 {
+    background: url("https://img.icons8.com/small/32/000000/waterskiing.png") no-repeat center top;
+}
+
+.near05 {
+    background: url("https://img.icons8.com/small/32/000000/waterfall.png") no-repeat center top;
+}
+
+.near06 {
+    background: url("https://img.icons8.com/small/32/000000/sea-waves.png") no-repeat center top;
+}
+
+.near07 {
+    background: url("https://img.icons8.com/small/32/000000/outdoor-swimming-pool.png") no-repeat center top;
+}
+
+.near08 {
+    background: url("https://img.icons8.com/small/32/000000/teenager-male.png") no-repeat center top;
+}
+
+.near09 {
+    background: url("https://img.icons8.com/small/32/000000/healthy-food.png") no-repeat center top;
+}
+
+.near10 {
+    background: url("https://img.icons8.com/small/32/000000/seesaw.png") no-repeat center top;
+}
+
+.gramping01 {
+    background: url("https://img.icons8.com/small/32/000000/bed.png") no-repeat center top;
+}
+
+.gramping02 {
+    background: url("https://img.icons8.com/small/32/000000/tv.png") no-repeat center top;
+}
+
+.gramping03 {
+    background: url("https://img.icons8.com/small/32/000000/fridge.png") no-repeat center top;
+}
+
+.gramping04 {
+    background: url("https://img.icons8.com/small/32/000000/wifi--v1.png") no-repeat center top;
+}
+
+.gramping05 {
+    background: url("https://img.icons8.com/small/32/000000/toilet-bowl.png") no-repeat center top;
+}
+
+.gramping06 {
+    background: url("https://img.icons8.com/small/32/000000/air-conditioner.png") no-repeat center top;
+}
+
+.gramping07 {
+    background: url("https://img.icons8.com/small/32/000000/heating-room.png") no-repeat center top;
+}
+
+.gramping08 {
+    background: url("https://img.icons8.com/small/32/000000/cooking-pot.png") no-repeat center top;
+}
+
+li .quantity {
+    width: 1rem;
+    text-align: center;
+}
+
+#contents > .empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#contents > .empty > .icon {
+    height: 8rem;
+    margin: 8rem 0 0 0;
+}
+
+#contents > .empty > .icon > img {
+    height: 100%;
+}
+
+#contents > .empty > .btn {
+    display: flex;
+    flex-direction: row;
+    margin: 4rem 0 8rem 0;
+}
+
+#contents > .empty > .btn > *:hover {
+    cursor: pointer;
+    background-color: rgba(40, 203, 91, 1);
+
+}
+
+#contents > .empty > .btn > * + * {
+
+    margin: 0 0 0 2rem;
+}
+
+
+@media all and (min-width: 0px) and (max-width: 600px) {
+    #contents > .content > .contentTop {
+        border-bottom: 1rem solid #eeeeee60;
+    }
+
+    #contents > .content > .contentTop > .img > .imgList > .slide{
+        /*width: 39.5rem;*/
+        overflow: hidden;
+    }
+    #contents > .content > .contentTop > .img > .imgList > .slide > .images{
+        display: flex;
+        justify-content: flex-start;
+        /*height: 7.5rem;*/
+        height: 4.5rem;
+        transition: transform 0.5s;
+    }
+    #contents > .content > .contentTop > .img > .imgList > .slide > .images > img{
+        width: 4.5rem; height: 4.5rem;
+        /*width: 25%;*/
+        opacity: 0.5;
+        border-radius: 0.8rem;
+    }
+
+    #contents > .content > .contentTop > .img > .imgList > .slide > .images > img + img {
+        margin-left: 0.38rem;
+    }
+
+
+    #contents > .content > .contentTop > label > input:nth-child(2) {
+        font-size: 1.5rem;
+        font-weight: 550;
+        margin: 1.5rem 0 0 0;
+    }
+
+    #contents > .content > .contentTop > label > input:nth-child(3) {
+        font-size: 0.912rem;
+        font-weight: 500;
+        margin: 0.5rem 0 0 0.2rem;
+    }
+
+    #contents > .content > .contentTop > label > input:nth-child(4) {
+        font-size: 0.912rem;
+        font-weight: 500;
+        margin: 0.5rem 0 0 0.2rem;
+    }
+
+    #contents > .content > .contentTop > .icon {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: right;
+        padding: 0 1rem;
+        margin: 0.8rem 0 0 0;
+    }
+
+    #contents > .content > .contentTop > .icon > * {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    #contents > .content > .contentTop > .icon > .bookmark {
+        width: 1.2rem;
+        height: 1.2rem;
+        cursor: pointer;
+    }
+
+    #contents > .content > .contentTop > .icon > label > .img {
+        width: 1.2rem;
+        height: 1.2rem;
+    }
+
+    #contents > .content > .contentTop > .icon > label > input {
+        width: 2.5rem;
+        font-size: 0.85rem;
+        margin: 0 0 0 0.5rem;
+    }
+
+    #contents > .content > .contentTop > .icon > label:nth-child(2) > input {
+        width: 2.5rem;
+    }
+
+    #contents > .content > .contentTop > .icon > label:nth-child(2) {
+        margin-right: 1rem;
+    }
+
+    #contents > .content > .contentTop > div > .contact {
+        /*border-top: 0.0125rem solid rgba(0, 0, 0, 0.3);*/
+        margin: 0.5rem 0 0 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #contents > .content > .contentTop > div > .contact > * {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    #contents > .content > .contentTop > div > .contact > label.characteristics > input {
+        font-size: 1.1rem;
+    }
+
+    #contents > .content > .contentTop > div > .contact > label.characteristics {
+        background-color: #eeeeee60;
+        border-radius: 0.8rem;
+        flex-direction: column;
+        margin: 0.5rem 0.8rem 0 0.8rem;
+        padding: 0.8rem;
+    }
+
+    #contents > .content > .contentTop > div > .contact > label.characteristics > * {
+        width: 100%;
+        background: none;
+    }
+
+    #contents > .content > .contentTop > div > .contact > label.characteristics > *:nth-child(1) {
+        font-size: 1.1rem;
+        font-weight: 500;
+        margin: 0 0 0 1rem;
+        display: none;
+    }
+
+    #contents > .content > .contentTop > div > .contact > label.characteristics > *:nth-child(2) {
+        /*margin: 1rem 1.5rem 0.5rem 1.5rem;*/
+        margin: 0 1.5rem;
+        height: 6rem;
+        font-size: 0.85rem;
+    }
+
+    #contents > .content > .contentTop > div > .contact input {
+        font-size: 0.9rem;
+    }
+
+    #contents > .content > .contentTop > div > .contact > label > img,
+    #contents > .content > .contentTop > div > .contact > .url > img {
+        width: 1.2rem;
+        height: 1.2rem;
+        margin: 0 0.5rem 0 0;
+    }
+
+    #contents > .content > .contentTop > div > .contact > a.url {
+        cursor: pointer;
+    }
+
+    #contents > .content > .contentTop > div > .contact > .url > input {
+        width: 100%;
+        cursor: pointer;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    #contents > .content > .contentTop > div > .contact > .contact {
+        margin: 0.8rem 0 0 1rem;
+    }
+
+    #contents > .content > .contentTop > div > .contact > .url {
+        margin: 0.5rem 1rem 0 1rem;
+    }
+
+
+    #contents > .content > .contentTop > div > .reservationBtn > div {
+        font-size: 1.025rem;
+        font-weight: 550;
+        text-align: center;
+    }
+
+    .tabMenu > .banner > input + label {
+        display: inline-block;
+        width: 50%;
+        line-height: 1.5rem;
+        text-align: center;
+        font-weight: 550;
+        font-size: 1.025rem;
+        background-color: #ffffff;
+        padding: 0.5rem 0;
+
+        color: rgba(125, 125, 129, 0.8);
+        border-collapse: collapse;
+        border-bottom: solid 0.0625rem rgba(40, 203, 91, 0.8);
+        cursor: pointer;
+    }
+
+    .tabCon .banner {
+        font-size: 1.1rem;
+        font-weight: 500;
+        margin: 1rem 0.5rem;
+        padding-bottom: 0.5rem;
+        box-sizing: border-box;
+        border-bottom: 0.25rem solid;
+    }
+
+    .tabCon ul li {
+        text-align: center;
+        padding: 1.5rem 0 0 0;
+        background-size: 1.2rem;
+        font-size: 0.8rem;
+    }
+
+
+    .tabCon > .description > .content > label > textarea {
+        height: 15rem;
+        padding: 1rem 0.5rem;
+        font-size: 0.85rem;
+    }
+
+
+    #contents > .empty > .text {
+        margin: 2rem 0 0 0;
+        font-size: 1.0125rem;
+    }
+
+    #contents > .empty > .btn > * {
+        width: 7.5rem;
+        height: 2rem;
+        background-color: rgba(40, 203, 91, 0.8);
+        border-radius: 0.375rem;
+        font-size: 0.85rem;
+        color: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+
+@media all and (min-width: 600px) and (max-width: 2000px) {
+    #contents > .content > .contentTop > .img > .imgList > .slide{
+        width: 39.5rem;
+        overflow: hidden;
+    }
+    #contents > .content > .contentTop > .img > .imgList > .slide > .images{
+        display: flex;
+        justify-content: flex-start;
+        /*height: 7.5rem;*/
+        height: 5.5rem;
+        transition: transform 0.5s;
+    }
+    #contents > .content > .contentTop > .img > .imgList > .slide > .images > img{
+        width: 5.5rem; height: 5.5rem;
+        /*width: 25%;*/
+        opacity: 0.5;
+        border-radius: 0.8rem;
+    }
+
+
+    #contents > .content > .contentTop > label > input:nth-child(2) {
+        font-size: 1.75rem;
+        font-weight: 550;
+        margin: 1.5rem 0 0 0;
+    }
+
+    #contents > .content > .contentTop > label > input:nth-child(3) {
+        font-size: 0.912rem;
+        font-weight: 500;
+        margin: 1rem 0 0 0.2rem;
+    }
+
+    #contents > .content > .contentTop > label > input:nth-child(4) {
+        font-size: 0.912rem;
+        font-weight: 500;
+        margin: 0.5rem 0 0 0.2rem;
+    }
+
+    #contents > .content > .contentTop > .icon {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: right;
+        padding: 0 1rem;
+        margin: 0.8rem 0 0 0;
+    }
+
+    #contents > .content > .contentTop > .icon > * {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    #contents > .content > .contentTop > .icon > .bookmark {
+        width: 1.2rem;
+        height: 1.2rem;
+        cursor: pointer;
+    }
+
+    #contents > .content > .contentTop > .icon > label > .img {
+        width: 1.2rem;
+        height: 1.2rem;
+    }
+
+    #contents > .content > .contentTop > .img > .imgList > .slide > .images > img + img {
+        margin-left: 0.5rem;
+    }
+
+    #contents > .content > .contentTop > .icon > label > input {
+        width: 2.5rem;
+        font-size: 0.85rem;
+        margin: 0 0 0 0.5rem;
+    }
+
+    #contents > .content > .contentTop > .icon > label:nth-child(2) > input {
+        width: 2.5rem;
+    }
+
+    #contents > .content > .contentTop > .icon > label:nth-child(2) {
+        margin-right: 1rem;
+    }
+
+    #contents > .content > .contentTop > div > .contact {
+        /*border-top: 0.0125rem solid rgba(0, 0, 0, 0.3);*/
+        margin: 0.5rem 0 0 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #contents > .content > .contentTop > div > .contact > * {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    #contents > .content > .contentTop > div > .contact > label.characteristics > input {
+        font-size: 1.1rem;
+    }
+
+    #contents > .content > .contentTop > div > .contact > label.characteristics {
+        background-color: #eeeeee60;
+        border-radius: 0.8rem;
+        flex-direction: column;
+        margin: 0.5rem 0.8rem 0 0.8rem;
+        padding: 0.8rem;
+    }
+
+    #contents > .content > .contentTop > div > .contact > label.characteristics > * {
+        width: 100%;
+        background: none;
+    }
+
+    #contents > .content > .contentTop > div > .contact > label.characteristics > *:nth-child(1) {
+        font-size: 1.1rem;
+        font-weight: 500;
+        margin: 0 0 0 1rem;
+        display: none;
+    }
+
+    #contents > .content > .contentTop > div > .contact > label.characteristics > *:nth-child(2) {
+        /*margin: 1rem 1.5rem 0.5rem 1.5rem;*/
+        margin: 0 1.5rem;
+        height: 6rem;
+        font-size: 0.95rem;
+    }
+
+    #contents > .content > .contentTop > div > .contact input {
+        font-size: 0.95rem;
+    }
+
+    #contents > .content > .contentTop > div > .contact > label > img,
+    #contents > .content > .contentTop > div > .contact > .url > img {
+        width: 1.25rem;
+        height: 1.25rem;
+        margin: 0 0.5rem 0 0;
+    }
+
+    #contents > .content > .contentTop > div > .contact > .url {
+        cursor: pointer;
+        margin: 0.5rem 1rem 0.5rem 1rem;
+    }
+
+    #contents > .content > .contentTop > div > .contact > .url > input {
+        width: 100%;
+        cursor: pointer;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    #contents > .content > .contentTop > div > .contact > .contact {
+        margin: 1.5rem 0 0 1rem;
+    }
+
+    #contents > .content > .contentTop > div > .reservationBtn > div {
+        font-size: 1.025rem;
+        font-weight: 550;
+        text-align: center;
+    }
+
+    .tabMenu > .banner > input + label {
+        display: inline-block;
+        width: 50%;
+        line-height: 1.5rem;
+        text-align: center;
+        font-weight: 550;
+        font-size: 1.025rem;
+        background-color: #ffffff;
+        padding: 0.5rem 0;
+
+        color: rgba(125, 125, 129, 0.8);
+        border-collapse: collapse;
+        border-bottom: solid 0.0625rem rgba(40, 203, 91, 0.8);
+        cursor: pointer;
+    }
+
+    .tabCon .banner {
+        font-size: 1.1rem;
+        font-weight: 500;
+        margin: 1rem 0.5rem;
+        padding-bottom: 0.5rem;
+        box-sizing: border-box;
+        border-bottom: 0.25rem solid;
+    }
+
+    .tabCon ul li {
+        text-align: center;
+        padding: 1.5rem 0 0 0;
+        background-size: 1.2rem;
+        font-size: 0.8rem;
+    }
+
+
+    .tabCon > .description > .content > label > textarea {
+        height: 15rem;
+        padding: 1rem 0.5rem;
+        font-size: 0.85rem;
+    }
+
+
+    #contents > .empty > .text {
+        margin: 3rem 0 0 0;
+        font-size: 2rem;
+    }
+
+    #contents > .empty > .btn > * {
+        width: 10rem;
+        height: 3rem;
+        background-color: rgba(40, 203, 91, 0.8);
+        border-radius: 0.375rem;
+        font-size: 1.325rem;
+        color: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+#footer {
+    width: 100%;
+    max-width: 40rem;
+    height: 4rem;
+    bottom: 0;
+    background-color: #FFFFFF;
+
+    position: fixed;
+    box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.05);
+}

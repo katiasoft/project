@@ -1,0 +1,450 @@
+.layer{
+    top: 50%;
+    left: 50%;
+    min-width: 25rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 1rem 0.0625rem #00000060;
+    background-color: #ffffff;
+    /*padding-top: 0.5rem;*/
+    box-sizing: border-box;
+    overflow: hidden;
+    /*opacity: 0;*/
+    pointer-events: none;
+    position: fixed;
+    transform: scale(90%) translate(-50%, -50%);
+    transition-duration: 250ms;
+    transition-property: transform;
+    transition-timing-function: ease;
+    z-index: 9;
+
+    align-items:stretch;
+    display:none;
+    flex-direction: column;
+    justify-content: flex-start;
+
+}
+
+.layer > form{
+    align-items:flex-start;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.layer > form > span{
+    margin-left: 3rem;
+}
+
+.layer > form > label{
+    margin-left: 3rem;
+}
+
+.layer > form > label > * + *{
+    margin-left: 0.25rem;
+}
+
+.layer > form > .layerHead{
+    margin: 0.5rem 0.5rem 1rem 0.5rem;
+    border-bottom: 0.1rem solid #e0e2e4;
+    align-items:center;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.layer > form > div > span{
+    width: 21rem;
+    height: 3rem;
+    color: #515151;
+    /*padding-bottom: 0.75rem;*/
+    padding-left: 1rem;
+    box-sizing: border-box;
+    font-size: 1.5rem;
+    font-weight: 500;
+
+    align-items:center;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.close{
+    width: 3rem;
+    height: 3rem;
+    /*background-color: #00000060;*/
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAABBUlEQVR4nO3ZTQqDMBAF4HeKPOkV2+MWbE9jKXUhRcQk8xeZt3Il8xFNZgiQyWQyV8odwORdBH41fGtpygPAAmB2xkxrDctaU3UKgOf6gjeAG+zDTQ2vnho8MZRCeGIojfDAUAthiaE2wgJjhtDEmCM0MG4ISYw7QgITBtGDCYdowYRF1GDCI85ghkEcYYZD7M0Q899zhEGteWWGW4lttp+T53DWlUt8Wtz5sSOMzVU52p2GwfDEFhsew4pzIiyGDYddOAw7TuwwGAq0He4YCvZObhgqNIDmGCp2sWYYi1a8aGMs54mihfEYioo0xnOyK1KYCONpkcBc5urtMpehmUwmg3D5AAklyc9YEtl/AAAAAElFTkSuQmCC");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 62.5%;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.layer > form > a{
+    color: inherit;
+    margin-left: 3.5rem;
+    font-size: 0.8rem;
+    text-decoration: underline;
+    margin-bottom: 1rem;
+}
+
+.layer > form > * + *{
+    margin-top: 0.75rem;
+}
+
+.layer > form > .button-container{
+    background-color: #ffffff;
+    width: 100%;
+
+    align-items:stretch;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.layer > form > .button-container > .button{
+    color: inherit;
+    flex : 1;
+    padding: 0.75rem 1rem;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    border-top: 0.0625rem solid #e0e2e4;
+}
+
+.layer > form > .button-container > .button:not(:disabled):hover{
+    color: #3498db;
+    background-color: #eaeaea;
+}
+
+.layer > form > .button-container > .button+.button{
+    border-left: 0.0625rem solid #e0e2e4;
+}
+
+#emailCertifiedLayer.visible,
+#contactCertifiedLayer.visible{
+    /*opacity: 1;*/
+    display: flex;
+    pointer-events: all;
+    transform: scale(100%) translate(-50%, -50%);
+}
+
+#contactCertifiedLayer > #contactForm.visible,
+#contactCertifiedLayer > #passwordForm.visible,#contactCertifiedLayer > #nameForm.visible{
+    display: none;
+}
+
+
+
+#contents {
+    width: 100%;
+    padding-bottom: 1rem;
+    /* 사이즈를 정하지 않고 작업시에는 아래 두개를 지워주세요. */
+    /*height: 100%;*/
+    /*min-height: 50rem;*/
+}
+
+
+#contents > .subBene {
+    width: 100%;
+    min-height: 12rem;
+    padding: 0 2rem;
+
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    background-image: url("../../images/subBene/002.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#contents > .subBene.visible {
+    display: none;
+}
+
+#contents > .subBene > .title {
+    width: 100%;
+    min-height: 5rem;
+    margin-top: 2rem;
+    font-weight: 600;
+    color: #515151;
+
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#contents > .subBene > .title > span:first-child {
+    font-size: 2.75rem;
+}
+
+#contents > .subBene > .title > span:nth-child(2) {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    color: #818181;
+}
+
+#contents > .content > .subMenu {
+    width: 100%;
+    min-height: 4rem;
+    margin-top: 2rem;
+
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+}
+
+#contents > .content > .subMenu > button {
+    width: 100%;
+    min-height: 4rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+
+    background-color: white;
+    border-left: 0.0625rem solid #eaeaea;
+    border-top: 0.0625rem solid #eaeaea;
+    border-right: 0.0625rem solid #eaeaea;
+    border-bottom: 0.0625rem solid;
+}
+
+#contents > .content > .subMenu > button + button {
+    border-left: none;
+}
+
+#contents > .content > .subMenu > .myInfoBtn.selected,
+#contents > .content > .subMenu > .reservationBtn.selected,
+#contents > .content > .subMenu > .bookmarkBtn.selected,
+#contents > .content > .subMenu > .helpBtn.selected {
+    border-left: 0.0625rem solid;
+    border-top: 0.0625rem solid;
+    border-right: 0.0625rem solid;
+    border-bottom: none;
+}
+
+#contents > .content > div {
+    padding-bottom: 2rem;
+    box-sizing: border-box;
+
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+
+#contents > .content > div > table {
+    margin-top: 1rem;
+    width: 100%;
+    border-top: 0.75rem solid;
+}
+
+#contents > .content > div > table > thead > tr,
+#contents > .content > div > table > tbody > tr {
+    height: 3rem;
+}
+
+#contents > .content > div:not(#reservationList) > table > tbody > tr:hover{
+    background-color: #eaeaea;
+    filter: brightness(90%);
+    cursor: pointer;
+}
+
+#reservationList > table > tbody > tr:hover > td:not(:has(input)){
+    background-color: #eaeaea;
+    filter: brightness(90%);
+    cursor: pointer;
+}
+
+#contents > .content > div > table > thead > tr > th {
+    border-bottom: 0.0625rem solid;
+    text-align: center;
+}
+
+#contents > .content > div > table > tbody > tr > td {
+    border-bottom: 0.0625rem solid #eaeaea;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+#myInfoList > .contentTitle {
+    width: 100%;
+    font-size: 1.75rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+    box-sizing: border-box;
+    border-bottom: 0.25rem solid;
+}
+
+#myInfoList > * + * {
+    margin-top: 1rem;
+}
+
+#myInfoList > div {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+#myInfoList > div > * + * {
+    margin-left: 5rem;
+}
+
+#myInfoList > div > label {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+#myInfoList > div > label > * + * {
+    margin-left: 0.5rem;
+}
+
+
+#myInfoList > label {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+#myInfoList > label > * + * {
+    margin-left: 0.5rem;
+}
+
+#myInfoList > label > span:first-child {
+    min-width: 4rem;
+}
+
+#contents > .content > #myInfoList.visible {
+    display: none;
+}
+
+#contents > .content > #reservationList.visible {
+    display: none;
+}
+
+#contents > .content > #bookmarkList.visible {
+    display: none;
+}
+
+#contents > .content > #helpList.visible {
+    display: none;
+}
+
+.pageContainer {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 0.9rem;
+    margin-top: 2rem;
+
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.pageContainer > .page {
+    background-color: #eaecee;
+}
+
+.pageContainer > .page.selected {
+    background-color: #d5d8dc;
+    pointer-events: none;
+}
+
+.pageContainer > .page:hover {
+    background-color: #d5d8dc;
+}
+
+.pageContainer > .page:first-child {
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+}
+
+.pageContainer > .page:last-child {
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+.pageContainer > .page > .link {
+    min-width: 2.5rem;
+    height: 2.5rem;
+    align-items: center;
+    box-sizing: border-box;
+    color: inherit;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0 0.75rem;
+    text-decoration: none;
+}
+
+.pageContainer > .page > .link > img {
+    width: 1.125rem;
+    height: 1.125rem;
+}
+
+._object-button {
+    background-color: white;
+}
+
+._object-input.large {
+    width: 15rem;
+}
+
+._object-input.small {
+    width: 4.25rem;
+}
+
+._object-input.mid {
+    width: 10rem;
+}
+
+.layer > form > .button-container > .button.confirm:disabled {
+    background-color: #eeeeee;
+    color: #bdbdbd;
+    cursor: default;
+    filter: none;
+}
+
+.warning {
+    display: none;
+    font-size: 0.9rem;
+    color: rgba(255,10,10,0.6);
+    width: 20rem;
+}
+
+.warning.visible {
+    display: block;
+}
+
+input._object-input.large {
+    margin-left: 0;
+}
+
+#blurCover{
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #51515160;
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    transition-duration: 250ms;
+    transition-property: opacity;
+    transition-timing-function: ease;
+    z-index: 9;
+}
+
+#blurCover.visible{
+    opacity: 1;
+    pointer-events: all;
+}

@@ -1,0 +1,498 @@
+.warp {
+    width: 100%;
+    height: 100%;
+    max-width: 40rem;
+    margin: 0 auto;
+    overflow: hidden;
+    /*border: 0.0625rem solid;*/
+
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#header {
+    width: 100%;
+    height: 3rem;
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+    /*border: 0.0625rem solid;*/
+
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+#header > a > img {
+    height: 2rem;
+}
+
+#header > div {
+    width: 100%;
+    height: 3rem;
+    font-size: 0.8rem;
+
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+#header > div > * + * {
+    margin-left: 0.25rem;
+    padding-left: 0.25rem;
+    /*border-left: 0.0625rem solid;*/
+    box-sizing: border-box;
+}
+
+@media all and (min-width: 600px) and (max-width: 2000px) {
+    #search {
+        width: 100%;
+        height: 3rem;
+
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #search > label {
+        width: 75%;
+        height: 2.5rem;
+        border: 0.0625rem solid forestgreen;
+        border-radius: 2rem;
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    #search > label > div {
+        width: 3rem;
+        height: 100%;
+        padding: 0 0.5rem;
+        box-sizing: border-box;
+        border-radius: 2rem 0 0 2rem;
+
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+
+    }
+
+    #search > label > input {
+        width: 95%;
+        height: 2rem;
+        padding-left: 1rem;
+        box-sizing: border-box;
+        border-left: 0.0625rem solid forestgreen;
+
+        border-radius: 0 2rem 2rem 0;
+    }
+}
+
+@media all and (min-width: 0px) and (max-width: 600px) {
+    #search {
+        width: 100%;
+        height: 2rem;
+
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #search > label {
+        width: 75%;
+        height: 1.75rem;
+        border: 0.0625rem solid forestgreen;
+        border-radius: 1rem;
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    #search > label > div {
+        width: 2rem;
+        height: 100%;
+        padding: 0 0.25rem;
+        box-sizing: border-box;
+        border-radius: 0.75rem 0 0 0.75rem;
+
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+
+    }
+
+    #search > label > div > img {
+        width: 1rem;
+        height: 1rem;
+    }
+
+    #search > label > input {
+        width: 95%;
+        height: 1rem;
+        font-size: 0.8rem;
+        padding-left: 0.75rem;
+        box-sizing: border-box;
+        border-left: 0.0625rem solid forestgreen;
+
+        border-radius: 0 1rem 1rem 0;
+    }
+}
+
+
+#search > label:hover {
+    box-shadow: 0.15rem 0.15rem 0.15rem #e0e0e0;
+}
+
+/*경우 따른 사이즈 변경이 필요*/
+
+#bene {
+    width: 100%;
+    height: unset !important;
+    overflow: hidden;
+
+    margin: 0.5rem 0;
+}
+
+@media (min-width: 576px){
+    #bene > img{
+        width: 100%;
+        height: 17rem;
+
+        object-fit: cover;
+        object-position: center;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    #bene > img{
+        width: 100%;
+        height: 9rem;
+
+        object-fit: cover;
+        object-position: center;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    #bene > img{
+        width: 100%;
+        height: 11rem;
+
+        object-fit: cover;
+        object-position: center;
+    }
+}
+
+#bene.visible {
+    min-height: 0;
+    display: none;
+    border: none;
+}
+
+#menu {
+    width: 100%;
+    height: 100%;
+    min-height: 7rem;
+
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+}
+
+#menu.visible {
+    display: none;
+    min-height: 0;
+    border: none;
+}
+
+#menu > div {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#menu > div > a {
+    border-radius: 1rem;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#menu > div > a:hover {
+    background-color: #eaeaea;
+    filter: brightness(90%);
+}
+
+#menu > div > a > img {
+    /*border: 0.0625rem solid;*/
+    /*border-radius: 1rem;*/
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+#menu > div > a > span {
+    /*border: 0.0625rem solid black;*/
+    font-size: 0.7rem;
+    color: #515151;
+    min-width: 3.625rem;
+    text-align: center;
+}
+
+#menu > div > a > * + * {
+    margin-top: 0.4rem;
+}
+
+
+#event {
+    width: 100%;
+    border-top: 0.0625rem solid #eaeaea;
+    padding: 0.75rem 0;
+    box-sizing: border-box;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#event > label {
+    width: 100%;
+    padding: 0.75rem 1rem 0 0.75rem;
+    box-sizing: border-box;
+
+    align-items: flex-end;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+#event > label > span {
+    font-size: 1rem;
+    font-weight: 600;
+    box-sizing: border-box;
+}
+
+#event > label > a {
+    width: 100%;
+    font-size: 1rem;
+    color: #818181;
+    text-align: end;
+}
+
+/*경우 따른 사이즈 변경이 필요*/
+@media all and (min-width: 600px) and (max-width: 2000px) {
+    #event > div {
+        width: 100%;
+        margin-top: 0.25rem;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+        padding: 0.25rem 0.75rem 1rem 0.75rem;
+        box-sizing: border-box;
+    }
+}
+
+@media all and (min-width: 0px) and (max-width: 600px) {
+    #event > div {
+        width: 100%;
+        margin-top: 0.25rem;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+        padding: 0.5rem;
+        box-sizing: border-box;
+    }
+
+    #event > div > div:nth-child(3) {
+        display: none;
+    }
+}
+
+#event.visible {
+    display: none;
+}
+
+#event > div > div {
+    border: 0.0625rem solid #e0e0e0;
+    border-radius: 0.5rem;
+
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#event > div > div:hover {
+    filter: brightness(90%);
+    border: 0.0625rem solid #d0d0d0;
+    cursor: pointer;
+}
+
+#event > div > div > div {
+    width: 100%;
+    height: 75%;
+    box-sizing: border-box;
+
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#event > div > div > span {
+    width: 100%;
+    font-size: 0.8rem;
+    text-align: center;
+
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+/*경우 따른 사이즈 변경이 필요*/
+@media all and (min-width: 600px) and (max-width: 2000px) {
+    #event > div > div > .eventTitle {
+        font-weight: 400;
+        font-size: 0.8rem;
+        margin-top: 0.25rem;
+    }
+
+    #event > div > div > .eventCampName {
+        font-size: 0.725rem;
+        margin-top: 0.25rem;
+    }
+
+    #event > div > div > .eventDay {
+        margin-top: 0.25rem;
+        font-size: 0.75rem;
+        font-weight: 300;
+        color: #898994;
+    }
+}
+
+@media all and (min-width: 0px) and (max-width: 600px) {
+    #event > div > div > .eventTitle {
+        font-weight: 500;
+        font-size: 0.7rem;
+        margin-top: 0.25rem;
+    }
+
+    #event > div > div > .eventCampName {
+        font-size: 0.65rem;
+        margin-top: 0.25rem;
+    }
+
+    #event > div > div > .eventDay {
+        margin-top: 0.25rem;
+        font-size: 0.675rem;
+        font-weight: 300;
+        color: #898994;
+    }
+}
+
+#event > div > div > div > img {
+    width: 100%;
+    height: 100%;
+    max-height: 11rem;
+    box-sizing: border-box;
+    border-radius: 0.5rem 0.5rem 0 0;
+    border-bottom: 0.0625rem solid #e0e0e0;
+}
+
+#notice {
+    width: 100%;
+    border-top: 0.0625rem solid #eaeaea;
+    padding: 0.75rem 0;
+    box-sizing: border-box;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#notice.visible {
+    display: none;
+}
+
+#notice > label {
+    width: 100%;
+    padding: 0.75rem 1rem 0 0.75rem;
+    box-sizing: border-box;
+
+    align-items: flex-end;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+#notice > label > span {
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 600;
+    box-sizing: border-box;
+}
+
+#notice > label > a {
+    width: 100%;
+    font-size: 1rem;
+    color: #818181;
+    text-align: end;
+}
+
+#notice > div {
+    width: 100%;
+    padding: 0.25rem 0.75rem 1rem 0.75rem;
+    box-sizing: border-box;
+}
+
+#notice > div > table {
+    margin-top: 0.25rem;
+    width: 100%;
+    border-top: 0.5rem solid;
+}
+
+#notice > div > table > thead > tr,
+#notice > div > table > tbody > tr {
+    font-size: 0.8rem;
+    height: 1.5rem;
+}
+
+#notice > div > table > tbody > tr:hover {
+    background-color: #eaeaea;
+    filter: brightness(90%);
+    cursor: pointer;
+}
+
+#notice > div > table > thead > tr > th {
+    border-bottom: 0.0625rem solid;
+    text-align: center;
+}
+
+#notice > div > table > tbody > tr > td {
+    border-bottom: 0.0625rem solid #eaeaea;
+    text-align: center;
+    font-size: 0.7rem;
+}
+
+#footer {
+    width: 100%;
+    height: 7rem;
+    background-color: #eeeeee60;
+
+    align-items: stretch;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}

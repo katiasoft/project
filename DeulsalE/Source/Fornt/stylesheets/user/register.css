@@ -1,0 +1,409 @@
+@charset "UTF-8";
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css");
+
+html {
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+ol, ul {
+    list-style-type: none;
+    margin-block: unset;
+    margin-inline: unset;
+    padding-block: unset;
+    padding-inline: unset;
+}
+
+body {
+    height: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.agreeLabel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.agreeLabel > .check {
+    display: none;
+}
+
+.agreeLabel > .agreeBtn {
+    display: none;
+    width: 1.25rem;
+}
+
+.agreeLabel > .noneBtn {
+    width: 1.25rem;
+}
+
+.agreeLabel > span {
+    margin-left: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.agreeLabel:first-child > span {
+    font-size: 1rem;
+}
+
+._object-button {
+    background-color: #e0e0e0;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    padding: 0.625rem 0.875rem;
+    border: none;
+}
+
+._object-button:hover {
+    filter: brightness(95%);
+}
+
+._object-button:active {
+    filter: brightness(90%);
+}
+
+._object-button:disabled {
+    background-color: #eeeeee;
+    color: #bdbdbd;
+    cursor: default;
+    filter: none;
+}
+
+.warning-container {
+    width: inherit;
+    margin-left: 1rem;
+    display: flex;
+    justify-content: left;
+}
+
+.warning-container.invalid {
+    padding-top: 0.5rem;
+    height: 1.5rem;
+}
+
+.warning {
+    max-height: 0;
+    color: #ef5350;
+    font-size: 0.9rem;
+    text-align: center;
+    padding-top: 0;
+}
+
+.warning.visible {
+    max-height: 3rem;
+}
+
+#registerForm > .step-1.visible,
+#registerForm > .step-2.visible,
+#registerForm > .step-3.visible {
+    display: block;
+}
+
+#registerForm > .step-1,
+#registerForm > .step-2,
+#registerForm > .step-3 {
+    display: none;
+}
+
+/*region registerForm, header*/
+#registerForm {
+    position: relative;
+    height: 100%;
+}
+
+#registerForm > .header {
+    box-sizing: border-box;
+}
+
+#registerForm > .header > .headerLogo {
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+#registerForm > .header > .headerLogo > .logo {
+    display: inline-block;
+    background-repeat: no-repeat;
+}
+
+#registerForm > .header > .headerLogo > .logo > img {
+    display: block;
+    width: 10rem;
+    margin-bottom: 0.5rem;
+}
+
+/*endregion*/
+
+/*region section*/
+#registerForm > .section {
+    width: 35rem;
+    height: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    border: 0.0625rem solid #c6c6c6;
+    box-sizing: border-box;
+    /*box-shadow: 0.125rem 0.2rem #C4DFDF;*/
+    padding: 1rem;
+}
+
+#registerForm > .section > .title-container {
+    margin-left: 1rem;
+}
+
+#registerForm > .section > .title-container > .title {
+    color: #515151;
+}
+
+#registerForm > .section > .content-container {
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    height: 100%;
+    margin: 1rem;
+}
+
+#registerForm > .section > .content-container > .allAgreeBtn {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+#registerForm > .section > .content-container > .term_box {
+    overflow: auto;
+    box-sizing: border-box;
+    height: 8rem;
+    margin: 0.5rem 0;
+
+    background-color: #fafafa;
+    border: 0.0625rem solid #e0e0e0;
+    border-radius: 0.25rem;
+    color: #818181;
+    padding: 0.625rem 0.875rem;
+}
+
+#registerForm > .section > .content-container > .term_box + .label {
+    margin-top: 1rem;
+}
+
+#registerForm > .section > .button-container {
+    justify-content: center;
+    display: flex;
+}
+
+#registerForm > .section > .button-container > .register-button {
+    margin: 0.75rem 0 1.5rem;
+    width: 95%;
+    height: 3rem;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #ffffff;
+    background-color: #42ab42;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+/*endregion*/
+
+#registerForm > .section > .button-container > .register-button:hover {
+    filter: brightness(95%);
+}
+
+#registerForm > .section > .button-container > .register-button:hover {
+    filter: brightness(90%);
+}
+
+
+#registerForm > .step-2 > .content-container {
+    height: 100%;
+    align-items: center;
+}
+
+#registerForm > .step-2 > .content-container > .div {
+    height: auto;
+    margin: 0.5rem 0;
+    width: 90%;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#registerForm > .step-2 > .content-container > .div > .label {
+    width: inherit;
+    padding: 0.75rem;
+    border: 0.0625rem solid #c6c6c6;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#registerForm > .step-2 > .content-container > .div > .label.invalid {
+    border: 0.0625rem solid #E46060;
+}
+
+#registerForm > .step-2 > .content-container > .div > .label > img {
+    height: 1.5rem;
+}
+
+#registerForm > .step-2 > .content-container > .div > .label > ._object-input {
+    width: 100%;
+    height: 2.5rem;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 0.25rem;
+    padding-left: 0.5rem;
+    outline: none;
+}
+
+#registerForm > .step-2 > .content-container > .div > .label:has(> ._object-input:focus) {
+    border: 0.0625rem solid forestgreen;
+    outline: none;
+}
+
+#registerForm > .step-2 > .content-container > .div > .label > ._object-button {
+    margin-left: 0.5rem;
+}
+
+#registerForm > .step-2 > .content-container > .div > .label:first-child {
+    border-radius: 1rem 1rem 0 0;
+}
+
+#registerForm > .step-2 > .content-container > .userDiv > div + .label,
+#registerForm > .step-2 > .content-container > .userDiv > .label + .label,
+#registerForm > .step-2 > .content-container > .infoDiv > div + .label,
+#registerForm > .step-2 > .content-container > .contactDiv > .label + .label:not(.invalid){
+    border-top: none;
+}
+
+#registerForm > .step-2 > .content-container > .userDiv > div.invalid + .label,
+#registerForm > .step-2 > .content-container > .infoDiv > div.invalid + .label{
+    border-top: 0.0625rem solid #c6c6c6;
+}
+
+
+
+#registerForm > .step-2 > .content-container > .div > .label:last-of-type {
+    border-radius: 0 0 1rem 1rem;
+}
+
+/*region radioSelect*/
+#registerForm > .step-2 > .content-container > .radioSelect {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#registerForm > .step-2 > .content-container > .radioSelect > .label {
+    width: 41.5%;
+    display: flex;
+    justify-content: center;
+}
+
+#registerForm > .step-2 > .content-container > .radioSelect > .label > input {
+    display: none;
+}
+
+#registerForm > .step-2 > .content-container > .radioSelect > .label:has(> input[type="radio"]:checked) {
+    border: 0.0625rem solid forestgreen;
+}
+
+#registerForm > .step-2 > .content-container > .radioSelect > .label:has(> input[type="radio"]:checked) + .label {
+    border-left: none;
+}
+
+#registerForm > .step-2 > .content-container > .radioSelect > .label:first-child {
+    border-radius: 1rem 0 0 1rem;
+    border-right: none;
+}
+
+#registerForm > .step-2 > .content-container > .radioSelect > .label:last-child {
+    border-radius: 0 1rem 1rem 0;
+}
+
+/*endregion*/
+
+#registerForm > .step-2 > .content-container > .contactDiv > .telecom-label:focus-within {
+    border: 0.0625rem solid #42ab42;
+}
+
+#registerForm > .step-2 > .content-container > .contactDiv > .telecom-label > .telecom-menu {
+    width: 100%;
+    border: none;
+    outline: none;
+}
+
+#registerForm > .step-2 > .button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#registerForm > .step-2 > .button-container > ._object-button {
+    margin: 1rem 0 2rem;
+    width: 35%;
+    height: 3rem;
+    font-size: 1.25rem;
+    font-weight: 400;
+    background-color: #42ab42;
+    border: none;
+    border-radius: 0.5rem;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+/*region step-3*/
+
+#registerForm > .step-3 > .content-container {
+    width: 90%;
+    display: flex;
+    align-items: center;
+}
+
+#registerForm > .step-3 > .content-container > img {
+    width: 15rem;
+}
+
+#registerForm > .step-3 > .content-container > h1 > .logo {
+    color: #42ab42;
+    font-weight: 900;
+}
+
+#registerForm > .step-3 > .button-container > a {
+    height: 3rem;
+    width: 80%;
+    background-color: #42ab42;
+    border: none;
+    border-radius: 0.5rem;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#registerForm > .step-3 > .button-container > a:hover{
+    filter: brightness(95%);
+}
+
+#registerForm > .step-3 > .button-container > a:active{
+    filter: brightness(90%);
+}
+/*endregion*/

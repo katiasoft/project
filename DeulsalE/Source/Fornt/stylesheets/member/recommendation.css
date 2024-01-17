@@ -1,0 +1,152 @@
+#contents {
+    width: 100%;
+    padding-bottom: 3rem;
+    /* 사이즈를 정하지 않고 작업시에는 아래 두개를 지워주세요. */
+    /*height: 100%;*/
+    /*min-height: 50rem;*/
+}
+
+
+#contents > .subBene {
+    width: 100%;
+    min-height: 12rem;
+    padding: 0 2rem;
+
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    background-image: url("../../images/subBene/005.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#contents > .subBene.visible {
+    display: none;
+}
+
+#contents > .subBene > .title {
+    width: 100%;
+    min-height: 5rem;
+    margin-top: 2rem;
+    font-weight: 600;
+    color: #515151;
+
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#contents > .subBene > .title > span:first-child {
+    font-size: 2.75rem;
+}
+
+#contents > .subBene > .title > span:nth-child(2) {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    color: #818181;
+}
+
+#surveyContainer{
+    width: 100%;
+    padding-top: 2rem;
+    box-sizing: border-box;
+
+    align-items:center;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.survey{
+    width: 100%;
+    min-height: 10rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    border: 0.0625rem solid #81818190;
+    border-radius: 0.5rem;
+
+    background-color: #eeeeee;
+
+    align-items:flex-start;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.survey + .survey{
+    margin-top: 2rem;
+}
+
+.survey:hover{
+    background-color: #FFFFFF;
+    filter: none;
+    box-shadow: 5px 5px 5px 3px rgba(0, 0, 0, 0.25);
+}
+
+.survey.visible{
+    display: none;
+}
+
+.survey > span{
+    width: 100%;
+    padding: 0.25rem 0 0.5rem 0;
+    box-sizing: border-box;
+    border-bottom: 0.0625rem solid #81818190;
+    margin-bottom: 0.75rem;
+    font-size: 1.45rem;
+    font-weight: 500;
+
+    color: #515151;
+}
+
+.survey > .content.row {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 8fr);
+    gap: 0.75rem;
+}
+
+.survey > .content.row > label > input{
+    font-size: 1.25rem;
+    color: #515151;
+}
+
+.survey > .content.row > label > input + span{
+    margin-left: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: #515151;
+}
+
+.survey > .content.col > label{
+    width: 100%;
+
+    align-items:center;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.survey > .content.col > label + label{
+    margin-top: 0.5rem;
+}
+.survey > .content.col > label > input{
+    font-size: 1.25rem;
+}
+
+.survey > .content.col > label > input + span{
+    margin-left: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: #515151;
+}
+
+#surveyContainer > ._object-button.large{
+    margin-top: 3rem;
+    width: 10rem;
+    height: 3.5rem;
+}

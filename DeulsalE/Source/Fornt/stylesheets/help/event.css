@@ -1,0 +1,317 @@
+#contents > .subBene {
+    background-image: url("../../images/subBene/005.jpg");
+}
+
+.ico {
+    text-indent: -9999px;
+    display: inline-block;
+}
+
+/*이벤트 표시 or 검색*/
+.fa-magnifying-glass {
+    background-position: -877px -662px;
+    width: 21px;
+    height: 21px;
+    color: #dddddd;
+    font-size: 1.25rem;
+}
+
+.board_list {
+    padding-top: 2rem;
+}
+
+.board_list .header {
+    position: relative;
+    height: 50px;
+}
+
+.board_list .header .tit {
+    font-size: 28px;
+    color: #151432;
+    /*margin-bottom: 30px;*/
+    line-height: 50px;
+    float: left;
+
+    /*display: none;*/
+}
+
+.board_list .header:after {
+    content: "";
+    clear: both;
+    visibility: hidden;
+    display: block;
+}
+
+.board_list .header .utils {
+    float: right;
+    height: 50px;
+    box-sizing: border-box;
+}
+
+.board_list .header .utils .search_form .num {
+    float: left;
+    font-size: 15px;
+    color: #151432;
+    vertical-align: middle;
+    line-height: 50px;
+    margin-right: 20px;
+}
+
+.board_list .header .utils .search_form .form_wrap {
+    float: right;
+    height: 50px;
+    border: 1px solid #3e3d55;
+    width: 290px;
+    height: 50px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.board_list .header .utils .search_form .form_wrap input {
+    height: 48px;
+    line-height: 48px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.board_list .header .utils .search_form .form_wrap button {
+    background: #3e3d55;
+    width: 66px;
+    height: 48px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+/*광고*/
+#viewForm > .noArticle > div {
+    width: 100%;
+    height: 100%;
+    min-height: 20rem;
+    font-size: 2rem;
+    color: #818181;
+
+    align-items:center;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.event {
+    width: 100%;
+    /*max-height: 27rem;*/
+    margin-top: 0.25rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    /*padding: 0.5rem 0.5rem 1rem 0.5rem;*/
+    box-sizing: border-box;
+    justify-content: center;
+}
+
+/*.merged-cell {*/
+/*    !* 1행 3열을 합친 셀의 스타일을 정의합니다. *!*/
+/*    width: calc(100%);*/
+/*}*/
+
+.event > div {
+    max-height: 28.75rem;
+    border: 0.0625rem solid #e0e0e0;
+    border-radius: 1rem;
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.event > div > a {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+    /* --- */
+
+/*.event > div > a >.img {*/
+/*    max-width: 100%;*/
+/*    max-height: 380px;*/
+/*    overflow: hidden;*/
+/*}*/
+
+/*!* 이미지 커버 스타일 *!*/
+/*.img {*/
+/*    width: 300px; !* 원하는 이미지 가로 크기 설정 *!*/
+/*    height: 200px; !* 원하는 이미지 세로 크기 설정 *!*/
+/*    overflow: hidden;*/
+/*}*/
+
+.img .imgLists {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.event > div > a > div{
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.event > div > a > div:first-child {
+    /*width: 100%;*/
+    /*height: auto;*/
+    /* border: 0.0625rem solid; */
+    /*box-sizing: border-box;*/
+    height: 75%;
+    min-height: 22rem;
+
+    margin-bottom: 0.5rem;
+}
+
+.event > div > a >div > img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    min-height: 22rem;
+    box-sizing: border-box;
+    border-radius: 1rem 1rem 0 0;
+    border-bottom: 0.0625rem solid #e0e0e0;
+}
+
+.event > div > a >div > .txt {
+    padding-bottom: 0.025rem;
+    padding-top: 0.625rem;
+    font-weight: 400;
+    font-size: 1.25rem;
+}
+
+.event > div > a >div > .txt1 {
+    font-weight: 400;
+    color: #3e3d55;
+    font-size: 0.825rem;
+}
+
+.event > div > a >div > span {
+    width: 100%;
+    height: 50%;
+    padding: 0.25rem 1rem;
+    font-size: 0.9rem;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* border: 0.0625rem solid; */
+    box-sizing: border-box;
+    border-radius: 0 0 1rem 1rem;
+}
+
+.event > div > a >div > .date {
+    color: #898994;
+    font-weight: 300;
+}
+
+/*광고 페이지 컨트롤러*/
+.pagination {
+    padding: 60px 0;
+    width: 100%;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+}
+
+.pagination .pagination_wrap {
+    border-left: 1px solid #dddddd;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.pagination .pagination_wrap > a:first-child {
+    margin-left: 0;
+}
+
+.pagination .pagination_wrap > a {
+    margin-left: -1px;
+}
+
+
+.pagination a {
+    display: inline-block;
+    border: 1px solid #ddd;
+    width: 70px;
+    height: 70px;
+    background: #fff;
+    font-size: 15px;
+    color: #151432;
+    text-align: center;
+    line-height: 70px;
+    vertical-align: middle;
+    float: left;
+    box-sizing: border-box;
+}
+
+.pagination a .ico {
+    margin-top: 28px;
+}
+
+/*.pagination a span, .pagination a strong {*/
+/*    font-weight: 400;*/
+/*}*/
+
+.fa-angles-left{
+    background-position: -841px -691px;
+    width: 15px;
+    height: 13px;
+    color: #bdbdbd;
+}
+
+.fa-angle-left {
+    background-position: -93px -913px;
+    width: 8px;
+    height: 13px;
+    color: #bdbdbd;
+}
+
+.pagination .btn_next, .pagination .btn_prev {
+    color: #c0c5cf;
+}
+
+.pagination .btn_prev, .pagination .btn_next {
+    color: #c0c5cf;
+}
+
+.pagination ul {
+    display: inline-block;
+    float: left;
+}
+
+.pagination ul li {
+    display: inline-block;
+    float: left;
+    margin-left: -1px;
+}
+
+.pagination ul li.active a {
+    background: rgb(62, 61, 85);
+    color: rgb(255, 255, 255);
+}
+
+.fa-angle-right {
+    background-position: -65px -913px;
+    width: 8px;
+    height: 13px;
+    color: #bdbdbd;
+}
+
+.fa-angles-right {
+    background-position: -841px -724px;
+    width: 15px;
+    height: 13px;
+    color: #bdbdbd;
+}
+
+.tbody .content {
+    position: relative;
+}

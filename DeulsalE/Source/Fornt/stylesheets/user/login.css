@@ -1,0 +1,243 @@
+@charset "UTF-8";
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css");
+
+html {
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+ol, ul {
+    list-style-type: none;
+    margin-block: unset;
+    margin-inline: unset;
+    padding-block: unset;
+    padding-inline: unset;
+}
+
+body{
+    height: 100%;
+
+    align-items:center;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#loginForm {
+    position: relative;
+    height: 100%;
+}
+
+#loginForm > .header {
+    box-sizing: border-box;
+}
+
+#loginForm > .header > .headerLogo {
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+#loginForm > .header > .headerLogo > .logo {
+    display: inline-block;
+    background-repeat: no-repeat;
+    margin-top: 7.5rem;
+}
+
+#loginForm > .header > .headerLogo > .logo > img {
+    width: 20rem;
+    margin-bottom: 0.5rem;
+}
+
+#loginForm > .login-container {
+    width: 28.75rem;
+    height: 23rem;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    border: 0.0625rem solid #c6c6c6;
+    box-sizing: border-box;
+    /*box-shadow: 0.125rem 0.2rem #eaeaea;*/
+    overflow: hidden;
+}
+
+#loginForm > .login-container > .option-container {
+    display: flex;
+    table-layout: fixed;
+    width: 100%;
+    height: 4rem;
+    border-collapse: collapse;
+}
+
+#loginForm > .login-container > .option-container > .label {
+    position: relative;
+    width: 50%;
+    background-color: #eaeaea;
+    text-align: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    /*filter: brightness(90%);*/
+    border-bottom: 0.0625rem solid #c6c6c6;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#loginForm > .login-container > .option-container > .label + .label{
+    border-left: 0.0625rem solid #c6c6c6;
+}
+
+#loginForm > .login-container > .option-container > .label > img {
+    height: 1.5rem;
+}
+
+#loginForm > .login-container > .option-container > .label > .option {
+    border-radius: 0.5rem;
+    display: none;
+}
+
+/*파이어 폭스는 호환이 안되므로 나중에 JS로 바꿀것.*/
+#loginForm > .login-container > .option-container > .label:has(> input[type="radio"]:checked) {
+    background-color: #ffffff;
+    border-bottom: none;
+    filter: brightness(100%);
+    color: #000000;
+    /*border-radius: 0.5rem;*/
+}
+
+#loginForm > .login-container > .loginDiv {
+    height: auto;
+    margin: 2rem 0 0 10%;
+    width: 80%;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#loginForm > .login-container > .loginDiv > .label {
+    width: inherit;
+    padding: 1rem;
+    border: 0.0625rem solid #c6c6c6;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#loginForm > .login-container > .loginDiv > .label:first-child{
+    border-radius: 0.75rem 0.75rem 0 0;
+    border-bottom: none;
+}
+
+#loginForm > .login-container > .loginDiv > .label:last-child {
+    border-radius: 0 0 0.75rem 0.75rem;
+}
+
+#loginForm > .login-container > .loginDiv > .label > img{
+    height: 1.5rem;
+}
+
+#loginForm > .login-container > .loginDiv > .label > .input {
+    height: 2rem;
+    padding-left: 0.5rem;
+    width: inherit;
+    border: none;
+    font-size: 1rem;
+}
+
+#loginForm > .login-container > .loginDiv > .label > .input:focus {
+    outline: none;
+}
+
+#loginForm > .login-container > .loginDiv > .label:has(> input:focus) {
+    border: 0.0625rem solid forestgreen;
+}
+
+#loginForm > .login-container > .loginDiv > .label:has(> input:focus) + label {
+    border-top: none;
+}
+
+.warning-container {
+    /*width: 28.75rem;*/
+    /*margin-left: 1rem;*/
+    display: flex;
+    justify-content: center;
+}
+
+.warning-container.invalid {
+    height: 1.5rem;
+    padding-top: 0.5rem;
+}
+
+.warning {
+    max-height: 0;
+    color: #ef5350;
+    font-size: 0.9rem;
+    text-align: center;
+    padding-top: 0;
+}
+
+.warning.visible {
+    max-height: 3rem;
+    /*padding-top: 0.5rem;*/
+    text-align: center;
+}
+
+#loginForm > .login-container > .button-container > .login-button {
+    margin-top: 1.25rem;
+    margin-left: 15%;
+    width: 70%;
+    height: 3rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+    background-color: #41ab41;
+    color: #ffffff;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+#loginForm > .login-container > .button-container > .login-button:hover{
+    filter: brightness(95%);
+}
+#loginForm > .login-container > .button-container > .login-button:active{
+    filter: brightness(90%);
+}
+
+#loginForm > .login-container > .registerEndRecover{
+    width: 28.75rem;
+    margin: 0 auto;
+    padding: 1.25rem 0 2.5rem;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#loginForm > .login-container > .registerEndRecover > li {
+    position: relative;
+    display: inline-block;
+
+    padding: 0 1rem;
+}
+
+#loginForm > .login-container > .registerEndRecover > li:first-child{
+    border-right: 0.1rem solid #888;
+}
+
+#loginForm > .login-container > .registerEndRecover > li > a{
+    display: inline-block;
+    font-size: 0.875rem;
+    line-height: 1.0625rem;
+    text-decoration: none;
+    color: #888;
+}
+

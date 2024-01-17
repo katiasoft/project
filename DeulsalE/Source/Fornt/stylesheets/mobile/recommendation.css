@@ -1,0 +1,143 @@
+
+
+.warp {
+    width: 100%;
+    height: 100vh;
+    max-width: 40rem;
+    margin: 0 auto;
+    overflow: hidden;
+    /*border: 0.0625rem solid;*/
+    box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.05);
+
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#header {
+    width: 100%;
+    max-width: 40rem;
+    height: 4rem;
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+    position: fixed;
+    box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.05);
+    background-color: #FFFFFF;
+
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+}
+
+#header > span{
+    width: 100%;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-left: 1.5rem;
+}
+
+#header > img{
+    cursor: pointer;
+}
+
+#header > img + img {
+    margin-left: 0.5rem;
+}
+
+#surveyContainer{
+    width: 100%;
+
+    margin: 4rem 0;
+    padding: 1rem;
+    box-sizing: border-box;
+    overflow-y: auto;
+
+    align-items:center;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.survey{
+    width: 100%;
+    /*min-height: 10rem;*/
+    padding: 1rem;
+    box-sizing: border-box;
+    border: 0.0625rem solid #81818190;
+    border-radius: 0.5rem;
+
+    background-color: #eeeeee;
+
+    align-items:flex-start;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.survey + .survey{
+    margin-top: 2rem;
+}
+
+.survey:hover{
+    background-color: #FFFFFF;
+    filter: none;
+    box-shadow: 5px 5px 5px 3px rgba(0, 0, 0, 0.25);
+}
+
+.survey.visible{
+    display: none;
+}
+
+.survey > span{
+    width: 100%;
+    padding: 0.25rem 0 0.25rem 0;
+    box-sizing: border-box;
+    border-bottom: 0.0625rem solid #81818190;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+
+    color: #515151;
+}
+
+.survey > .content.col > label{
+    width: 100%;
+
+    align-items:center;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.survey > .content.col > label + label{
+    margin-top: 0.5rem;
+}
+.survey > .content.col > label > input{
+    font-size: 1rem;
+}
+
+.survey > .content.col > label > input + span{
+    margin-left: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: #515151;
+}
+
+#surveyContainer > ._object-button.large{
+    margin: 2rem 0 1rem 0;
+    padding: 1rem 2rem;
+    box-sizing: border-box;
+}
+
+#footer{
+    width: 100%;
+    max-width: 40rem;
+    height: 4rem;
+    bottom: 0;
+    background-color: #FFFFFF;
+
+    position: fixed;
+    box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.05);
+}

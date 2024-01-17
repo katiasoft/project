@@ -1,0 +1,304 @@
+
+.warp {
+    width: 100%;
+    height: 100vh;
+    max-width: 40rem;
+    margin: 0 auto;
+    overflow: hidden;
+    /*border: 0.0625rem solid;*/
+    box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.05);
+
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#header {
+    width: 100%;
+    max-width: 40rem;
+    height: 4rem;
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+    position: fixed;
+    box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.05);
+    background-color: #FFFFFF;
+
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+}
+
+#header > span {
+    width: 100%;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-left: 1.5rem;
+}
+
+#header > img{
+    cursor: pointer;
+}
+
+#header > img + img {
+    margin-left: 0.5rem;
+}
+
+.warp > .content {
+    width: 100%;
+    margin: 4rem;
+    padding: 0.25rem 1rem 1rem 1rem;
+    box-sizing: border-box;
+
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.cntSort {
+    width: 100%;
+    height: 2.5rem;
+    margin-top: 5rem;
+    padding: 0.25rem 1rem 0.5rem 1rem;
+    box-sizing: border-box;
+
+
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.cntSort > .campsitesCnt{
+    width: 5rem;
+}
+
+.cntSort > .campsitesCnt > input {
+    width: 100%;
+    /*margin: 1rem 0 0 0.5rem;*/
+}
+
+#sort {
+    width: 100%;
+    height: 100%;
+    /*margin: 1rem 0 0 auto;*/
+    font-size: 0.9rem;
+
+    align-items: flex-end;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+#sort input[type=radio] {
+    display: none;
+}
+
+#sort input[type=radio] + label a {
+    padding: 0 0.5rem;
+    color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+#sort input[type=radio] + label a:hover {
+    color: rgba(0, 0, 0, 1);
+}
+
+#sort input[type=radio]:checked + label a {
+    color: rgba(0, 0, 0, 1);
+}
+
+#sort > * + *:not(:last-child) {
+    border-right: 0.125rem solid rgba(0, 0, 0, 0.3);
+}
+
+#sort > *:last-child a {
+    padding: 0 0 0 0.5rem;
+}
+
+#campsites {
+    width: 100%;
+    /*height: 100%;*/
+    margin-bottom: 4rem;
+    padding: 1rem;
+    overflow-y: auto;
+
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#campsites > .campsite {
+    width: 100%;
+    /*height: 33rem;*/
+    border: 0.0925rem solid rgba(0, 0, 0, 0.2);
+    border-radius: 0.8rem;
+    /*overflow: hidden;*/
+
+    box-shadow: 0 0.0625rem 0.1875rem 0 rgba(0, 0, 0, 0), 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+    cursor: pointer;
+}
+
+#campsites > .campsite * {
+    cursor: pointer;
+}
+
+#campsites > .campsite + .campsite{
+    margin-top: 2rem;
+}
+
+#campsites > .campsite > .containerImg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#campsites > .campsite > .containerImg > .campsiteImg:not(:has(.img.not_found)) {
+    width: 100%;
+    height: 20rem;
+    object-fit: cover;
+}
+
+#campsites > .campsite > .containerImg > .campsiteImg > .img {
+    width: 100%;
+    height: 20rem;
+    border-radius: 0.8rem 0.8rem 0 0;
+    object-fit: cover;
+}
+
+#campsites > .campsite > .containerImg > .campsiteImg > .img:not(:has(.not_found)) {
+    width: 100%;
+    height: 20rem;
+    object-fit: cover;
+}
+
+#campsites > .campsite:hover {
+    box-shadow: 0 0.875rem 1.75rem rgba(0, 0, 0, 0.25), 0 0.625rem 0.625rem rgba(0, 0, 0, 0.22);
+}
+
+#campsites > .campsite > .containerImg > .campsiteBookmark > .icon.bookmark {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+#campsites > .campsite > .containerImg > .campsiteBookmark > .icon.bookmark > img {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+#campsites > .campsite > .content > .contentData > .data {
+    margin: 0 0 1.5rem 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#campsites > .campsite > .content > .contentData > .data > *:nth-child(1) {
+    width: 100%;
+    margin: 0.5rem 0.8rem 0 0.8rem;
+    font-size: 1.412rem;
+    font-weight: 500;
+    display: block;
+}
+
+#campsites > .campsite > .content > .contentData > .data > *:nth-child(2) {
+    width: 12rem;
+    margin: 1.2rem 0.8rem 0 0.8rem;
+    /*font-size: 0.912rem;*/
+    color: rgba(0, 0, 0, 0.78);
+}
+
+#campsites > .campsite > .content > .contentData > .data > *:nth-child(3) {
+    width: 15rem;
+    /*margin: 1.2rem 0.8rem 0 auto;*/
+    margin: 0.5rem 0.8rem 0 auto;
+    /*font-size: 0.912rem;*/
+    color: rgba(0, 0, 0, 0.78);
+
+    float: right;
+    text-align: right;
+}
+
+#campsites > .campsite > .contentIcon {
+    margin: 0.5rem 0.8rem 0 0.8rem;
+}
+
+#campsites > .campsite > .contentIcon > .icon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#campsites > .campsite > .contentIcon > .icon > * + * {
+    margin: 0 0 0 0.35rem;
+}
+
+#campsites > .campsite > .contentIcon > .icon > img {
+    height: 1rem;
+    width: 1rem;
+}
+
+#campsites > .campsite > .contentIcon > .icon > input {
+    width: 2.5rem;
+    vertical-align: middle;
+}
+
+#campsites > .campsite > .contentIcon > .icon:nth-child(2) > input {
+    width: 100%;
+}
+
+#campsites > .campsite > .contentIcon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#campsites > .campsite > .contentIcon > .campsiteBookmark {
+    margin: 0 0 0 auto;
+}
+
+#campsites > .campsite > .contentIcon > .campsiteBookmark > .bookmark {
+    width: 1.5rem;
+    height: 1.5rem;
+
+    position: relative;
+    cursor: pointer;
+}
+
+#noData {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    transform: translateY(-10%);
+}
+
+#noData > * + *{
+    margin-top: 1rem;
+}
+
+#noData.visible {
+    display: none;
+}
+
+#noData > span {
+    font-size: 1.1rem;
+}
+
+#footer {
+    width: 100%;
+    max-width: 40rem;
+    height: 4rem;
+    bottom: 0;
+    background-color: #FFFFFF;
+
+    position: fixed;
+    box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.05);
+}

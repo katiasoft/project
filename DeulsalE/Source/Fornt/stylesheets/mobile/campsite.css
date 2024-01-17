@@ -1,0 +1,725 @@
+.warp {
+    width: 100%;
+    height: 100vh;
+    max-width: 40rem;
+    margin: 0 auto;
+    overflow: hidden;
+    /*border: 0.0625rem solid;*/
+    box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.05);
+
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#header {
+    width: 100%;
+    max-width: 40rem;
+    height: 4rem;
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+    position: fixed;
+    background-color: #FFFFFF;
+    box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.05);
+    z-index: 8;
+
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+}
+
+#header > span {
+    width: 100%;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-left: 1.5rem;
+}
+
+#header > img{
+    cursor: pointer;
+}
+
+#header > img + img {
+    margin-left: 0.5rem;
+}
+
+
+#menu {
+    width: 100%;
+    height: 100%;
+    min-height: 7rem;
+    max-height: 7rem;
+    margin-top: 4rem;
+
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+}
+
+#menu.visible {
+    display: none;
+    min-height: 0;
+    border: none;
+}
+
+#menu > div {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#menu > div > a {
+    border-radius: 1rem;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#menu > div > a:hover {
+    background-color: #eaeaea;
+    filter: brightness(90%);
+}
+
+#menu > div > a > img {
+    /*border: 0.0625rem solid;*/
+    /*border-radius: 1rem;*/
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+#menu > div > a > span {
+    /*border: 0.0625rem solid black;*/
+    font-size: 0.7rem;
+    color: #515151;
+    min-width: 3.625rem;
+    text-align: center;
+}
+
+#menu > div > a > * + * {
+    margin-top: 0.4rem;
+}
+
+
+#menu span.selected {
+    background-color: rgba(40, 203, 91, 0.3);
+}
+
+#contents {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 4rem;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#contents > .subBene {
+    background-image: url("../../images/subBene/001.jpg");
+}
+
+#contents > .subBene {
+    width: 100%;
+
+}
+
+#contents > .subBene > .title {
+    display: flex;
+    flex-direction: column;
+    padding: 0.7rem;
+}
+
+#contents > .subBene > .title > span:nth-child(1) {
+    font-size: 1.1rem;
+}
+
+#contents > .subBene > .title > span:nth-child(2) {
+    margin-top: 0.5rem;
+    font-size: 0.7rem;
+}
+
+#contents > .content {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#campsitesSearch {
+    width: 100%;
+    /*height: 100%;*/
+    border-bottom: 0.0625rem solid #eaeaea;
+
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 0 0.5rem;
+}
+
+.cntSort {
+    width: 100%;
+    position: sticky;
+    top: 4rem; /* 도달했을때 고정시킬 위치 */
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    background-color: #FFFFFF;
+    padding: 0.4rem 0 1rem 0;
+}
+
+/*.cntSort > .campsitesCnt{*/
+/*    width: 100%;*/
+
+/*    align-items:center;*/
+/*    display:flex;*/
+/*    flex-direction: row;*/
+/*    justify-content: flex-start;*/
+/*}*/
+
+.cntSort > .campsitesCnt > span {
+    margin: 0.8rem 0 0 0.5rem;
+    font-size: 0.85rem;
+
+    background-color: #42ab42;
+    color: #fafafa;
+    border-radius: 0.8rem;
+    padding: 0.3rem 0.5rem;
+}
+
+.cntSort > .campsitesCnt > input {
+    max-width: 5rem;
+    margin: 0.8rem 0 0 0.5rem;
+    font-size: 0.85rem;
+}
+
+
+
+/*#searchEmpty.invisible {*/
+/*    display: none;*/
+/*}*/
+
+#searchResult {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 0 1rem 0;
+
+}
+
+#searchResult > a {
+    margin: 0 0.3rem 0 0;
+}
+
+#searchResult > a,
+#searchResult > a > img {
+    height: 1rem;
+    width: 1rem;
+}
+
+
+#searchResult > .search > input {
+    height: 100%;
+}
+
+#searchResult > .search > input:nth-child(1) {
+    font-size: 0.9rem;
+    width: 7rem;
+    margin-left: auto;
+    text-align: right;
+    color: rgba(0, 0, 0, 1);
+}
+
+#searchResult > .search > input:nth-child(2) {
+    font-size: 0.9rem;
+    width: 15rem;
+    margin-right: auto;
+    text-align: left;
+    color: rgba(0, 0, 0, 0.65);
+}
+
+#contents > .content > .empty {
+    margin: 5rem 0;
+    font-size: 1rem;
+    color: rgba(0, 0, 0, 0.8);
+    text-align: center;
+}
+
+#contents > .content > .empty > .icon > img {
+    height: 5rem;
+}
+
+#contents > .content > .empty > .text {
+    margin: 1rem 0 2rem 0;
+}
+
+.empty.invisible {
+    display: none;
+}
+
+#campsites {
+    width: 100%;
+    margin: 1rem 0 4rem 0;
+    padding: 0 0.5rem;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+}
+
+#campsites > .campsite {
+    background-color: #FFFFFF;
+    border: 0.0925rem solid rgba(0, 0, 0, 0.2);
+    border-radius: 0.8rem;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+#campsites > .campsite * {
+    cursor: pointer;
+}
+
+#campsites > .campsite > .containerImg {
+    height: 21rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#campsites > .campsite > .containerImg > .campsiteImg:not(:has(.img.not_found)) {
+    width: 100%;
+    height: 21rem;
+}
+
+#campsites > .campsite > .containerImg > .campsiteImg > .img {
+    height: 21rem;
+    object-fit: cover;
+}
+
+#campsites > .campsite > .containerImg > .campsiteImg > .img:not(:has(.not_found)) {
+    width: 100%;
+    height: 21rem;
+}
+
+#campsites > .campsite > .containerImg > .campsiteBookmark > .icon.bookmark {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+#campsites > .campsite > .containerImg > .campsiteBookmark > .icon.bookmark > img {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+#sort {
+    margin: 0.45rem 0 0 0;
+    font-size: 0.85rem;
+    width: 9rem;
+
+    /*align-items:flex-end;*/
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*position: relative;*/
+    /*display: inline-block;*/
+    /*flex-direction: column;*/
+}
+
+.dropBtn {
+    border: 0.0125rem solid #42ab42;
+    border-radius: 0.9rem;
+    background-color: #fafafa;
+    font-weight: 400;
+    color: rgb(37, 37, 37);
+    padding: 0.28rem 0 0.28rem 0.65rem;
+    box-sizing: border-box;
+    width: 8rem;
+    text-align: center;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.dropBtn > span:not(.dropBtn_click) {
+    font-size: 0.8rem;
+}
+
+.dropBtn > .dropBtn_click{
+    font-family: Material Icons;
+    font-size : 16px;
+    color : #42ab42;
+    float:right;
+}
+
+.dropBtn > span:nth-child(1) {
+    /*margin: 0 0.25rem 0 1.25rem;*/
+    /*margin: 0 0 0 auto;*/
+    width: 5rem;
+    text-align: center;
+}
+.dropBtn > span:nth-child(2) {
+    /*margin: 0 0.5rem 0 auto;*/
+}
+
+.dropBtn a {
+    color: rgba(0,0,0,0.8);
+}
+
+
+.dropdown{
+    display: none;
+    position: absolute;
+    z-index: 1; /*다른 요소들보다 앞에 배치*/
+    font-weight: 400;
+    width:8rem;
+    background-color: #FFFFFF;
+    border-bottom-left-radius: 0.8rem;
+    border-bottom-right-radius: 0.8rem;
+}
+
+.dropdown-content {
+    display : flex;
+    align-content: center;
+    font-size: 0.8rem;
+    color : rgb(37, 37, 37);
+    text-decoration : none;
+}
+.dropdown-content:first-child {
+    /*padding: 0.3rem 0 0 0;*/
+}
+.dropdown-content:not(:first-child) {
+    border-top: solid 0.0625rem rgba(40, 203, 91, 0.5);
+}
+
+.dropdown-content > a {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    background-color: #f9f9f9;
+    font-size: 0.8rem;
+
+    padding: 0.28rem 0;
+}
+
+.dropdown-content:first-child > a {
+    border-top-left-radius: 0.8rem;
+    border-top-right-radius: 0.8rem;
+}
+.dropdown-content:last-child > a {
+    border-bottom-left-radius: 0.8rem;
+    border-bottom-right-radius: 0.8rem;
+}
+
+
+.dropdown-content > a:hover{
+    background-color: rgba(40, 203, 91, 0.3);
+}
+#sort:hover .dropdown {
+    display: block;
+}
+
+
+@media all and (min-width: 600px) and (max-width: 2000px) {
+    /*#campsitesSearch {*/
+    /*    width: 100%;*/
+    /*}*/
+    #searchForm {
+        width: 100%;
+        height: 100%;
+        margin: 0 0 0.8rem 0;
+        align-items:center;
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #searchForm > .search {
+        width: 100%;
+        height: 2.5rem;
+        padding: 0.5rem;
+        box-sizing: border-box;
+        border: 0.0125rem solid #42ab42;
+        border-radius: 0.9rem;
+        display: flex;
+        flex-direction: row;
+    }
+
+    #searchForm > .search:hover {
+        border: 0.0625rem solid #42ab42;
+    }
+
+    #searchForm > .search > .searchInput {
+        width: 100%;
+        margin: 0 0 0 0.2rem;
+
+        background-repeat: no-repeat;
+        background-position: 96% center;
+        background-size: 1rem;
+        font-size: 0.85rem;
+    }
+
+    #searchForm > .search > .searchBtn {
+        width: 1.8rem;
+        margin: 0 0 0 0.5rem;
+        background: url("https://img.icons8.com/fluency-systems-regular/48/search--v1.png") center center no-repeat;
+        background-size: 75%;
+        opacity: 0.5;
+        /*cursor: pointer;*/
+    }
+
+    #searchForm > .search > .cancelBtn {
+        width: 1.8rem;
+        margin: 0 0.5rem 0 0;
+        background: url("https://img.icons8.com/small/32/delete-sign.png") center center no-repeat;
+        background-size: 70%;
+        opacity: 0.5;
+        cursor: pointer;
+    }
+
+    #campsites > .campsite + .campsite {
+        margin: 1.5rem 0 0 0;
+    }
+
+    #campsites > .campsite > .content > .contentData > .data {
+        margin: 0 0 1.5rem 0;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    #campsites > .campsite > .content > .contentData > .data > *:nth-child(1) {
+        width: 100%;
+        margin: 0.5rem 0.8rem 0 0.8rem;
+        font-size: 1.3rem;
+        font-weight: 550;
+        display: block;
+    }
+
+    #campsites > .campsite > .content > .contentData > .data > *:nth-child(2) {
+        width: 12rem;
+        margin: 1.2rem 0.8rem 0 0.8rem;
+        font-size: 0.912rem;
+        color: rgba(0, 0, 0, 0.78);
+    }
+
+    #campsites > .campsite > .content > .contentData > .data > *:nth-child(3) {
+        width: 15rem;
+        /*margin: 1.2rem 0.8rem 0 auto;*/
+        margin: 1.2rem 0.8rem 0 auto;
+        font-size: 0.912rem;
+        color: rgba(0, 0, 0, 0.78);
+
+        float: right;
+        text-align: right;
+    }
+
+    #campsites > .campsite > .contentIcon {
+        margin: 0.5rem 0.8rem 0 0.8rem;
+    }
+
+    #campsites > .campsite > .contentIcon > .icon {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #campsites > .campsite > .contentIcon > .icon > * + * {
+        margin: 0 0 0 0.35rem;
+    }
+
+    #campsites > .campsite > .contentIcon > .icon > img {
+        height: 1rem;
+        width: 1rem;
+    }
+
+    #campsites > .campsite > .contentIcon > .icon > input {
+        width: 2.5rem;
+        vertical-align: middle;
+    }
+
+    #campsites > .campsite > .contentIcon > .icon:nth-child(2) > input {
+        width: 100%;
+    }
+
+    #campsites > .campsite > .contentIcon {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    #campsites > .campsite > .contentIcon > .campsiteBookmark {
+        margin: 0 0 0 auto;
+    }
+
+    #campsites > .campsite > .contentIcon > .campsiteBookmark > .bookmark {
+        width: 1.5rem;
+        height: 1.5rem;
+
+        /*position: relative;*/
+        cursor: pointer;
+    }
+
+}
+
+@media all and (min-width: 0px) and (max-width: 600px) {
+    #searchForm {
+        align-items:center;
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        margin: 0 0 0.8rem 0;
+    }
+
+    #searchForm > .search {
+        width: 87%;
+        height: 2rem;
+        padding: 0.5rem;
+        box-sizing: border-box;
+        border: 0.0125rem solid #42ab42;
+        border-radius: 1rem;
+        display: flex;
+        flex-direction: row;
+    }
+
+    #searchForm > .search:hover {
+        border: 0.0625rem solid #42ab42;
+    }
+
+    #searchForm > .search > .searchInput {
+        width: 100%;
+        margin: 0 0 0 0.2rem;
+
+        background-repeat: no-repeat;
+        background-position: 96% center;
+        background-size: 1rem;
+        font-size: 0.8rem;
+    }
+
+    #searchForm > .search > .searchBtn {
+        width: 1.5rem;
+        margin: 0 0 0 0.5rem;
+        background: url("https://img.icons8.com/fluency-systems-regular/48/search--v1.png") center center no-repeat;
+        background-size: 75%;
+        opacity: 0.5;
+        /*cursor: pointer;*/
+    }
+
+    #searchForm > .search > .cancelBtn {
+        width: 1.5rem;
+        margin: 0 0.5rem 0 0;
+        background: url("https://img.icons8.com/small/32/delete-sign.png") center center no-repeat;
+        background-size: 70%;
+        opacity: 0.5;
+        cursor: pointer;
+    }
+
+    #campsites > .campsite + .campsite {
+        margin: 1rem 0 0 0;
+    }
+
+    #campsites > .campsite > .content > .contentData > .data {
+        margin: 0 0 1.5rem 0;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    #campsites > .campsite > .content > .contentData > .data > *:nth-child(1) {
+        width: 100%;
+        margin: 0.5rem 0.5rem 0 0.5rem;
+        font-size: 1.125rem;
+        font-weight: 550;
+        display: block;
+    }
+
+    #campsites > .campsite > .content > .contentData > .data > *:nth-child(2) {
+        width: 100%;
+        margin: 0.8rem 0.5rem 0 0.5rem;
+        font-size: 0.912rem;
+        color: rgba(0, 0, 0, 0.78);
+    }
+
+    #campsites > .campsite > .content > .contentData > .data > *:nth-child(3) {
+        width: 100%;
+        /*margin: 1.2rem 0.8rem 0 auto;*/
+        margin: 0.45rem 0 0 0.5rem;
+        font-size: 0.912rem;
+        color: rgba(0, 0, 0, 0.78);
+
+        /*float: right;*/
+        /*text-align: right;*/
+    }
+
+    #campsites > .campsite > .contentIcon {
+        margin: 0.2rem 0.5rem 0 0.5rem;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    #campsites > .campsite > .contentIcon > .icon {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #campsites > .campsite > .contentIcon > .icon > * + * {
+        margin: 0 0 0 0.225rem;
+    }
+
+    /**/
+    #campsites > .campsite > .contentIcon > .icon > img {
+        height: 1rem;
+        width: 1rem;
+    }
+
+    #campsites > .campsite > .contentIcon > .icon > input {
+        font-size: 0.85rem;
+        width: 2rem;
+        vertical-align: middle;
+    }
+
+    #campsites > .campsite > .contentIcon > .icon:nth-child(2) > input {
+        width: 100%;
+    }
+
+    #campsites > .campsite > .contentIcon > .campsiteBookmark {
+        margin: 0 0 0 auto;
+    }
+
+    #campsites > .campsite > .contentIcon > .campsiteBookmark > .bookmark {
+        width: 1.25rem;
+        height: 1.25rem;
+
+        /*position: relative;*/
+        cursor: pointer;
+    }
+
+
+}
+
+#footer {
+    width: 100%;
+    max-width: 40rem;
+    height: 4rem;
+    bottom: 0;
+    background-color: #FFFFFF;
+    position: fixed;
+    box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.05);
+}
+
+
+
+
+

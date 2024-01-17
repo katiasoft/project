@@ -1,0 +1,23 @@
+#headLine > #info_type > div > input:first-child {
+    border-radius: 2rem 0 0 2rem;
+    background-color: white;
+    color: #515151;
+}
+
+#headLine > #info_type > div > input:nth-child(2) {
+    border-radius: 0 2rem 2rem 0;
+    background-color: forestgreen;
+    border-right:  none;
+    color: #ffffff;
+}
+
+.noData:hover{
+    background-color: #eeeeee;
+    filter: brightness(90%);
+    cursor: pointer;
+}
+
+.noData:hover > td{
+    font-weight: 600;
+    text-decoration: underline;
+}

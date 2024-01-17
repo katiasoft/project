@@ -1,0 +1,486 @@
+@charset "UTF-8";
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css");
+
+html {
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+ol, ul {
+    list-style-type: none;
+    margin-block: unset;
+    margin-inline: unset;
+    padding-block: unset;
+    padding-inline: unset;
+}
+
+body{
+    height: 100%;
+
+    align-items:center;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+._object-button {
+    background-color: #e0e0e0;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    padding: 0.625rem 0.875rem;
+    border: none;
+}
+
+._object-button:hover {
+    filter: brightness(95%);
+}
+
+._object-button:active {
+    filter: brightness(90%);
+}
+
+._object-button:disabled {
+    background-color: #eeeeee;
+    color: #bdbdbd;
+    cursor: default;
+    filter: none;
+}
+
+#recoverContainer,
+#recoverPage {
+    display: block;
+}
+
+#recoverContainer.visible,
+#recoverPage.visible {
+    display: none;
+}
+
+/*region recoverForm*/
+#recoverForm {
+    position: relative;
+    height: 100%;
+}
+
+#recoverForm > .header {
+    box-sizing: border-box;
+}
+
+#recoverForm > .header > .headerLogo {
+    position: relative;
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+#recoverForm > .header > .headerLogo > .logo {
+    display: inline-block;
+    background-repeat: no-repeat;
+    margin-top: 3.5rem;
+}
+
+#recoverForm > .header > .headerLogo > .logo > img {
+    display: block;
+    width: 15rem;
+    margin-bottom: 0.5rem;
+}
+
+#recoverForm > .recover-container {
+    width: 30rem;
+    height: auto;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    border: 0.0625rem solid #c6c6c6;
+    box-sizing: border-box;
+    /*box-shadow: 0.125rem 0.2rem #C4DFDF;*/
+    overflow: hidden;
+
+}
+#recoverForm > .recover-container > h2 {
+    color: #515151;
+    margin-left: 3rem;
+    margin-top: 2rem;
+}
+
+#recoverForm > .recover-container > .option-container {
+    display: flex;
+    margin-left: 10%;
+    width: 80%;
+    height: 3rem;
+    border-collapse: collapse;
+}
+
+#recoverForm > .recover-container > .option-container > .label {
+    background-color: #c6c6c6;
+    width: 50%;
+    cursor: pointer;
+    position: relative;
+    padding-top: 0.85rem;
+    text-align: center;
+    overflow: hidden;
+
+    display: table-cell;
+    vertical-align: top;
+}
+
+#recoverForm > .recover-container > .option-container > .email {
+    border-radius: 0.5rem 0 0 0.5rem;
+}
+
+#recoverForm > .recover-container > .option-container > .password {
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+
+#recoverForm > .recover-container > .option-container > .label > .option {
+    display: none;
+}
+
+/*파이어 폭스는 호환이 안되므로 나중에 JS로 바꿀것.*/
+#recoverForm > .recover-container > .option-container > .label:has(> input[type="radio"]:checked) {
+    background-color: #fff;
+    border: 0.0625rem solid #c6c6c6;
+}
+
+#recoverForm > .recover-container > .email-container {
+    display: block;
+}
+
+#recoverForm > .recover-container > .password-container {
+    display: none;
+}
+
+#recoverForm > .recover-container > .field {
+    margin: 0.5rem 10%;
+    width: 80%;
+
+    align-items: stretch;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#recoverForm > .recover-container > .field > .certificationDiv {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+#recoverForm > .recover-container > .field > * + * {
+    margin-top: 0.5rem;
+}
+
+#recoverForm > .recover-container > .field > .label:first-child {
+    margin-top: 1.5rem;
+}
+
+#recoverForm > .recover-container > .field > .phone-certification {
+    display: block;
+}
+
+#recoverForm > .recover-container > .field > .email-certification {
+    display: none;
+}
+
+#recoverForm > .recover-container > .field > .certification > .label > img {
+    height: 1.5rem;
+}
+
+#recoverForm > .recover-container > .field > .certification > .label {
+    width: inherit;
+    padding: 1rem;
+    border: 0.0625rem solid #c6c6c6;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#recoverForm > .recover-container > .field > .certification > .label:first-child {
+    border-radius: 1rem 1rem 0 0;
+    border-bottom: none;
+}
+
+#recoverForm > .recover-container > .field > .certification > .label:last-of-type {
+    border-radius: 0 0 1rem 1rem;
+    border-top: none;
+}
+
+#recoverForm > .recover-container > .field > .certification > .label > ._object-input {
+    width: 100%;
+    height: 2.5rem;
+
+    border: none;
+    box-sizing: border-box;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    outline: none;
+    padding-left: 0.5rem;
+}
+
+#recoverForm > .recover-container > .field > .certification > .label:has(> ._object-input:focus) {
+    border: 0.0625rem solid forestgreen;
+}
+
+#recoverForm > .recover-container > .field > .certification > .label > ._object-button {
+    margin-left: 0.5rem;
+    margin-top: 0.5rem
+}
+
+#recoverForm > .recover-container > .warning {
+    color: #ef5350;
+    font-size: 0.9rem;
+
+    display: flex;
+    justify-content: center;
+}
+
+#recoverForm > .recover-container > .button-container {
+    justify-content: center;
+    display: flex;
+}
+
+#recoverForm > .recover-container > .button-container > .nextButton {
+    margin: 1rem 0 2rem;
+    width: 80%;
+    height: 3rem;
+    font-size: 1.25rem;
+    font-weight: 400;
+    background-color: #42ab42;
+    border: none;
+    border-radius: 0.5rem;
+    color: #ffffff;
+    cursor: pointer;
+}
+/*endregion*/
+
+#recoverPage {
+    width: 30rem;
+    height: auto;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    border: 0.0625rem solid #c6c6c6;
+    box-sizing: border-box;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 1rem;
+}
+
+#emailDiv,
+#passwordDiv {
+    display: block;
+}
+
+#emailDiv.visible,
+#passwordDiv.visible {
+    display: none;
+}
+
+/*region emailDiv*/
+
+
+#emailDiv > .content-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#emailDiv > .content-container > h3> .rememberId {
+    color: #42ab42;
+    font-size: 1.15rem;
+}
+
+#emailDiv > .content-container > img {
+    width: 20rem;
+}
+
+#emailDiv > .button-container {
+    justify-content: center;
+    display: flex;
+}
+
+#emailDiv > .button-container > a {
+    height: 3rem;
+    width: 80%;
+    background-color: #42ab42;
+    border: none;
+    border-radius: 0.5rem;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 1.25rem;
+    font-weight: 400;
+
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#emailDiv > .button-container > a:hover {
+    filter: brightness(95%);
+}
+
+#emailDiv > .button-container > a:hover {
+    filter: brightness(90%);
+}
+/*endregion*/
+
+/*region passwordDiv*/
+
+
+#passwordDiv > .step-2 {
+    display: block;
+}
+
+#passwordDiv > .step-1.visible,
+#passwordDiv > .step-2.visible {
+    display: none;
+}
+
+#passwordDiv > .section {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#passwordDiv > .section > .resetWarning {
+    color: #ef5350;
+    font-size: 0.9rem;
+    margin-top: 0.75rem;
+
+    display: flex;
+    justify-content: center;
+}
+
+#passwordDiv > .section > .passwordReset {
+    width: 90%;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#passwordDiv > .section > .passwordReset > .label {
+    width: 80%;
+
+    border: 0.0625rem solid #c6c6c6;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow: hidden;
+}
+
+#passwordDiv > .section > .passwordReset > .label:first-of-type {
+    border-radius: 0.75rem 0.75rem 0 0;
+}
+
+#passwordDiv > .section > .passwordReset > .label:last-child {
+    border-top: none;
+    border-radius: 0 0 0.75rem 0.75rem;
+}
+
+#passwordDiv > .section > .passwordReset > .label > img {
+    height: 1.75rem;
+    margin: 1rem;
+}
+
+#passwordDiv > .section > .passwordReset > .label > input {
+    width: inherit;
+    height: 3rem;
+    outline: none;
+    border: none;
+}
+
+#passwordDiv > .section > .passwordReset > .label:has(> input:focus){
+    border: 0.0625rem solid forestgreen;
+}
+
+#passwordDiv > .section > .button-container {
+    justify-content: center;
+    display: flex;
+}
+
+#passwordDiv > .section > .button-container > .resetNextButton {
+    margin: 1rem 0;
+    width: 20rem;
+    height: 3rem;
+    font-size: 1.25rem;
+    font-weight: 400;
+    background-color: #42ab42;
+    border: none;
+    border-radius: 0.5rem;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+#passwordDiv > .section > .button-container > .resetNextButton:hover {
+    filter: brightness(95%);
+}
+
+#passwordDiv > .section > .button-container > .resetNextButton:active {
+    filter: brightness(90%);
+}
+
+#passwordDiv > .step-2 > .content-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+h3{
+    color: #515151;
+}
+
+#passwordDiv > .step-2 > .content-container > h2 > .rememberId {
+    color: #42ab42;
+    font-size: 1.15rem;
+}
+
+#passwordDiv > .step-2 > .content-container > img {
+    width: 20rem;
+}
+
+#passwordDiv > .step-2 > .button-container {
+    justify-content: center;
+    display: flex;
+}
+
+#passwordDiv > .step-2 > .button-container > a {
+    height: 3rem;
+    width: 20rem;
+
+    background-color: #42ab42;
+    border: none;
+    border-radius: 0.5rem;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin: 0.5rem 0;
+
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#passwordDiv > .step-2 > .button-container > a:hover {
+    filter: brightness(95%);
+}
+#passwordDiv > .step-2 > .button-container > a:active {
+    filter: brightness(90%);
+}
+
+/*endregion*/
+
+
+

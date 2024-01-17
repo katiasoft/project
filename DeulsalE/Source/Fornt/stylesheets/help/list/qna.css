@@ -1,0 +1,466 @@
+#contents > .subBene {
+    background-image: url("../../../images/subBene/003.jpg");
+}
+
+.ico {
+    text-indent: -9999px;
+    display: inline-block;
+}
+
+.tab_list {
+    width: 100%;
+    margin-top: 4rem;
+}
+
+.tab_list ul {
+    overflow: hidden;
+    width: 100%;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: normal;
+    align-items: normal;
+}
+
+.tab_list ul li {
+    box-sizing: border-box;
+    float: left;
+    -ms-flex: 1 1 0;
+    flex: 1 1 0;
+}
+
+.tab_list ul li.active {
+    position: relative;
+    z-index: 2;
+    border-color: #151432;
+    border-bottom-color: #fff;
+}
+
+.tab_list ul li.tab2 {
+    width: 50%;
+}
+
+.tab_list ul li a {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+/* 상단*/
+
+/* 두번쨰 메뉴 바 */
+.tab_list ul li.tab2 {
+    width: 50%;
+}
+
+.tab_list ul li.active a {
+    color: #151432;
+}
+
+.tab_list.medium ul {
+    text-align: center;
+    border-left: 1px solid #dee1e8;
+    border-right: 1px solid #dee1e8;
+}
+
+.tab_list.medium ul li {
+    border-top: 1px solid #dee1e8;
+    margin-left: -1px;
+    position: relative;
+    z-index: 1;
+    padding-right: 2px;
+    border-bottom: 1px solid;
+}
+
+.tab_list.medium ul li a {
+    height: 4rem;
+    color: #a4a4b7;
+    background: rgba(255,255,255,.2);
+    line-height: 4rem;
+    font-size: 1.5rem;
+    font-weight: 400;
+
+}
+
+.tab_list.medium ul li.active {
+    background: #fff;
+    color: #151432;
+    font-weight: bolder;
+    border-bottom: 1px solid #fff;
+    border-right: 1px solid;
+    border-top: 1px solid;
+    border-left: 1px solid;
+}
+
+.tab_list.medium ul li.active a {
+    background: #fff;
+    color: #151432;
+    font-weight: 400;
+}
+
+.tab_list.medium ul li:first-child {
+    margin-left: 0;
+}
+
+.tab_list.medium ul li.tab2:last-child {
+    width: calc(50% + 1px);
+    list-style-type: none;
+}
+/* 두번쨰 메뉴 바*/
+
+
+
+
+/**/
+.board_list {
+    padding-top: 1rem;
+    /*margin-right: 205px;*/
+    /*!*margin-left: 205px;*!*/
+    /*margin-right: 10%;*/
+    /*margin-left: 10%;*/
+    /*width: 1280px;*/
+    margin: 0 auto;
+}
+
+.board_list .header {
+    position: relative;
+    height: 50px;
+    /*margin-bottom: 30px;*/
+}
+
+.board_list .header .tit {
+    font-size: 28px;
+    color: #151432;
+    /*margin-bottom: 30px;*/
+    line-height: 50px;
+    float: left;
+}
+
+/* 게시판 t2*/
+.board_list .header:after {
+    content: "";
+    clear: both;
+    visibility: hidden;
+    display: block;
+}
+
+.board_list .content {
+    position: relative;
+}
+
+.board_list>.content {
+    clear: both;
+}
+
+#viewForm > .tbody > .tr > a:hover {
+    display: unset;
+    background-color: #eaeaea;
+    filter: brightness(50%);
+    cursor: pointer;
+}
+
+.page_list {
+    position: relative;
+    height: 10px;
+}
+
+.tab_list ul li.tab2 {
+    width: 50%;
+}
+
+.tab_list ul li.active a {
+    color: #151432;
+}
+
+.tab_list.medium ul {
+    text-align: center;
+    border-left: 1px solid #dee1e8;
+    border-right: 1px solid #dee1e8;
+}
+
+.tab_list.medium ul li {
+    border-top: 1px solid #dee1e8;
+    margin-left: -1px;
+    position: relative;
+    z-index: 1;
+    padding-right: 2px;
+    border-bottom: 1px solid;
+}
+
+.tab_list.medium ul li a {
+    height: 4rem;
+    color: #a4a4b7;
+    background: rgba(255,255,255,.2);
+    line-height: 4rem;
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.tab_list.medium ul li.active {
+    background: #fff;
+    color: #151432;
+    font-weight: bolder;
+    border-bottom: 1px solid #fff;
+    border-right: 1px solid;
+    border-top: 1px solid;
+    border-left: 1px solid;
+}
+
+.tab_list.medium ul li.active a {
+    background: #fff;
+    color: #151432;
+    font-weight: 400;
+}
+
+.tab_list.medium ul li:first-child {
+    margin-left: 0;
+}
+
+.tab_list.medium ul li.tab2:last-child {
+    width: calc(50% + 1px);
+    list-style-type: none;
+}
+
+.list_wrap {
+    border-top: 10px solid #3e3d55;
+}
+
+.list_wrap .thead {
+    font-size: 16px;
+    color: #7a7984;
+}
+
+.list_wrap .tr {
+    position: relative;
+}
+
+.list_wrap .thead .th {
+    display: block;
+    height: 44px;
+    box-sizing: border-box;
+    border-bottom: 2px solid #3e3d55;
+    text-align: center;
+    line-height: 41px;
+    float: left;
+}
+
+.list_wrap .thead .th.sort {
+    margin-right: 10px;
+    width: 200px;
+}
+
+.list_wrap .thead .th.subject {
+    margin-right: 10px;
+    width: 735px;
+}
+
+.list_wrap .thead .th.date {
+    margin-right: 10px;
+    width: 224px;
+    color: #7a7984;
+}
+
+.list_wrap .thead .th.count {
+    width: 143px;
+    color: #7a7984;
+}
+
+.list_wrap .thead .th:last-child {
+    margin-right: 0;
+}
+
+.list_wrap .tr{
+    background: #f9f9fa;
+}
+
+.list_wrap .tbody a {
+    /*display: block;*/
+    overflow: hidden;
+}
+
+.list_wrap .tbody .td.sort {
+    margin-right: 10px;
+    width: 200px;
+}
+
+.list_wrap .tbody {
+    font-size: 16px;
+    color: #151432;
+
+}
+
+.merged-cell {
+    /* 1행 3열을 합친 셀의 스타일을 정의합니다. */
+    width: calc(100%);
+}
+
+.list_wrap .tbody .td {
+    font-weight: 300;
+    letter-spacing: 0;
+    font-size: 18px;
+    display: block;
+    height: 76px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #e2e2e6;
+    text-align: center;
+    line-height: 76px;
+    float: left;
+    color: #151432;
+}
+
+
+.list_wrap .tbody .td.subject {
+    margin-right: 10px;
+    width: 735px;
+    padding: 0 10px;
+    text-align: left;
+}
+
+.list_wrap .tbody .td.date {
+    margin-right: 10px;
+    width: 224px;
+    color: #7a7984;
+    font-size: 14px;
+}
+
+.list_wrap .tbody .td.count {
+    width: 143px;
+    color: #7a7984;
+    font-size: 14px;
+}
+
+.list_wrap .tbody .td:last-child {
+    margin-right: 0;
+}
+
+.list_wrap .tbody .hidden_desc {
+    position: absolute;
+    top: 76px;
+    left: 300px;
+    width: 330px;
+    height: 163px;
+    z-index: 10;
+    display: none;
+    word-break: break-all;
+}
+
+.list_wrap .tbody .hidden_desc .text_box {
+    background: #fff;
+    border-radius: 3px;
+    position: relative;
+    padding: 20px;
+    color: #151432;
+    font-size: 14px;
+    box-shadow: 0 0 50px 2px rgba(0,0,0,.2);
+    overflow: hidden;
+    line-height: 1.4;
+}
+
+/* 게시판 2*/
+
+/* 페이지 번호*/
+.pagination {
+    padding: 60px 0;
+    width: 100%;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+}
+
+.pagination .pagination_wrap {
+    border-left: 1px solid #dddddd;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.pagination .pagination_wrap>a:first-child {
+    margin-left: 0;
+}
+
+.pagination .pagination_wrap>a {
+    margin-left: -1px;
+}
+
+.pagination ul li a:hover{
+    background-color: #e0e0e0;
+}
+
+.pagination a {
+    display: inline-block;
+    border: 1px solid #ddd;
+    width: 70px;
+    height: 70px;
+    background: #fff;
+    font-size: 15px;
+    color: #151432;
+    text-align: center;
+    line-height: 70px;
+    vertical-align: middle;
+    float: left;
+    box-sizing: border-box;
+}
+
+.pagination a .ico {
+    margin-top: 28px;
+}
+
+/*.pagination a span, .pagination a strong {*/
+/*    font-weight: 400;*/
+/*}*/
+
+.fa-angles-left{
+    background-position: -841px -691px;
+    width: 15px;
+    height: 13px;
+    color: #bdbdbd;
+}
+
+.fa-angle-left {
+    background-position: -93px -913px;
+    width: 8px;
+    height: 13px;
+    color: #bdbdbd;
+}
+
+.pagination .btn_next, .pagination .btn_prev {
+    color: #c0c5cf;
+}
+
+.pagination .btn_prev, .pagination .btn_next {
+    color: #c0c5cf;
+}
+
+.pagination ul {
+    display: inline-block;
+    float: left;
+}
+
+.pagination ul li {
+    display: inline-block;
+    float: left;
+    margin-left: -1px;
+}
+
+.pagination ul li.active a {
+    background: rgb(62, 61, 85);
+    color: rgb(255, 255, 255);
+}
+
+.fa-angle-right {
+    background-position: -65px -913px;
+    width: 8px;
+    height: 13px;
+    color: #bdbdbd;
+}
+
+.fa-angles-right {
+    background-position: -841px -724px;
+    width: 15px;
+    height: 13px;
+    color: #bdbdbd;
+}
+
+ .tbody .content {
+    position: relative;
+}
+/* 페이지 번호*/

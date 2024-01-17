@@ -1,0 +1,64 @@
+.con_tit {
+    position: relative;
+    padding: 27px 10px 15px;
+    font-weight: 700;
+    font-size: 1.05em;
+    border: 1px solid rgba(0,0,0,0);
+    text-align: center;
+    margin-top: 4rem;
+}
+
+#page_qna_success > .con_tit > h3 {
+    display: block;
+    font-size: 2em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    font-weight: bold;
+}
+
+.con_tit p {
+    margin: 10px 0 25px;
+    font-weight: 450;
+    font-size: 1.25rem;
+    display: block;
+
+
+}
+
+#page_qna_success > .con_tit > .p_b_20 {
+    padding-bottom: 20px;
+}
+
+#page_qna_success > .con_tit > .one_btn {
+    margin-top: 3rem;
+    text-align: center;
+}
+
+#page_qna_success > .con_tit > .one_btn > .one_red > a {
+    color: #fff;
+    border-radius: 3px;
+    text-align: center;
+    background-color: #42ab42;
+    padding: 10px 50px;
+}
+
+#page_qna_success > .con_tit > .one_btn > .one_red > .btn_red {
+    padding-right: 70px;
+    padding-left: 70px;
+    cursor: pointer;
+    line-height: 1.5;
+    font-size: 1.25rem;
+    display: inline-block;
+    vertical-align: middle;
+    font-weight: 600;
+    border: none;
+    text-decoration: none;
+}
+
+#page_qna_success > .con_tit > .one_btn > .one_red > .btn_red:hover {
+    filter: brightness(95%);
+}
+
+#page_qna_success > .con_tit > .one_btn > .one_red > .btn_red:active {
+    filter: brightness(90%);
+}

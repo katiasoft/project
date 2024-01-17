@@ -1,0 +1,172 @@
+#contents > .content {
+    align-items:flex-start;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+td {
+    width: 5rem;
+    height: 5rem;
+}
+
+.Calendar {
+    text-align: center;
+    /*margin: 0 auto;*/
+}
+
+.Calendar > thead > tr:first-child > td {
+    font-weight: bold;
+}
+
+.Calendar > thead > tr:last-child > td {
+    background-color: gray;
+    color: white;
+}
+
+.pastDay {
+    background-color: lightgray;
+}
+
+.today {
+    background-color: #FFCA64;
+    cursor: pointer;
+}
+
+.futureDay {
+    background-color: #FFFFFF;
+    cursor: pointer;
+}
+
+.futureDay.choiceDay, .today.choiceDay {
+    background-color: #3E85EF;
+    color: #fff;
+    cursor: pointer;
+}
+
+.contentContainer{
+    margin-left: 2rem;
+    /*border: 0.0625rem solid #eaeaea;*/
+    border-radius: 1rem;
+    padding: 1rem 2rem;
+    margin-top: 1rem;
+    box-sizing: border-box;
+    width: 36rem;
+    height: 39rem;
+
+    align-items:flex-start;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.contentContainer > label{
+    width: 100%;
+}
+
+.contentContainer > label.row{
+    align-items:center;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding-bottom: 1.75rem;
+    border-bottom: 0.125rem solid #eaeaea;
+}
+
+.contentContainer > label.row > * + *{
+    margin-left: 0.5rem;
+}
+
+
+.contentContainer > label.col{
+    align-items: flex-start;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    padding-bottom: 1.75rem;
+    border-bottom: 0.125rem solid #eaeaea;
+}
+
+.contentContainer > label.col > span + *{
+    margin-top: 1rem;
+}
+
+.contentContainer > label.col > div + *{
+    margin-top: 1rem;
+}
+
+.contentContainer > label.col > * + *{
+    margin-top: 0.5rem;
+}
+
+.contentContainer > * + *{
+    margin-top: 1.75rem;
+}
+
+.contentContainer > label > .title{
+    display: block;
+    width: 100%;
+    padding-bottom: 0.5rem;
+    box-sizing: border-box;
+    border-bottom: 0.25rem solid;
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.contentContainer > label > .cost{
+    width: 100%;
+    font-size: 1.75rem;
+    font-weight: 500;
+}
+
+.contentContainer > label > .cost+.cost{
+    margin-left: 0.5rem;
+}
+
+.contentContainer > label > .subTitle{
+    font-size: 1.25rem;
+    font-weight: 300;
+}
+
+.contentContainer > label > div > .subTitle{
+    font-size: 1.25rem;
+    font-weight: 300;
+}
+
+.contentContainer > label > div > span:not(.subTitle){
+    font-size: 0.8rem;
+}
+
+.contentContainer > label > div{
+    align-items:center;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.contentContainer > label > div > * + *{
+    margin-left: 0.5rem;
+}
+
+.contentContainer > div {
+    height: 100%;
+    width: 100%;
+    align-items:center;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.contentContainer > div > input {
+    width: 12rem;
+    height: 3.5rem;
+}
+
+.contentContainer > label > div > input{
+    width: 8rem;
+}
+
+
+#selectSite{
+   width: 18rem;
+}

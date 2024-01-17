@@ -1,0 +1,188 @@
+
+
+.warp {
+    width: 100%;
+    height: 100vh;
+    max-width: 40rem;
+    margin: 0 auto;
+    overflow: hidden;
+    /*border: 0.0625rem solid;*/
+    box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.05);
+
+
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#header {
+    width: 100%;
+    max-width: 40rem;
+    height: 4rem;
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+    position: fixed;
+    box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.05);
+    background-color: #FFFFFF;
+    z-index: 8;
+
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+}
+
+#header > span{
+    width: 100%;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-left: 1.5rem;
+}
+
+#header > img{
+    cursor: pointer;
+}
+
+#header > img + img {
+    margin-left: 0.5rem;
+}
+
+#reservationList{
+    width: 100%;
+    margin: 4rem 0;
+    padding: 1rem;
+    box-sizing: border-box;
+    overflow-y: auto;
+
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#reservationList > .reservation{
+    width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+    border-radius: 0.5rem;
+    border: 0.0625rem solid #eaeaea;
+    box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.05);
+}
+
+#reservationList > .reservation + .reservation{
+    margin-top: 0.5rem;
+}
+
+#reservationList > .reservation > * + *{
+    margin-top: 1rem;
+}
+
+#reservationList > .reservation > .col{
+    width: 100%;
+
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#reservationList > .reservation > .row{
+    width: 100%;
+
+    align-items:flex-start;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+#reservationList > .reservation > .button{
+    width: 100%;
+
+    align-items:flex-end;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+#reservationList > .reservation > div > label + label{
+    margin-top: 0.25rem;
+}
+
+#reservationList > .reservation > div > div{
+    width: 100%;
+    align-items:flex-end;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+#reservationList > .reservation > div > div > *+*{
+    margin-left: 0.25rem;
+}
+
+#reservationList > .reservation > div > div > .name{
+    color: #515151;
+    font-size: 1.25rem;
+}
+
+#reservationList > .reservation > div > div > .name:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#reservationList > .reservation > div > div > .type{
+    color: #818181;
+    font-size: 0.9rem;
+}
+
+#reservationList > .reservation > div > .created{
+    width: 100%;
+    max-width: 4.5rem;
+    text-align: right;
+    font-size: 0.8rem;
+}
+
+#reservationList > .reservation > div > label > span{
+    font-size: 0.9rem;
+    color: #818181;
+}
+
+#reservationList > .reservation > div > label > span:first-child{
+    margin-left: 0.25rem;
+    margin-right: 0.5rem;
+    color: #515151;
+}
+
+#noData {
+    margin-top: 4rem;
+
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    transform: translateY(-10%);
+}
+
+#noData > * + *{
+    margin-top: 1rem;
+}
+
+#noData > span {
+    font-size: 1.1rem;
+}
+
+
+#footer{
+    width: 100%;
+    max-width: 40rem;
+    height: 4rem;
+    bottom: 0;
+    background-color: #FFFFFF;
+
+    position: fixed;
+    box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.05);
+}
